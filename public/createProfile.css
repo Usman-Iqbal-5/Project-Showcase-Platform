@@ -1,0 +1,218 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    font-family: "Manrope", sans-serif;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+h3{
+    font-size: 1.5rem;
+}
+h5{
+    font-size: 0.95rem !important;
+    font-weight: 500 !important;
+}
+
+
+input::placeholder {
+    color: #BBC8D4;
+    opacity: 1;
+}
+
+textarea::placeholder {
+    color: #BBC8D4;
+    opacity: 1;
+}
+
+input:focus {
+    outline: none;
+    border-color: #004480;
+    box-shadow: 0 0 1px #004480;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: #004480;
+    box-shadow: 0 0 1px #004480;
+
+}
+
+div[id^="projectView"]{
+    margin-left: 9.7%;
+    margin-right: 9.7%;
+}
+
+
+/* CSS for the Project Entry Form*/
+
+#addProjectEntryForm {
+    margin-left: 9.7%;
+    margin-right: 9.7%;
+    background-color: #f0f0f0;
+    padding: 1rem;
+    border-radius: 5px;
+}
+
+.project-title {
+    width: 100%;
+    height: 2.5rem;
+    margin-bottom: 2rem;
+    border-radius: 5px;
+    font-size: 0.95rem;
+    border: solid 2px #889aac;
+    background-color: transparent;
+}
+
+.project-description {
+    width: 100%;
+    min-height: 10rem;
+    margin-bottom: 2rem;
+    border-radius: 5px;
+    font-size: 0.95rem;
+    border: solid 2px #889aac;
+    background-color: transparent;
+
+}
+
+.project-explanation {
+    width: 100%;
+    min-height: 10rem;
+    margin-bottom: 2rem;
+    border-radius: 5px;
+    font-size: 0.95rem;
+    border: solid 2px #889aac;
+    background-color: transparent;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    display: block;
+    box-sizing: border-box;
+    background-color: transparent;
+    color: #004480;
+    width: max-content;
+    height: 2.5rem;
+    border: solid 2px #004480 !important;
+    border-radius: 5px;
+    font-size: 0.95rem !important;
+    font-weight: 500 !important;
+    transition: all ease 0.3s;
+    cursor: pointer;
+    padding-top: 6px;
+    padding-right: 5px;
+    padding-bottom: 0px;
+    padding-left: 5px;
+    user-select: none;
+}
+
+.custom-file-upload:hover {
+    background-color: #004480;
+    color: #fff;
+}
+
+.fileView {
+    margin-bottom: 3rem;
+    display: inline-block; 
+}
+
+input[class="skill-field"]{
+    background-color: transparent;
+    width: 100%;
+    height: 2.5rem;
+    border-radius: 5px;
+    font-size: 0.95rem;
+    border: solid 2px #889aac;
+    margin-bottom: 0.5rem;
+
+}
+
+#skills-container{
+    margin-bottom: 0rem;
+}
+
+
+#addSkillButton{
+    box-sizing: border-box;
+    display: block;
+    background-color: transparent;
+    color: #004480;
+    width: max-content;
+    height: 2.5rem;
+    border: solid 2px #004480;
+    border-radius: 5px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    font-weight: 500 !important;
+    transition: all ease 0.3s;
+    cursor: pointer;
+    padding: 5px 5px;
+    user-select: none;
+    margin-bottom: 3rem;
+}
+
+#addSkillButton:hover {
+    background-color: #004480;
+    color: #fff;
+}
+#add-project {
+    display: block;
+    background-color: #004480;
+    color: white;
+    width: 20vw;
+    height: 2.5rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.95rem;
+    transition: all ease.1s;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 2rem;
+}
+
+#add-project:hover {
+    opacity: 0.85;
+}
+
+
+.addProjectEntryForm{
+    background-color: #5f6c78 !important;
+    border-radius: 8px;
+}
+
+#deleteModalOverlay {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+
+#deleteModal {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+
+.modal-hidden {
+    display: none !important;
+}

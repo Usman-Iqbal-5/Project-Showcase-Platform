@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Images</title>
+</head>
+<body>
+    <a href="/createProfile?openForm=<%= project_id %>">← Back</a>
+    <p>edit images page</p>
+
+    <% projects[0].images.forEach((image)=>{ %>
+        <img src="<%= image.secure_url %>" alt="" width="400px">
+        <form action="/DeleteImage" method="post">
+            <input type="hidden" name="media_id" value="<%= image.media_id %>">
+            <input type="hidden" name="project_id" value="<%= project_id %>">
+            <button type="submit">Delete</button>
+        </form>
+    <%})%>
+    <form action="/uploadNewImage" method="post" enctype="multipart/form-data">
+        <label for="imageUpload">Upload a new image</label>
+        <input type="hidden" name="project_id" value="<%= project_id %>">
+        <input type="file" name="projectImage" id="imageUplaod" multiple>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="/profile.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <form action="/logout" method="post">
+        <button type="submit">Log Out</button>
+    </form>
+    <section class="hero">
+        <div class="flexbox">
+            <div >
+                <div class="profile-image-container"></div>
+                <h4><%= firstName + " " + lastName %></h4>
+                <h1>MSC Computer Science</h1>
+                <h3>Software Developer</h3>
+                <button class="primary-button">View Projects</button>
+                <button class="secondary-button">Download CV</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="skills">
+        <h2>Specific skills</h2>
+        <div class="container">
+
+        </div>
+
+    </section>
+
+</body>
+</html>

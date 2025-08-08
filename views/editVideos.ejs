@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Videos</title>
+</head>
+<body>
+    <a href="/createProfile?openForm=<%= project_id %>">← Back</a>
+    <p>edit Videos page</p>
+
+    <% projects[0].videos.forEach((video)=>{ %>
+        <video src="<%= video.secure_url %>" controls width="400px"></video>
+        <form action="/DeleteVideo" method="post">
+            <input type="hidden" name="media_id" value="<%= video.media_id %>">
+            <input type="hidden" name="project_id" value="<%= project_id %>">
+            <button type="submit">Delete</button>
+        </form>
+    <%})%>
+    <form action="/uploadNewVideo" method="post" enctype="multipart/form-data">
+        <label for="videoUpload">Upload a new Video</label>
+        <input type="hidden" name="project_id" value="<%= project_id %>">
+        <input type="file" name="projectVideo" id="videoUplaod" multiple>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
