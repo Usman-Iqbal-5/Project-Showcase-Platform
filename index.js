@@ -148,11 +148,11 @@ const getTags = async (projects) => {
 };
 
 const db = new pg.Pool({
-  user: DB_USER,
-  host: DB_HOST,
-  database: DB_DATABASE,
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_DATABASE,
   password: process.env.DB_PASSWORD,
-  port: 5432,
+  port: process.env.PORT,
 });
 
 app.get("/register", (req, res) => {
