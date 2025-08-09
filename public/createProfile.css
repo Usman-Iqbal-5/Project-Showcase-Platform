@@ -18,9 +18,15 @@ h3{
     font-size: 1.5rem;
 }
 h5{
-    font-size: 0.95rem !important;
-    font-weight: 200 !important;
+    font-size:1.05rem !important;
+    font-weight: 400 !important;
+    font-family: inherit;
+    margin-top: 1rem;
+    margin-bottom: 0rem;
 }
+
+
+/* CSS for the Project view*/
 
 
 input::placeholder {
@@ -47,27 +53,288 @@ textarea:focus {
 }
 
 div[id^="projectView"]{
-    margin-left: 9.7%;
-    margin-right: 9.7%;
+    margin-left: 20%;
+    margin-right: 20%;
+    background-color: #f0f0f0;
+    padding-left: 5rem;
+    padding-right: 5rem;
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+    border-radius: 6px;
+    margin-bottom: 3rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.text{
+    color: #6D7D8B;
+    margin-top:0;
+}
+
+.imageContainer{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 10rem;
+    gap: 1rem;
+    margin: 0px;
+}
+
+.imageContainer img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background-color: #e0e0e0;
+    border-radius: 6px;
+    display: block;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+}
+
+.videoContainer{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 10rem;
+    gap: 1rem;
+    margin: 0px;
+}
+
+.videoContainer video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background-color: #e0e0e0;
+    border-radius: 6px;
+    display: block;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+}
+
+.skillsViewParagraph{
+    background-color: #e0e0e0;
+    width: 100%;
+    padding: 0.5rem;
+    height: 2.5rem;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+}
+
+.viewButtonsContainer{
+    margin-top: 3rem;
+}
+
+
+.edit-button{
+    box-sizing: border-box;
+    display: inline-block;
+    background-color: #004480;
+    color: #fff;
+    width: max-content;
+    height: 2.5rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    font-weight: 500 !important;
+    transition: all ease 0.3s;
+    cursor: pointer;
+    padding: 5px 5px;
+    user-select: none;
+    margin-bottom: 3rem
+}
+
+.delete-project-button{
+    box-sizing: border-box;
+    display: inline-block;
+    background-color: transparent;
+    color: #004480;
+    width: max-content;
+    height: 2.5rem;
+    border: solid 2px #004480;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    font-weight: 500 !important;
+    transition: all ease 0.3s;
+    cursor: pointer;
+    padding: 5px 5px;
+    user-select: none;
+    margin-bottom: 3rem
+}
+/* CSS for the Project Eidt Form*/
+
+form[id^="projectEditForm"]{
+    margin-left: 20%;
+    margin-right: 20%;
+    border: #f0f0f0 solid 2px;
+    padding-left: 5rem;
+    padding-right: 5rem;
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+    border-radius: 6px;
+    margin-bottom: 3rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    
+}
+
+.editImagesButton{
+    box-sizing: border-box;
+    display: inline-block;
+    background-color: transparent;
+    color: #004480;
+    width: max-content;
+    height: 2.5rem;
+    border: solid 2px #004480;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    font-weight: 500 !important;
+    transition: all ease 0.3s;
+    cursor: pointer;
+    padding: 5px 5px;
+    user-select: none;
+    margin-bottom: 0rem
+}
+
+.editVideosButton{
+    box-sizing: border-box;
+    display: inline-block;
+    background-color: transparent;
+    color: #004480;
+    width: max-content;
+    height: 2.5rem;
+    border: solid 2px #004480;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    font-weight: 500 !important;
+    transition: all ease 0.3s;
+    cursor: pointer;
+    padding: 5px 5px;
+    user-select: none;
+    margin-bottom: 0rem
+}
+
+.skillFlexBox{
+    display:flex;
+    align-items: start;
+}
+
+.editSkill{
+    background-color: #f0f0f0;
+    box-sizing: border-box;
+    display: inline-block ! important;
+    width: 90%;
+    height: 2.5rem;
+    padding:5px;
+    padding-left:10px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 6px;
+    font-size: 0.95rem;
+    border: none;
+    margin-bottom: 0.5rem;
+}
+
+.editSkill:focus{
+    outline: none;
+}
+
+
+.deleteTagButton{
+    background-color: #f0f0f0;
+    box-sizing: border-box;
+    width: 10%;
+    height: 2.5rem;
+    padding:5px;
+    padding-left:10px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    border-bottom-left-radius: 0px;
+    font-size: 0.95rem;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 0.5rem;
+}
+
+.trashCan{
+    width: 60%;
+    height: 60%;
+    fill: #004480;
+}
+
+.addNewSkills{
+    box-sizing: border-box;
+    display: inline-block;
+    background-color: transparent;
+    color: #004480;
+    width: max-content;
+    height: 2.5rem;
+    border: solid 2px #004480;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    font-weight: 500 !important;
+    transition: all ease 0.3s;
+    cursor: pointer;
+    padding: 5px 5px;
+    user-select: none;
+    margin-top: 1rem;
+    margin-bottom: 1rem
+}
+
+.saveUpdatedProjectContainer{
+    display: flex;
+    justify-content: center;
+}
+
+.saveUpdatedProject{
+    box-sizing: border-box;
+    display: inline-block;
+    background-color: #004480;
+    color: #fff;
+    width: 20vw;
+    height: 2.5rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    font-weight: 500 !important;
+    transition: all ease 0.3s;
+    cursor: pointer;
+    padding: 5px 5px;
+    user-select: none;
+    margin-bottom: 1rem;
+    margin-left:auto;
+    margin-right:auto;
+
 }
 
 
 /* CSS for the Project Entry Form*/
 
 #addProjectEntryForm {
-    margin-left: 9.7%;
-    margin-right: 9.7%;
+    margin-left: 20%;
+    margin-right: 20%;
     background-color: #f0f0f0;
-    padding: 1rem;
-    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding-left: 5rem;
+    padding-right: 5rem;
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+    border-radius: 6px;
 }
 
 .project-title {
     width: 100%;
     height: 2.5rem;
     margin-bottom: 2rem;
-    border-radius: 5px;
-    font-size: 0.95rem;
+    border-radius: 6px;
+    font-size: 16px;
+    font-family: inherit;
     border: solid 2px #889aac;
     background-color: transparent;
 }
@@ -76,8 +343,9 @@ div[id^="projectView"]{
     width: 100%;
     min-height: 10rem;
     margin-bottom: 2rem;
-    border-radius: 5px;
-    font-size: 0.95rem;
+    border-radius: 6px;
+    font-size: 16px;
+    font-family: inherit;
     border: solid 2px #889aac;
     background-color: transparent;
 
@@ -87,8 +355,9 @@ div[id^="projectView"]{
     width: 100%;
     min-height: 10rem;
     margin-bottom: 2rem;
-    border-radius: 5px;
-    font-size: 0.95rem;
+    border-radius: 6px;
+    font-size: 16px;
+    font-family: inherit;
     border: solid 2px #889aac;
     background-color: transparent;
 }
@@ -101,11 +370,13 @@ input[type="file"] {
     display: block;
     box-sizing: border-box;
     background-color: transparent;
+    text-align: center;
     color: #004480;
-    width: max-content;
+    width: 10vw;
+    min-width: max-content;
     height: 2.5rem;
     border: solid 2px #004480 !important;
-    border-radius: 5px;
+    border-radius: 6px;
     font-size: 0.95rem !important;
     font-weight: 500 !important;
     transition: all ease 0.3s;
@@ -114,7 +385,7 @@ input[type="file"] {
     padding-right: 5px;
     padding-bottom: 0px;
     padding-left: 5px;
-    user-select: none;
+    user-select: none
 }
 
 .custom-file-upload:hover {
@@ -123,7 +394,7 @@ input[type="file"] {
 }
 
 .fileView {
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
     display: inline-block; 
 }
 
@@ -131,7 +402,7 @@ input[class="skill-field"]{
     background-color: transparent;
     width: 100%;
     height: 2.5rem;
-    border-radius: 5px;
+    border-radius: 6px;
     font-size: 0.95rem;
     border: solid 2px #889aac;
     margin-bottom: 0.5rem;
@@ -151,7 +422,7 @@ input[class="skill-field"]{
     width: max-content;
     height: 2.5rem;
     border: solid 2px #004480;
-    border-radius: 5px;
+    border-radius: 6px;
     font-size: 0.95rem;
     font-family: inherit;
     font-weight: 500 !important;
@@ -173,7 +444,7 @@ input[class="skill-field"]{
     width: 20vw;
     height: 2.5rem;
     border: none;
-    border-radius: 5px;
+    border-radius: 6px;
     font-size: 0.95rem;
     transition: all ease.1s;
     cursor: pointer;
@@ -189,7 +460,7 @@ input[class="skill-field"]{
 
 .addProjectEntryForm{
     background-color: #5f6c78 !important;
-    border-radius: 8px;
+    border-radius: 6px;
 }
 
 #deleteModalOverlay {
@@ -207,11 +478,58 @@ input[class="skill-field"]{
 
 #deleteModal {
     background: white;
-    padding: 20px;
-    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: #000;
+    padding-top: 2rem;
+    padding-right: 5rem;
+    padding-bottom: 1rem;
+    padding-left: 5rem;
+    border-radius: 6px;
     text-align: center;
 }
 
+#confirmDelete{
+    box-sizing: border-box;
+    display: inline-block;
+    background-color: red;
+    color: #fff;
+    width: max-content;
+    height: 2.5rem;
+    border: none;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    font-weight: 500 !important;
+    transition: all ease 0.3s;
+    cursor: pointer;
+    user-select: none;
+    margin-bottom: 3rem
+}
+
+#cancelDelete{
+    box-sizing: border-box;
+    display: inline-block;
+    background-color: inherit;
+    color: red;
+    border: solid 1px red;
+    width: max-content;
+    height: 2.5rem;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    font-weight: 500 !important;
+    transition: all ease 0.3s;
+    cursor: pointer;
+    user-select: none;
+    margin-bottom: 3rem
+
+}
 
 .modal-hidden {
     display: none !important;
