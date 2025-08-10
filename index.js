@@ -7,12 +7,17 @@ import session from "express-session";
 import env from "dotenv";
 import bcrypt from "bcrypt";
 import multer from "multer";
-import { cloudinary, storage } from "./cloudinary/index.js";
+import {
+  cloudinary,
+  projectStorage,
+  experienceStorage,
+} from "./cloudinary/index.js";
 
 const app = express();
 const port = 3000;
 const saltrounds = 10;
-const upload = multer({ storage });
+const projectUpload = multer({ storage: projectStorage });
+const experienceUpload = multer({ storage: experienceStorage });
 env.config();
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -51,7 +56,7 @@ const getImages = async (projects) => {
 
   if (projectIds.length > 0) {
     const mediaResult = await db.query(
-      "SELECT * FROM media WHERE project_id = ANY($1) AND resource_type LIKE 'image/%'",
+      "SELECT * FROM project_media WHERE project_id = ANY($1) AND resource_type LIKE 'image/%'",
       [projectIds]
     );
     mediaList = mediaResult.rows || [];
@@ -69,13 +74,39 @@ const getImages = async (projects) => {
   return projects;
 };
 
+const getExperienceImages = async (experiences) => {
+  const experienceIds = experiences.map((e) => e.experience_id);
+  let mediaList = [];
+
+  if (experienceIds.length > 0) {
+    const mediaResult = await db.query(
+      "SELECT * FROM experience_media WHERE experience_id = ANY($1) AND resource_type LIKE 'image/%'",
+      [experienceIds]
+    );
+    mediaList = mediaResult.rows || [];
+  }
+
+  experiences.forEach((experience) => {
+    experience.images = [];
+  });
+
+  mediaList.forEach((media) => {
+    const experience = experiences.find(
+      (e) => e.experience_id === media.experience_id
+    );
+    if (experience) experience.images.push(media);
+  });
+
+  return experiences;
+};
+
 const getVideos = async (projects) => {
   const projectIds = projects.map((p) => p.project_id);
   let mediaList = [];
 
   if (projectIds.length > 0) {
     const mediaResult = await db.query(
-      "SELECT * FROM media WHERE project_id = ANY($1) AND resource_type LIKE 'video/%'",
+      "SELECT * FROM project_media WHERE project_id = ANY($1) AND resource_type LIKE 'video/%'",
       [projectIds]
     );
     mediaList = mediaResult.rows || [];
@@ -95,13 +126,41 @@ const getVideos = async (projects) => {
   return projects;
 };
 
+const getExperienceVideos = async (experiences) => {
+  const experienceIds = experiences.map((e) => e.experience_id);
+  let mediaList = [];
+
+  if (experienceIds.length > 0) {
+    const mediaResult = await db.query(
+      "SELECT * FROM experience_media WHERE experience_id = ANY($1) AND resource_type LIKE 'video/%'",
+      [experienceIds]
+    );
+    mediaList = mediaResult.rows || [];
+  }
+
+  experiences.forEach((experience) => {
+    experience.videos = [];
+  });
+
+  mediaList.forEach((media) => {
+    const experience = experiences.find(
+      (e) => e.experience_id === media.experience_id
+    );
+    if (experience) {
+      experience.videos.push(media);
+    }
+  });
+
+  return experiences;
+};
+
 const getFiles = async (projects) => {
   const projectIds = projects.map((p) => p.project_id);
   let mediaList = [];
 
   if (projectIds.length > 0) {
     const mediaResult = await db.query(
-      "SELECT * FROM media WHERE project_id = ANY($1) AND (resource_type NOT LIKE 'image/%' AND resource_type NOT LIKE 'video/%')",
+      "SELECT * FROM project_media WHERE project_id = ANY($1) AND (resource_type NOT LIKE 'image/%' AND resource_type NOT LIKE 'video/%')",
       [projectIds]
     );
     mediaList = mediaResult.rows || [];
@@ -119,6 +178,34 @@ const getFiles = async (projects) => {
   });
 
   return projects;
+};
+
+const getExperienceFiles = async (experiences) => {
+  const experienceIds = experiences.map((e) => e.experience_id);
+  let mediaList = [];
+
+  if (experienceIds.length > 0) {
+    const mediaResult = await db.query(
+      "SELECT * FROM experience_media WHERE experience_id = ANY($1) AND (resource_type NOT LIKE 'image/%' AND resource_type NOT LIKE 'video/%')",
+      [experienceIds]
+    );
+    mediaList = mediaResult.rows || [];
+  }
+
+  experiences.forEach((experience) => {
+    experience.files = [];
+  });
+
+  mediaList.forEach((media) => {
+    const experience = experiences.find(
+      (e) => e.experience_id === media.experience_id
+    );
+    if (experience) {
+      experience.files.push(media);
+    }
+  });
+
+  return experiences;
 };
 
 const getTags = async (projects) => {
@@ -147,6 +234,34 @@ const getTags = async (projects) => {
   return projects;
 };
 
+const getExperienceTags = async (experiences) => {
+  const experienceIds = experiences.map((e) => e.experience_id);
+  let tagList = [];
+
+  if (experienceIds.length > 0) {
+    const tagsResult = await db.query(
+      "SELECT tag_id, experience_id, tag_name FROM experience_tag WHERE experience_id = ANY($1)",
+      [experienceIds]
+    );
+    tagList = tagsResult.rows || [];
+  }
+
+  experiences.forEach((experience) => {
+    experience.tags = [];
+  });
+
+  tagList.forEach((tag) => {
+    const experience = experiences.find(
+      (e) => e.experience_id === tag.experience_id
+    );
+    if (experience) {
+      experience.tags.push(tag);
+    }
+  });
+
+  return experiences;
+};
+
 const db = new pg.Pool({
   user: process.env.DB_USER,
   host: process.env.DB_HOST,
@@ -172,8 +287,12 @@ app.get("/profile", isAuthenticated, (req, res) => {
   });
 });
 
+/* This section deals with the the Project Uploadd*/
+
 app.get("/createProfile", isAuthenticated, async (req, res) => {
   const student_id = req.user.student_id;
+
+  //Projects
 
   const projectsResult = await db.query(
     "SELECT * FROM project WHERE student_id = $1 ORDER BY project_id ASC",
@@ -183,8 +302,8 @@ app.get("/createProfile", isAuthenticated, async (req, res) => {
   const projects = projectsResult.rows;
 
   const projectsWithImages = await getImages(projects);
-  const projectsWIthVideos = await getVideos(projectsWithImages);
-  const projectsWithFiles = await getFiles(projectsWIthVideos);
+  const projectsWithVideos = await getVideos(projectsWithImages);
+  const projectsWithFiles = await getFiles(projectsWithVideos);
   const projectsWithTags = await getTags(projectsWithFiles);
 
   //console.log(projectsWithTags);
@@ -193,9 +312,45 @@ app.get("/createProfile", isAuthenticated, async (req, res) => {
   //console.log("Projects: ", projects);
   //console.log("Media rows --: ", mediaList);
 
+  //Experiences
+
+  const experienceResult = await db.query(
+    "SELECT * FROM experience WHERE student_id = $1 ORDER BY experience_id ASC",
+    [student_id]
+  );
+
+  const experiences = experienceResult.rows;
+
+  const experiencesWithImages = await getExperienceImages(experiences);
+  const experiencesWithVideos = await getExperienceVideos(
+    experiencesWithImages
+  );
+  const experiencesWithFiles = await getExperienceFiles(experiencesWithVideos);
+  const experiencesWithTags = await getExperienceTags(experiencesWithFiles);
+
   res.render("createProfile.ejs", {
     projects: projectsWithTags,
+    experiences: experiencesWithTags,
     openForm: req.query.openForm,
+  });
+});
+
+app.get("/editExperienceImages", isAuthenticated, async (req, res) => {
+  const experienceId = req.query.openForm;
+
+  const experiences = await db.query(
+    "SELECT * FROM experience WHERE experience_id = $1 ORDER BY experience_id ASC",
+    [experienceId]
+  );
+
+  //console.log("project where + project_id: ", projects.rows);
+
+  const experiencesWithImages = await getExperienceImages(experiences.rows);
+  //console.log("projects with images array", projectsWithImages);
+
+  res.render("editExperienceImages.ejs", {
+    experience_id: experienceId,
+    experiences: experiencesWithImages,
   });
 });
 
@@ -237,10 +392,40 @@ app.get("/editVideos", isAuthenticated, async (req, res) => {
   });
 });
 
+app.get("/editExperienceVideos", isAuthenticated, async (req, res) => {
+  const experienceId = req.query.openForm;
+
+  const experience = await db.query(
+    "SELECT * FROM experience WHERE experience_id = $1 ORDER BY experience_id ASC",
+    [experienceId]
+  );
+
+  //console.log("project where + project_id: ", projects.rows);
+
+  const experiencesWithVideos = await getExperienceVideos(experience.rows);
+  //console.log("projects with videos array", projectsWithVideos);
+
+  res.render("editExperienceVideos.ejs", {
+    experience_id: experienceId,
+    experiences: experiencesWithVideos,
+  });
+});
+
 app.post("/deleteProjectTag", async (req, res) => {
   const { tagId } = req.body;
   try {
     await db.query("DELETE FROM project_tag WHERE tag_id = $1", [tagId]);
+    res.json({ success: true });
+  } catch (err) {
+    console.error("DB delete error:", err);
+    res.status(500).json({ success: false });
+  }
+});
+
+app.post("/deleteExperienceTag", async (req, res) => {
+  const { tagId } = req.body;
+  try {
+    await db.query("DELETE FROM experience_tag WHERE tag_id = $1", [tagId]);
     res.json({ success: true });
   } catch (err) {
     console.error("DB delete error:", err);
@@ -253,7 +438,7 @@ app.post("/DeleteImage", isAuthenticated, async (req, res) => {
 
   try {
     const media = await db.query(
-      "DELETE FROM media WHERE media_id = $1 RETURNING *",
+      "DELETE FROM project_media WHERE media_id = $1 RETURNING *",
       [media_id]
     );
     const publicIdToDelete = media.rows[0].public_id;
@@ -267,12 +452,31 @@ app.post("/DeleteImage", isAuthenticated, async (req, res) => {
   }
 });
 
+app.post("/DeleteExperienceImage", isAuthenticated, async (req, res) => {
+  const { media_id, experience_id } = req.body;
+
+  try {
+    const media = await db.query(
+      "DELETE FROM experience_media WHERE media_id = $1 RETURNING *",
+      [media_id]
+    );
+    const publicIdToDelete = media.rows[0].public_id;
+    await cloudinary.uploader.destroy(publicIdToDelete);
+
+    //console.log(media.rows[0].publicIdToDelete);
+    res.redirect(`/editExperienceImages?openForm=${experience_id}`);
+  } catch (error) {
+    console.log(error);
+    res.send(`Unable to remove image: ${error}`);
+  }
+});
+
 app.post("/DeleteVideo", isAuthenticated, async (req, res) => {
   const { media_id, project_id } = req.body;
 
   try {
     const media = await db.query(
-      "DELETE FROM media WHERE media_id = $1 RETURNING *",
+      "DELETE FROM project_media WHERE media_id = $1 RETURNING *",
       [media_id]
     );
     const publicIdToDelete = media.rows[0].public_id;
@@ -288,10 +492,31 @@ app.post("/DeleteVideo", isAuthenticated, async (req, res) => {
   }
 });
 
+app.post("/DeleteExperienceVideo", isAuthenticated, async (req, res) => {
+  const { media_id, experience_id } = req.body;
+
+  try {
+    const media = await db.query(
+      "DELETE FROM experience_media WHERE media_id = $1 RETURNING *",
+      [media_id]
+    );
+    const publicIdToDelete = media.rows[0].public_id;
+    await cloudinary.uploader.destroy(publicIdToDelete, {
+      resource_type: "video",
+    });
+
+    //console.log(media.rows[0].public_id);
+    res.redirect(`/editExperienceVideos?openForm=${experience_id}`);
+  } catch (error) {
+    console.log(error);
+    res.send(`Unable to remove video: ${error}`);
+  }
+});
+
 app.post(
   "/uploadNewImage",
   isAuthenticated,
-  upload.array("projectImage"),
+  projectUpload.array("projectImage"),
   async (req, res) => {
     //console.log(req.body);
     const projectId = req.body.project_id;
@@ -301,7 +526,7 @@ app.post(
       for (const image of images) {
         //console.log(image);
         await db.query(
-          "INSERT INTO media (project_id, public_id, secure_url, resource_type, original_filename) VALUES ($1, $2, $3, $4, $5);",
+          "INSERT INTO project_media (project_id, public_id, secure_url, resource_type, original_filename) VALUES ($1, $2, $3, $4, $5);",
           [
             projectId,
             image.filename,
@@ -311,7 +536,38 @@ app.post(
           ]
         );
       }
-      return res.redirect(`/editImages?openForm=${projectId}`);
+      return res.redirect(`/editExperienceImages?openForm=${projectId}`);
+    } catch (error) {
+      console.error(error);
+      res.send("Unable to upload image: ", error);
+    }
+  }
+);
+
+app.post(
+  "/uploadNewExperienceImage",
+  isAuthenticated,
+  experienceUpload.array("experienceImage"),
+  async (req, res) => {
+    //console.log(req.body);
+    const experienceId = req.body.experience_id;
+    const images = req.files;
+
+    try {
+      for (const image of images) {
+        //console.log(image);
+        await db.query(
+          "INSERT INTO experience_media (experience_id, public_id, secure_url, resource_type, original_filename) VALUES ($1, $2, $3, $4, $5);",
+          [
+            experienceId,
+            image.filename,
+            image.path,
+            image.mimetype,
+            image.originalname,
+          ]
+        );
+      }
+      return res.redirect(`/editImages?openForm=${experienceId}`);
     } catch (error) {
       console.error(error);
       res.send("Unable to upload image: ", error);
@@ -322,7 +578,7 @@ app.post(
 app.post(
   "/uploadNewVideo",
   isAuthenticated,
-  upload.array("projectVideo"),
+  projectUpload.array("projectVideo"),
   async (req, res) => {
     console.log(req.body);
     const projectId = req.body.project_id;
@@ -332,7 +588,7 @@ app.post(
       for (const video of videos) {
         //console.log(video);
         await db.query(
-          "INSERT INTO media (project_id, public_id, secure_url, resource_type, original_filename) VALUES ($1, $2, $3, $4, $5);",
+          "INSERT INTO project_media (project_id, public_id, secure_url, resource_type, original_filename) VALUES ($1, $2, $3, $4, $5);",
           [
             projectId,
             video.filename,
@@ -351,9 +607,40 @@ app.post(
 );
 
 app.post(
+  "/uploadNewExperienceVideo",
+  isAuthenticated,
+  experienceUpload.array("experienceVideo"),
+  async (req, res) => {
+    console.log(req.body);
+    const experienceId = req.body.experience_id;
+    const videos = req.files;
+
+    try {
+      for (const video of videos) {
+        //console.log(video);
+        await db.query(
+          "INSERT INTO experience_media (experience_id, public_id, secure_url, resource_type, original_filename) VALUES ($1, $2, $3, $4, $5);",
+          [
+            experienceId,
+            video.filename,
+            video.path,
+            video.mimetype,
+            video.originalname,
+          ]
+        );
+      }
+      return res.redirect(`/editExperienceVideos?openForm=${experienceId}`);
+    } catch (error) {
+      console.error(error);
+      res.send("Unable to upload video: ", error);
+    }
+  }
+);
+
+app.post(
   "/addProject",
   isAuthenticated,
-  upload.fields([
+  projectUpload.fields([
     { name: "projectImages", maxCount: 5 },
     { name: "projectVideos", maxCount: 3 },
     { name: "projectDocs", maxCount: 3 },
@@ -389,7 +676,7 @@ app.post(
         for (const file of mediaArray) {
           //console.log("Uploading:", file.originalname);
           await db.query(
-            "INSERT INTO media (project_id, public_id, secure_url, resource_type, original_filename) VALUES ($1, $2, $3, $4, $5);",
+            "INSERT INTO project_media (project_id, public_id, secure_url, resource_type, original_filename) VALUES ($1, $2, $3, $4, $5);",
             [
               projectId,
               file.filename,
@@ -462,6 +749,122 @@ app.post("/saveProject", async (req, res) => {
   }
 });
 
+app.post("/saveExperience", async (req, res) => {
+  const {
+    experience_id,
+    title,
+    description,
+    explanation,
+    skills: skillsArray,
+  } = req.body;
+  console.log(req.body);
+  console.log(skillsArray);
+
+  try {
+    await db.query(
+      "UPDATE experience SET experience_name = $1, description = $2, job_explanation = $3 WHERE experience_id = $4",
+      [title.trim(), description.trim(), explanation.trim(), experience_id]
+    );
+
+    // Delete all old tags for the project
+    await db.query("DELETE FROM experience_tag WHERE experience_id = $1", [
+      experience_id,
+    ]);
+
+    if (Array.isArray(skillsArray) && skillsArray.length > 0) {
+      // Insert new tags
+      for (const skillName of skillsArray) {
+        await db.query(
+          "INSERT INTO experience_tag (experience_id, tag_name) VALUES ($1, $2)",
+          [experience_id, skillName.name]
+        );
+      }
+    }
+
+    res.redirect("/createProfile");
+  } catch (error) {
+    console.log("Unable to save project: " + error);
+  }
+});
+
+/* This section deals with the Epxeirences*/
+
+app.post(
+  "/addExperience",
+  isAuthenticated,
+  experienceUpload.fields([
+    { name: "experienceImages", maxCount: 5 },
+    { name: "experienceVideos", maxCount: 3 },
+    { name: "experienceDocs", maxCount: 3 },
+  ]),
+  async (req, res) => {
+    try {
+      const student_id = req.user.student_id;
+      const experienceTitle = req.body.title;
+      const description = req.body.description;
+      const explanation = req.body.explanation;
+      const skillsArray = req.body.experienceSkills;
+
+      const images = req.files.experienceImages || [];
+      const videos = req.files.experienceVideos || [];
+      const docs = req.files.experienceDocs || [];
+
+      // ✅ LOG FILES TO DEBUG
+      //console.log("DOC FILES:", docs);
+
+      const result = await db.query(
+        "INSERT INTO experience (student_id, experience_name, description, job_explanation) VALUES ($1, $2, $3, $4) RETURNING *;",
+        [
+          student_id,
+          experienceTitle.trim(),
+          description.trim(),
+          explanation.trim(),
+        ]
+      );
+
+      const experienceId = result.rows[0].experience_id;
+
+      const saveMediaFiles = async (mediaArray) => {
+        for (const file of mediaArray) {
+          //console.log("Uploading:", file.originalname);
+          await db.query(
+            "INSERT INTO experience_media (experience_id, public_id, secure_url, resource_type, original_filename) VALUES ($1, $2, $3, $4, $5);",
+            [
+              experienceId,
+              file.filename,
+              file.path,
+              file.mimetype,
+              file.originalname,
+            ]
+          );
+        }
+      };
+
+      await saveMediaFiles(images);
+      await saveMediaFiles(videos);
+      await saveMediaFiles(docs);
+
+      const cleanedSkills = skillsArray.filter((skill) => skill.trim() !== "");
+
+      if (cleanedSkills.length > 0) {
+        for (const skill of cleanedSkills) {
+          await db.query(
+            "INSERT INTO experience_tag (experience_id, tag_name) VALUES ($1, $2)",
+            [experienceId, skill]
+          );
+        }
+      }
+
+      res.redirect("/createProfile");
+    } catch (error) {
+      console.error("Upload failed:", error);
+      res.status(500).send(`<pre>${JSON.stringify(error, null, 2)}</pre>`);
+    }
+  }
+);
+
+/* This section deals with the the authenitcation and sessions*/
+
 app.post(
   "/login",
   passport.authenticate("local", {
@@ -530,7 +933,7 @@ app.delete("/eraseProject/:projectId", async (req, res) => {
     }
 
     // Get all media for the project
-    const mediaQuery = "SELECT * FROM media WHERE project_id = $1";
+    const mediaQuery = "SELECT * FROM project_media WHERE project_id = $1";
     console.log("Running query:", mediaQuery, projectId);
     const mediaResult = await db.query(mediaQuery, [projectId]);
     const mediaItems = mediaResult.rows;
@@ -566,7 +969,7 @@ app.delete("/eraseProject/:projectId", async (req, res) => {
     }
 
     // Delete media records from DB
-    const deleteMediaQuery = "DELETE FROM media WHERE project_id = $1";
+    const deleteMediaQuery = "DELETE FROM project_media WHERE project_id = $1";
     console.log("Running query:", deleteMediaQuery, projectId);
     await db.query(deleteMediaQuery, [projectId]);
 
@@ -587,6 +990,100 @@ app.delete("/eraseProject/:projectId", async (req, res) => {
     console.error("Error deleting project:", error);
     return res.status(500).json({ error: "Failed to delete project" });
   }
+});
+
+app.delete("/eraseExperience/:experienceId", async (req, res) => {
+  const experienceId = req.params.experienceId;
+
+  try {
+    // Check if project exists
+    const experienceQuery = "SELECT * FROM experience WHERE experience_id = $1";
+    console.log("Running query:", experienceQuery, experienceId);
+    const experienceResult = await db.query(experienceQuery, [experienceId]);
+
+    if (experienceResult.rows.length === 0) {
+      return res.status(404).json({ error: "Experience not found" });
+    }
+
+    // Get all media for the project
+    const mediaQuery =
+      "SELECT * FROM experience_media WHERE experience_id = $1";
+    console.log("Running query:", mediaQuery, experienceId);
+    const mediaResult = await db.query(mediaQuery, [experienceId]);
+    const mediaItems = mediaResult.rows;
+
+    // Delete each media from Cloudinary
+    for (const media of mediaItems) {
+      if (media.public_id) {
+        let resourceType = "image"; // default
+
+        if (media.resource_type) {
+          if (media.resource_type.startsWith("video")) {
+            resourceType = "video";
+          } else if (
+            media.resource_type === "application/octet-stream" ||
+            media.resource_type.startsWith("application")
+          ) {
+            resourceType = "raw";
+          } else if (media.resource_type.startsWith("image")) {
+            resourceType = "image";
+          }
+        }
+
+        try {
+          await cloudinary.uploader.destroy(media.public_id, {
+            resource_type: resourceType,
+          });
+        } catch (cloudErr) {
+          console.warn(
+            `Failed to delete Cloudinary resource ${media.public_id}: ${cloudErr.message}`
+          );
+        }
+      }
+    }
+
+    // Delete media records from DB
+    const deleteMediaQuery =
+      "DELETE FROM experience_media WHERE experience_id = $1";
+    console.log("Running query:", deleteMediaQuery, experienceId);
+    await db.query(deleteMediaQuery, [experienceId]);
+
+    // Delete project tags associated with this project
+    const deleteTagsQuery =
+      "DELETE FROM experience_tag WHERE experience_id = $1";
+    console.log("Running query:", deleteTagsQuery, experienceId);
+    await db.query(deleteTagsQuery, [experienceId]);
+
+    // Delete the project itself
+    const deleteExperienceQuery =
+      "DELETE FROM experience WHERE experience_id = $1";
+    console.log("Running query:", deleteExperienceQuery, experienceId);
+    await db.query(deleteExperienceQuery, [experienceId]);
+
+    return res.json({
+      message: "Project and all associated data deleted successfully",
+    });
+  } catch (error) {
+    console.error("Error deleting project:", error);
+    return res.status(500).json({ error: "Failed to delete project" });
+  }
+});
+
+passport.deserializeUser(async (student_id, done) => {
+  // the server then use session iD (from the user cookie) to find the correct session and the student_id saved
+  try {
+    const result = await db.query(
+      "SELECT * FROM student WHERE student_id = $1",
+      [student_id]
+    );
+    done(null, result.rows[0]); // get fresh user data
+  } catch (err) {
+    done(err, null);
+  }
+});
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });
 
 const config = {
@@ -622,21 +1119,4 @@ passport.use(
 
 passport.serializeUser((user, done) => {
   done(null, user.student_id); // it then holds student_id in the session
-});
-
-passport.deserializeUser(async (student_id, done) => {
-  // the server then use session iD (from the user cookie) to find the correct session and the student_id saved
-  try {
-    const result = await db.query(
-      "SELECT * FROM student WHERE student_id = $1",
-      [student_id]
-    );
-    done(null, result.rows[0]); // get fresh user data
-  } catch (err) {
-    done(err, null);
-  }
-});
-
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
 });

@@ -9,7 +9,7 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_SECRET,
 });
 
-const storage = new CloudinaryStorage({
+const projectStorage = new CloudinaryStorage({
   cloudinary,
   params: (req, file) => {
     console.log("Uploading file type:", file.mimetype);
@@ -39,8 +39,38 @@ const storage = new CloudinaryStorage({
   },
 });
 
-console.log("Cloud name:", process.env.CLOUDINARY_CLOUD_NAME);
-console.log("API key:", process.env.CLOUDINARY_KEY);
-console.log("API secret:", process.env.CLOUDINARY_SECRET);
+const experienceStorage = new CloudinaryStorage({
+  cloudinary,
+  params: (req, file) => {
+    console.log("Uploading file type:", file.mimetype);
 
-export { cloudinary, storage };
+    if (file.mimetype.startsWith("image/")) {
+      console.log("Treating as image");
+      return {
+        folder: "experience_images",
+        allowed_formats: ["jpg", "png", "jpeg", "webp"],
+        resource_type: "image",
+      };
+    } else if (file.mimetype.startsWith("video/")) {
+      console.log("Treating as video");
+      return {
+        folder: "experience_videos",
+        allowed_formats: ["mp4", "mov", "avi", "webm"],
+        resource_type: "video",
+      };
+    } else {
+      console.log("Treating as raw");
+      return {
+        folder: "experience_files",
+        allowed_formats: ["pdf", "doc", "docx", "txt"],
+        resource_type: "raw",
+      };
+    }
+  },
+});
+
+// console.log("Cloud name:", process.env.CLOUDINARY_CLOUD_NAME);
+// console.log("API key:", process.env.CLOUDINARY_KEY);
+// console.log("API secret:", process.env.CLOUDINARY_SECRET);
+
+export { cloudinary, projectStorage, experienceStorage };
