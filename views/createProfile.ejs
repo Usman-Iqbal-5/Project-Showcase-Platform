@@ -15,18 +15,102 @@
 
 <body>
     <main>
-
-
         <section id="profileDetails">
-            <form action="/uploadProfileDetails" method="post">
-                <input type="hidden" name="student_id" value="">
-                <input type="text" name="first_name" value="" id="first_name" placeholder="First name">
-                <input type="text" name="last_name" value="" id="last_name" placeholder="Last name">
-                <input type="text" name="email" value="" id="email" placeholder="Email">
-                <input type="text" name="phone_number" value="" id="phone_number" placeholder="Phone">
-                <input type="text" name="title" value="" id="title" placeholder="Title">
-                <input type="text" name="degree_name" value="" id="degree_name" placeholder="degree">
-                <textarea name="about_me" value="" id="about_me" placeholder="Tell us more about yourself"></textarea>
+            <div id="profileDetailsView">
+                <div class="profileDetailsTitleContainer">
+                    <h3>Profile Details</h3>
+                    <button id="editProfileDetails">Edit</button>
+
+                </div>
+                <div class="outerProfileDetailsFlexBox">
+                    <div class="photoCard">
+                        <img src="" alt="">
+                        <p class="photoCardName">
+                            <%= `${student.first_name} ${student.last_name}` %>
+                        </p>
+                    </div>
+                    <div id="profileDetailsContainer">
+                        <div>
+                            <p class="profileDetailTitles">First Name</p>
+                            <p>
+                                <%= student.first_name %>
+                            </p>
+                        </div>
+                        <div>
+                            <p class="profileDetailTitles">Last Name</p>
+                            <p>
+                                <%= student.last_name %>
+                            </p>
+                        </div>
+                        <div>
+                            <p class="profileDetailTitles">Email</p>
+                            <p>
+                                <%= student.email %>
+                            </p>
+                        </div>
+                        <div>
+                            <p class="profileDetailTitles">Phone Number</p>
+                            <% if(student.phone_number===null){ %>
+                                <p>Unset</p>
+                                <% } else{ %>
+                                    <p>
+                                        <%= student.phone_number %>
+                                    </p>
+                                    <% } %>
+                        </div>
+                        <div>
+                            <p class="profileDetailTitles">Title</p>
+                            <% if(student.title===null){ %>
+                                <p>Unset</p>
+                                <% } else{ %>
+                                    <p>
+                                        <%= student.title%>
+                                    </p>
+                                    <% } %>
+                        </div>
+                        <div>
+                            <p class="profileDetailTitles">Degree</p>
+                            <% if(student.degree_name===null){ %>
+                                <p>Unset</p>
+                                <% } else{ %>
+                                    <p>
+                                        <%= student.degree_name %>
+                                    </p>
+                                    <% } %>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="aboutMeView">
+                    <p class="profileDetailTitles">About Me</p>
+                    <% if(student.degree_name===null){ %>
+                        <p>Unset</p>
+                        <% } else{ %>
+                            <p>
+                                <%= student.degree_name %>
+                            </p>
+                            <% } %>
+                </div>
+
+
+
+            </div>
+
+            <form id="profileDetailsEditForm" action="/uploadProfileDetails" method="post" hidden>
+                <input type="hidden" name="student_id" value="<%= student.student_id %>">
+                <input type="text" name="first_name" value="<%= student.first_name %>" id="first_name"
+                    placeholder="First name">
+                <input type="text" name="last_name" value="<%= student.last_name %>" id="last_name"
+                    placeholder="Last name">
+                <input type="text" name="email" value="<%= student.email %>" id="email" placeholder="Email">
+                <input type="text" name="phone_number" value="<%= student.phone_number %>" id="phone_number"
+                    placeholder="Phone">
+                <input type="text" name="title" value="<%= student.title %>" id="title" placeholder="Title">
+                <input type="text" name="degree_name" value="<%= student.degree_name %>" id="degree_name"
+                    placeholder="degree">
+                <textarea name="about_me" value="<%= student.about_me %>" id="about_me"
+                    placeholder="Tell us more about yourself"><%= student.about_me %></textarea>
                 <button type=" submit">Save</button>
             </form>
         </section>
@@ -371,6 +455,7 @@
     </main>
     <script src="js/experience.js"></script>
     <script src="js/projects.js"></script>
+    <script src="js/profileDetails.js"></script>
 </body>
 
 </html>

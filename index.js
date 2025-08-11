@@ -292,47 +292,62 @@ app.get("/profile", isAuthenticated, (req, res) => {
 app.get("/createProfile", isAuthenticated, async (req, res) => {
   const student_id = req.user.student_id;
 
-  //Projects
+  try {
+    //Student Details
+    const result = await db.query(
+      "SELECT student_id, first_name, last_name, email, phone_number, title, degree_name, about_me from student WHERE student_id = $1",
+      [student_id]
+    );
+    const student = result.rows[0];
+    //Projects
 
-  const projectsResult = await db.query(
-    "SELECT * FROM project WHERE student_id = $1 ORDER BY project_id ASC",
-    [student_id]
-  );
+    const projectsResult = await db.query(
+      "SELECT * FROM project WHERE student_id = $1 ORDER BY project_id ASC",
+      [student_id]
+    );
 
-  const projects = projectsResult.rows;
+    const projects = projectsResult.rows;
 
-  const projectsWithImages = await getImages(projects);
-  const projectsWithVideos = await getVideos(projectsWithImages);
-  const projectsWithFiles = await getFiles(projectsWithVideos);
-  const projectsWithTags = await getTags(projectsWithFiles);
+    const projectsWithImages = await getImages(projects);
+    const projectsWithVideos = await getVideos(projectsWithImages);
+    const projectsWithFiles = await getFiles(projectsWithVideos);
+    const projectsWithTags = await getTags(projectsWithFiles);
 
-  //console.log(projectsWithTags);
+    //console.log(projectsWithTags);
 
-  // console.log(JSON.stringify(projects, null, 2));
-  //console.log("Projects: ", projects);
-  //console.log("Media rows --: ", mediaList);
+    // console.log(JSON.stringify(projects, null, 2));
+    //console.log("Projects: ", projects);
+    //console.log("Media rows --: ", mediaList);
 
-  //Experiences
+    //Experiences
 
-  const experienceResult = await db.query(
-    "SELECT * FROM experience WHERE student_id = $1 ORDER BY experience_id ASC",
-    [student_id]
-  );
+    const experienceResult = await db.query(
+      "SELECT * FROM experience WHERE student_id = $1 ORDER BY experience_id ASC",
+      [student_id]
+    );
 
-  const experiences = experienceResult.rows;
+    const experiences = experienceResult.rows;
 
-  const experiencesWithImages = await getExperienceImages(experiences);
-  const experiencesWithVideos = await getExperienceVideos(
-    experiencesWithImages
-  );
-  const experiencesWithFiles = await getExperienceFiles(experiencesWithVideos);
-  const experiencesWithTags = await getExperienceTags(experiencesWithFiles);
+    const experiencesWithImages = await getExperienceImages(experiences);
+    const experiencesWithVideos = await getExperienceVideos(
+      experiencesWithImages
+    );
+    const experiencesWithFiles = await getExperienceFiles(
+      experiencesWithVideos
+    );
+    const experiencesWithTags = await getExperienceTags(experiencesWithFiles);
 
-  res.render("createProfile.ejs", {
-    projects: projectsWithTags,
-    experiences: experiencesWithTags,
-    openForm: req.query.openForm,
-  });
+    res.render("createProfile.ejs", {
+      student: student,
+      projects: projectsWithTags,
+      experiences: experiencesWithTags,
+      openForm: req.query.openForm,
+    });
+  } catch (error) {
+    console.log(error);
+    window.log(error);
+    res.status(500).redirect("/profile");
+  }
 });
 
 app.get("/editExperienceImages", isAuthenticated, async (req, res) => {
@@ -409,6 +424,37 @@ app.get("/editExperienceVideos", isAuthenticated, async (req, res) => {
     experience_id: experienceId,
     experiences: experiencesWithVideos,
   });
+});
+
+app.post("/uploadProfileDetails", isAuthenticated, async (req, res) => {
+  const student_id = req.user.student_id;
+  const student = req.body;
+  console.log(`User: ${JSON.stringify(req.user)}`);
+
+  try {
+    const result = await db.query(
+      "UPDATE student SET first_name = $1, last_name = $2, email = $3, phone_number = $4, title = $5, degree_name = $6, about_me = $7 WHERE student_id = $8 RETURNING *",
+      [
+        student.first_name,
+        student.last_name,
+        student.email,
+        student.phone_number,
+        student.title,
+        student.degree_name,
+        student.about_me,
+        student_id,
+      ]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).send({ error: "Student not found" });
+    }
+
+    res.redirect("/createProfile?update=Successful");
+  } catch (error) {
+    console.error("Error updating profile:", error);
+    res.status(500).redirect("/createProfile?update=failed");
+  }
 });
 
 app.post("/deleteProjectTag", async (req, res) => {
@@ -657,7 +703,7 @@ app.post(
       const videos = req.files.projectVideos || [];
       const docs = req.files.projectDocs || [];
 
-      // ✅ LOG FILES TO DEBUG
+      // LOG FILES TO DEBUG
       //console.log("DOC FILES:", docs);
 
       const result = await db.query(
@@ -809,7 +855,7 @@ app.post(
       const videos = req.files.experienceVideos || [];
       const docs = req.files.experienceDocs || [];
 
-      // ✅ LOG FILES TO DEBUG
+      // LOG FILES TO DEBUG
       //console.log("DOC FILES:", docs);
 
       const result = await db.query(
@@ -896,6 +942,8 @@ app.post("/register", async (req, res) => {
     );
 
     const user = response.rows[0];
+
+    // Starts a session for this user (no password check; user already verified/created)
     req.login(user, (err) => {
       if (err) {
         console.error(err);
@@ -1082,10 +1130,6 @@ passport.deserializeUser(async (student_id, done) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
-
 const config = {
   usernameField: "email",
   passwordField: "password",
@@ -1119,4 +1163,8 @@ passport.use(
 
 passport.serializeUser((user, done) => {
   done(null, user.student_id); // it then holds student_id in the session
+});
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });
