@@ -16,11 +16,11 @@
 <body>
     <main>
         <section id="profileDetails">
+            <h2>Profile Information</h2>
             <div id="profileDetailsView">
                 <div class="profileDetailsTitleContainer">
                     <h3>Profile Details</h3>
-                    <button id="editProfileDetails">Edit</button>
-
+                    <button id="editProfileDetails" class="profileDetailsButton">Edit</button>
                 </div>
                 <div class="outerProfileDetailsFlexBox">
                     <div class="photoCard">
@@ -88,7 +88,7 @@
                         <p>Unset</p>
                         <% } else{ %>
                             <p>
-                                <%= student.degree_name %>
+                                <%= student.about_me %>
                             </p>
                             <% } %>
                 </div>
@@ -98,20 +98,31 @@
             </div>
 
             <form id="profileDetailsEditForm" action="/uploadProfileDetails" method="post" hidden>
-                <input type="hidden" name="student_id" value="<%= student.student_id %>">
-                <input type="text" name="first_name" value="<%= student.first_name %>" id="first_name"
-                    placeholder="First name">
-                <input type="text" name="last_name" value="<%= student.last_name %>" id="last_name"
-                    placeholder="Last name">
-                <input type="text" name="email" value="<%= student.email %>" id="email" placeholder="Email">
-                <input type="text" name="phone_number" value="<%= student.phone_number %>" id="phone_number"
-                    placeholder="Phone">
-                <input type="text" name="title" value="<%= student.title %>" id="title" placeholder="Title">
-                <input type="text" name="degree_name" value="<%= student.degree_name %>" id="degree_name"
-                    placeholder="degree">
-                <textarea name="about_me" value="<%= student.about_me %>" id="about_me"
-                    placeholder="Tell us more about yourself"><%= student.about_me %></textarea>
-                <button type=" submit">Save</button>
+                <div class="outmostProfileDetailsContainer">
+                    <div class="profileDetailsTitleContainer">
+                        <h3>Edit Profile</h3>
+                        <button class="profileDetailsButton" type=" submit">Save</button>
+                    </div>
+                    <p>Profile Details</p>
+                    <input type="hidden" name="student_id" value="<%= student.student_id %>">
+                    <div class="detailEditContainer">
+                        <input type="text" name="first_name" value="<%= student.first_name %>" id="firstName"
+                            placeholder="First name">
+                        <input type="text" name="last_name" value="<%= student.last_name %>" id="lastName"
+                            placeholder="Last name">
+                        <input type="text" name="email" value="<%= student.email %>" id="email" placeholder="Email">
+                        <input type="text" name="phone_number" value="<%= student.phone_number %>" id="phoneNumber"
+                            placeholder="Phone">
+                    </div>
+                    <p>Title</p>
+                    <input type="text" name="title" value="<%= student.title %>" id="studentTitle" placeholder="Title">
+                    <p>Degree</p>
+                    <input type="text" name="degree_name" value="<%= student.degree_name %>" id="degreeName"
+                        placeholder="degree">
+                    <p>About Me</p>
+                    <textarea name="about_me" value="<%= student.about_me %>" id="aboutMe"
+                        placeholder="Tell us more about yourself"><%= student.about_me %></textarea>
+                </div>
             </form>
         </section>
 

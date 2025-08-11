@@ -18,6 +18,11 @@ main{
 *::after {
     box-sizing: border-box;
 }
+h2{
+    font-size: 2rem;
+    border-bottom: #d4d4d4 1px solid;
+    padding-bottom: 1rem;
+}
 
 h3{
     font-size: 1.5rem;
@@ -87,6 +92,7 @@ h5{
     font-family: inherit;
     font-size: 1.5rem;
     font-weight: 600;
+    overflow-wrap: break-word;
 }
 
 #profileDetailsContainer div p:last-of-type{
@@ -106,7 +112,58 @@ h5{
     background-color: #e0e0e0;
 }
 
-#editProfileDetails{
+#editProfileDetails:hover{
+    opacity: 0.85;
+}
+
+.detailEditContainer{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+.detailEditContainer input{
+    height: 2.5rem;
+    border-radius: 6px;
+    font-size: 16px;
+    font-family: inherit;
+    border: solid 2px #889aac;
+    background-color: transparent;
+}
+#studentTitle{
+    display: block;
+    width: 100%;
+    height: 2.5rem;
+    border-radius: 6px;
+    font-size: 16px;
+    font-family: inherit;
+    border: solid 2px #889aac;
+    background-color: transparent;
+    margin-bottom: 1rem;
+}
+#degreeName{
+    display: block;
+    width: 100%;
+    height: 2.5rem;
+    border-radius: 6px;
+    font-size: 16px;
+    font-family: inherit;
+    border: solid 2px #889aac;
+    background-color: transparent;
+    margin-bottom: 1rem;
+}
+#aboutMe{
+    display: block;
+    width: 100%;
+    height: 5rem;
+    border-radius: 6px;
+    font-size: 16px;
+    font-family: inherit;
+    border: solid 2px #889aac;
+    background-color: transparent;
+    margin-bottom: 1rem;
+}
+.profileDetailsButton{
     box-sizing: border-box;
     display: inline-block;
     background-color: #004480;
@@ -125,9 +182,20 @@ h5{
     margin-top: 1rem;
 }
 
-#editProfileDetails:hover{
+.profileDetailsButton:hover{
     opacity: 0.85;
 }
+
+.outmostProfileDetailsContainer{
+    padding-left: 5rem;
+    padding-right: 5rem;
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+    border-radius: 6px;
+    margin-bottom: 3rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
 /* CSS for the Experience view*/
 
 div[id^="epxerienceView"]{
@@ -316,7 +384,15 @@ form[id^="experienceEditForm"]{
     margin-bottom: 1rem;
     margin-left:auto;
     margin-right:auto;
+}
 
+input[type="text"]:focus{
+    outline: none;
+    border: #004480 solid 2px !important;
+}
+textarea:focus{
+    outline: none;
+    border: #004480 solid 2px !important;
 }
 
 
