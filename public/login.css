@@ -63,7 +63,17 @@ input:focus {
   outline: none;               
   border-color: #004480;
   box-shadow: 0 0 1px #004480;
-}  
+}
+.error{
+    color: red !important;
+}
+
+.errorInputs{
+  outline: none;               
+  border-color: red !important;
+  box-shadow: 0 0 1px red !important;
+}
+
 
 #submit-button{
     background-color: #004480;

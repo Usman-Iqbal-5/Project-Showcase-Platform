@@ -275,7 +275,9 @@ app.get("/register", (req, res) => {
 });
 
 app.get("/login", (req, res) => {
-  res.render("login.ejs");
+  const error = req.query.error;
+  console.log(error);
+  res.render("login.ejs", { error });
 });
 
 // checks using isAuthenicated middle to determine if user is authenticated or not

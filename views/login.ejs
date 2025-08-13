@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="/register.css">
+    <link rel="stylesheet" href="/login.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
@@ -18,9 +18,17 @@
         <div class="item1">
             <h1>Log in</h1>
             <form action="/login" method="post" autocomplete="off">
-                <input type="email" name="email" placeholder="Email" required>
-                <input type="password" name="password" placeholder="password" required>
-                <button id="submit-button" type="submit">Login</button>
+                <input type="email" name="email" placeholder="Email" required
+                    class="<%= locals.error ? 'errorInputs' : '' %>">
+                <input type="password" name="password" placeholder="password" required
+                    class="<%= locals.error? 'errorInputs' : '' %>">
+                <% if (locals.error) { %>
+                    <p class="error">
+                        Invalid credentials &mdash; either email or password not recognised.
+                    </p>
+                    <% } %>
+
+                        <button id="submit-button" type="submit">Login</button>
             </form>
             <div class="line-through">Don't have an account</div>
             <button id="log-in-button" type="submit" onclick="window.location.href='/register'">Sign up</button>
