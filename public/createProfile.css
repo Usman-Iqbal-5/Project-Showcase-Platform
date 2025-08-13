@@ -526,7 +526,8 @@ input[class="experiences-skill-field"]{
 
 
 #deleteModal {
-    background: white;
+    background: #f0f0f0;
+    border: #fff 10px solid;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     color: #000;
     padding-top: 2rem;
@@ -555,6 +556,7 @@ input[class="experiences-skill-field"]{
     transition: all ease 0.3s;
     cursor: pointer;
     user-select: none;
+    margin-right: 0.3rem;
     margin-bottom: 3rem
 }
 

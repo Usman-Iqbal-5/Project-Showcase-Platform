@@ -36,7 +36,7 @@ h1{
 h2{
     font-family: inherit;
     color: #25313C;
-    font-size: 2.5vw;
+    font-size: 2.1vw;
     font-weight: 500;
     margin-bottom: 0rem;
     line-height: 1;
@@ -115,11 +115,12 @@ p{
 .projectContainer{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    justify-content: space-between;
     column-gap: 6rem;
     margin-bottom: 6rem;
 }
 .projectImageContainer{
-    width: 40vw;
+    width: 36vw;
     height: min(33vw);
 }
 .projectImageContainer img{
@@ -129,6 +130,7 @@ p{
 }
 .projectInfo{
     width: 33.49vw;
+    padding-left: 3rem;
     display: flex;
     align-items: center;
 
@@ -143,9 +145,10 @@ p{
     background-color: #004480;
     color: #fff;
     border-radius: 6px;
+    font-size: 0.8rem;
     font-weight: 400;
     width: max-content;
-    height: 23px;
+    height: 20px;
     padding-left: 5px;
     padding-right: 5px;
     padding-top: 0px;
