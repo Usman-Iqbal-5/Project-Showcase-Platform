@@ -426,6 +426,26 @@ app.get("/editExperienceVideos", isAuthenticated, async (req, res) => {
   });
 });
 
+app.get("/projectsPage", isAuthenticated, async (req, res) => {
+  const student = req.user;
+  console.log(student);
+
+  const results = await db.query(
+    "SELECT * FROM project WHERE student_id = $1 ORDER BY student_id ASC",
+    [student.student_id]
+  );
+
+  const projectsRows = results.rows;
+  const projectsWithImages = await getImages(projectsRows);
+  const projectsWithTags = await getTags(projectsWithImages);
+  console.log(projectsWithTags);
+
+  res.render("projectsPage.ejs", {
+    projects: projectsWithTags,
+    student,
+  });
+});
+
 app.post("/uploadProfileDetails", isAuthenticated, async (req, res) => {
   const student_id = req.user.student_id;
   const student = req.body;
@@ -435,13 +455,13 @@ app.post("/uploadProfileDetails", isAuthenticated, async (req, res) => {
     const result = await db.query(
       "UPDATE student SET first_name = $1, last_name = $2, email = $3, phone_number = $4, title = $5, degree_name = $6, about_me = $7 WHERE student_id = $8 RETURNING *",
       [
-        student.first_name,
-        student.last_name,
-        student.email,
-        student.phone_number,
-        student.title,
-        student.degree_name,
-        student.about_me,
+        student.first_name.trim(),
+        student.last_name.trim(),
+        student.email.trim(),
+        student.phone_number.trim(),
+        student.title.trim(),
+        student.degree_name.trim(),
+        student.about_me.trim(),
         student_id,
       ]
     );
@@ -914,7 +934,7 @@ app.post(
 app.post(
   "/login",
   passport.authenticate("local", {
-    successRedirect: "/createProfile",
+    successRedirect: "/projectsPage",
     failureRedirect: "/login?error=Login failed",
   })
 );

@@ -48,8 +48,8 @@
                         </div>
                         <div>
                             <p class="profileDetailTitles">Phone Number</p>
-                            <% if(student.phone_number===null){ %>
-                                <p>Unset</p>
+                            <% if(student.phone_number==null || student.phone_number==="" ){ %>
+                                <p class="unset">Unset</p>
                                 <% } else{ %>
                                     <p>
                                         <%= student.phone_number %>
@@ -58,8 +58,8 @@
                         </div>
                         <div>
                             <p class="profileDetailTitles">Title</p>
-                            <% if(student.title===null){ %>
-                                <p>Unset</p>
+                            <% if(student.phone_number==null || student.phone_number==="" ){ %>
+                                <p class="unset">Unset</p>
                                 <% } else{ %>
                                     <p>
                                         <%= student.title%>
@@ -68,8 +68,8 @@
                         </div>
                         <div>
                             <p class="profileDetailTitles">Degree</p>
-                            <% if(student.degree_name===null){ %>
-                                <p>Unset</p>
+                            <% if(student.phone_number==null || student.phone_number==="" ){ %>
+                                <p class="unset">Unset</p>
                                 <% } else{ %>
                                     <p>
                                         <%= student.degree_name %>
@@ -82,8 +82,8 @@
 
                 <div class="aboutMeView">
                     <p class="profileDetailTitles">About Me</p>
-                    <% if(student.degree_name===null){ %>
-                        <p>Unset</p>
+                    <% if(student.phone_number==null || student.phone_number==="" ){ %>
+                        <p class="unset">Unset</p>
                         <% } else{ %>
                             <p>
                                 <%= student.about_me %>

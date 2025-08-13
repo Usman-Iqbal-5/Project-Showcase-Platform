@@ -163,6 +163,9 @@ h5{
     background-color: transparent;
     margin-bottom: 1rem;
 }
+.unset{
+    color: #6D7D8B ;
+}
 .profileDetailsButton{
     box-sizing: border-box;
     display: inline-block;
