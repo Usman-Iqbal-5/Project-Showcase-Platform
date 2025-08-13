@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +12,7 @@
 
 
 </head>
+
 <body>
     <div class="container">
         <img src="/images/blue_sand.png" alt="blue-shaded sand dune">
@@ -18,12 +20,14 @@
             <h1>create an account</h1>
             <form action="/register" method="post" autocomplete="off">
                 <div class="name-container">
-                <input type="text" name="firstName" placeholder="First Name" required>
-                <input type="text" name="lastName" placeholder="Last Name" required>
+                    <input type="text" name="firstName" placeholder="First Name" required>
+                    <input type="text" name="lastName" placeholder="Last Name" required>
 
                 </div>
                 <input type="email" name="email" placeholder="Email" required>
-                <input type="password" name="password" placeholder="password" required>
+                <input id="password" type="password" name="password" placeholder="Password" required>
+                <input id="re-entered-password" type="password" placeholder="Re-enter your password" required>
+                <p id="feeback"></p>
                 <button id="submit-button" type="submit">Create Account</button>
 
 
@@ -33,6 +37,28 @@
         </div>
     </div>
 
-    
+    <script>
+        const password = document.querySelector("#password");
+        const reEnteredPassword = document.querySelector("#re-entered-password");
+        const feedback = document.querySelector("#feeback");
+
+        reEnteredPassword.addEventListener("input", () => {
+            if (password.value === reEnteredPassword.value) {
+                feedback.innerHTML = "Passwords match"
+                feedback.classList.add("correct");
+                password.classList.add("correctInputs")
+                reEnteredPassword.classList.add("correctInputs");
+            } else {
+                feedback.innerHTML = "Passwords don't match"
+                feedback.classList.remove("correct");
+                password.classList.remove("correctInputs")
+                reEnteredPassword.classList.remove("correctInputs");
+                feedback.classList.add("error");
+                password.classList.add("errorInputs")
+                reEnteredPassword.classList.add("errorInputs");
+            }
+        })
+    </script>
 </body>
+
 </html>
