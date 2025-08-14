@@ -39,8 +39,8 @@
                 <h2 class="uploadSectionTitle">Upload a new project video</h2>
                 <form class="uploadForm" action="/uploadNewVideo" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="project_id" value="<%= project_id %>">
-                    <label class="videoUploadLabel" for="videoUpload">Upload a new Video</label>
-                    <input type="file" name="projectVideo" id="videoUpload" multiple>
+                    <label class="videoUploadLabel" for="videoUpload">Choose video</label>
+                    <input type="file" name="projectVideo" id="videoUpload" multiple required>
                     <span class="fileView" id="videosFileName">No files chosen</span>
                     <button class="uploadVideo" type="submit">Upload</button>
                 </form>

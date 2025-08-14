@@ -44,12 +44,6 @@ function isAuthenticated(req, res, next) {
   res.redirect("/login");
 }
 
-// error handler
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).send("Oops Something went wrong!");
-});
-
 const getImages = async (projects) => {
   const projectIds = projects.map((p) => p.project_id);
   let mediaList = [];
@@ -430,7 +424,7 @@ app.get("/editExperienceVideos", isAuthenticated, async (req, res) => {
 
 app.get("/projectsPage", isAuthenticated, async (req, res) => {
   const student = req.user;
-  console.log(student);
+  //console.log(student);
 
   const results = await db.query(
     "SELECT * FROM project WHERE student_id = $1 ORDER BY student_id ASC",
@@ -440,7 +434,7 @@ app.get("/projectsPage", isAuthenticated, async (req, res) => {
   const projectsRows = results.rows;
   const projectsWithImages = await getImages(projectsRows);
   const projectsWithTags = await getTags(projectsWithImages);
-  console.log(projectsWithTags);
+  //console.log(projectsWithTags);
 
   res.render("projectsPage.ejs", {
     projects: projectsWithTags,
@@ -448,10 +442,38 @@ app.get("/projectsPage", isAuthenticated, async (req, res) => {
   });
 });
 
+app.get("/project/:project_id", async (req, res, next) => {
+  const projectId = req.params.project_id;
+  const studentId = req.user.student_id;
+
+  try {
+    const result = await db.query(
+      "SELECT * FROM project WHERE project_id = $1 AND student_id = $2",
+      [projectId, studentId]
+    );
+    const project = result.rows;
+
+    if (Array.isArray(project) && project.length === 0) {
+      // No project found → pass a 404 error to the error handler
+      const err = new Error("Project not found");
+      err.status = 404;
+      return next(err);
+    }
+
+    const projectsWithTags = await getTags(project);
+    res.render("projectTemplate1.ejs", {
+      project: projectsWithTags[0],
+    });
+  } catch (error) {
+    console.log("error");
+    next(error);
+  }
+});
+
 app.post("/uploadProfileDetails", isAuthenticated, async (req, res) => {
   const student_id = req.user.student_id;
   const student = req.body;
-  console.log(`User: ${JSON.stringify(req.user)}`);
+  //console.log(`User: ${JSON.stringify(req.user)}`);
 
   try {
     const result = await db.query(
@@ -604,7 +626,7 @@ app.post(
           ]
         );
       }
-      return res.redirect(`/editExperienceImages?openForm=${projectId}`);
+      return res.redirect(`/editImages?openForm=${projectId}`);
     } catch (error) {
       console.error(error);
       res.send("Unable to upload image: ", error);
@@ -635,7 +657,7 @@ app.post(
           ]
         );
       }
-      return res.redirect(`/editImages?openForm=${experienceId}`);
+      return res.redirect(`/editExperienceImages?openForm=${experienceId}`);
     } catch (error) {
       console.error(error);
       res.send("Unable to upload image: ", error);
@@ -1185,6 +1207,22 @@ passport.use(
 
 passport.serializeUser((user, done) => {
   done(null, user.student_id); // it then holds student_id in the session
+});
+
+//404 handler - catches requests that didn’t match any route.
+app.use((req, res, next) => {
+  const err = new Error("Page not found");
+  err.status = 404;
+  next(err); // Pass to the error handler
+});
+
+// catches any error that is passed to next
+app.use((err, req, res, next) => {
+  res.status(err.status || 500);
+  res.render("error.ejs", {
+    message: err.message,
+    status: err.status || 500,
+  });
 });
 
 app.listen(port, () => {

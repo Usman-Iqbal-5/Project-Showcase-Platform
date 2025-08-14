@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/template1.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+
+
+</head>
+
+<body>
+    <main>
+        <section class="heroSection">
+            <h1>
+                <%= project.project_name%>
+            </h1>
+
+            <% project.tags.forEach(tag=> { %>
+                <p class=" tag">
+                    &#10003; &nbsp; <%= tag.tag_name %>
+                </p>
+                <% }) %>
+        </section>
+
+        <section id="banner">
+
+            <div id="banner-container">
+                <p id="banner-item1">case</p>
+                <p id="banner-item2"></p>
+                <p id="banner-item3">Project-showcase</p>
+            </div>
+
+        </section>
+
+        <section class="jobExplanation">
+            <h2>
+                How this project makes me suitable for the job.
+            </h2>
+            <p class="text">
+                <%= project.job_explanation%>
+            </p>
+        </section>
+
+        <section class="projectExplanation">
+            <h2>
+                Understanding the purpose and scope of this project.
+            </h2>
+            <p class="text">
+                <%= project.description%>
+            </p>
+        </section>
+        <footer></footer>
+
+    </main>
+</body>
+
+</html>

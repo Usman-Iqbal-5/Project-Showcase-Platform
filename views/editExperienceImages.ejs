@@ -30,7 +30,7 @@
                         <img src="<%= image.secure_url %>" alt="">
                         <form action="/DeleteExperienceImage" method="post">
                             <input type="hidden" name="media_id" value="<%= image.media_id %>">
-                            <input type="hidden" name="project_id" value="<%= experience_id %>">
+                            <input type="hidden" name="experience_id" value="<%= experience_id%>">
                             <button class="deleteExperiencesImageButton" type="submit">Delete</button>
                         </form>
                     </div>

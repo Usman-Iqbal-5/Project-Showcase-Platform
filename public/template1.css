@@ -1,0 +1,122 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    font-family: "Manrope", sans-serif;
+}
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+.heroSection{
+    margin-top: 40vh !important;   
+    margin-bottom: 40vh;
+    margin-left: 9.7%;
+    margin-right: 9.7%;
+}
+h1{
+    margin-top: 0px;
+    font-family: inherit;
+    color: #25313C;
+    font-size: 4.1vw;
+    font-weight: 500;
+    text-transform: uppercase;
+    width: 60vw;
+    margin-bottom: 0rem;
+    line-height: 1;
+}
+.tag{
+    display: inline-block;
+    background-color: #004480;
+    color: #fff;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 300;
+    width: max-content;
+    height: 21px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 0px;
+    padding-bottom: 20px;
+}
+
+#banner{
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 10%;
+    margin-bottom: 10%;
+
+    width: 100%;
+}
+
+#banner-container{
+    display:flex;
+    flex-wrap: nowrap;
+    justify-content:space-between;
+}
+
+#banner-container *{
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+#banner-item1{
+    flex-basis: calc(16.5%);
+    max-width:  16.5%;
+    font-size: 7.5vw;
+    flex-shrink: 0;
+
+    
+
+}
+
+
+#banner-item2{
+    flex-basis: calc(19%);
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+    display: inline-block;
+    height: 10vw; 
+    background-image: url("images/star_24px.png"); /* Path to your file */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position:center;
+   
+
+}
+#banner-item3{
+    flex-basis: calc(64.5%) ;
+    max-width:  64.5%;
+    font-size: 7.5vw;
+    white-space: nowrap; /* prevents text from breaking */
+    overflow-x: hidden;
+
+}
+.jobExplanation{
+    margin-left: 9.7%;
+    margin-right: 9.7%;
+    
+
+}
+h2{
+    font-size: 2.4rem;
+    font-weight: 600;
+    width:65%;
+}
+.text{
+    color:#6D7D8B;
+    line-height: 250%;
+    font-size: 1rem;
+    width:75%;
+}
+.projectExplanation{
+    margin-left: 9.7%;
+    margin-right: 9.7%;
+    
+
+}

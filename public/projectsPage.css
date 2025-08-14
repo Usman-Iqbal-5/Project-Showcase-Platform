@@ -25,7 +25,7 @@ main{
 h1{
     font-family: inherit;
     color: #25313C;
-    font-size: 4vw;
+    font-size: 4.1vw;
     font-weight: 500;
     text-transform: uppercase;
     width: 60vw;
@@ -36,8 +36,8 @@ h1{
 h2{
     font-family: inherit;
     color: #25313C;
-    font-size: 2.1vw;
-    font-weight: 500;
+    font-size: 2.4vw;
+    font-weight: 600;
     margin-bottom: 0rem;
     line-height: 1;
     box-sizing: border-box;
@@ -116,11 +116,11 @@ p{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     justify-content: space-between;
-    column-gap: 6rem;
+    column-gap: 3rem;
     margin-bottom: 6rem;
 }
 .projectImageContainer{
-    width: 36vw;
+    width: 40vw;
     height: min(33vw);
 }
 .projectImageContainer img{
@@ -128,14 +128,27 @@ p{
     height: 100%;
     border-radius: 6px;
 }
-.projectInfo{
-    width: 33.49vw;
-    padding-left: 3rem;
+.projectInfoRight{
+    width: 40vw;
+    padding-left: 4rem;
+    padding-right: 0.5px;
+    display: flex;
+    align-items: center;
+}
+.projectInfoLeft{
+    width: 40vw;
+    padding-right: 4rem;
+    padding-left: 0.5rem;
     display: flex;
     align-items: center;
 
 }
-.projectInfo a{
+.projectInfoRight a{
+    display: block;
+    color: #313E44;
+    margin-top: 2rem;
+}
+.projectInfoLeft a{
     display: block;
     color: #313E44;
     margin-top: 2rem;

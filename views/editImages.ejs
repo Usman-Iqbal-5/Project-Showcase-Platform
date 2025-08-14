@@ -41,8 +41,9 @@
                 <h2 class="uploadSectionTitle">Upload a new project image</h2>
                 <form class="uploadForm" action="/uploadNewImage" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="project_id" value="<%= project_id %>">
-                    <label class="imageUploadLabel" for="imageUpload">New Image</label>
-                    <input type="file" name="projectImage" id="imageUpload" accept=".jpg, .jpeg, .png, .webp" multiple>
+                    <label class="imageUploadLabel" for="imageUpload">Choose image</label>
+                    <input type="file" name="projectImage" id="imageUpload" accept=".jpg, .jpeg, .png, .webp" multiple
+                        required>
                     <span class="fileView" id="imagesFileName">No files chosen</span>
                     <button class="uploadImage" type="submit">Upload</button>
 

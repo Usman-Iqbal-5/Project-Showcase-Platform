@@ -38,9 +38,10 @@
                         counter+=1;
                         %>
                         <div class="projectContainer">
-                            <div class="projectImageContainer"><img src="<%= project.images[0].secure_url %>" alt="">
+                            <div class="projectImageContainer"><img
+                                    src="<%= project.images[0]?.secure_url || `images/blue_sand.png`%>" alt="">
                             </div>
-                            <div class="projectInfo">
+                            <div class="projectInfoRight">
                                 <div>
                                     <h2>
                                         <%= project.project_name %>
@@ -65,7 +66,7 @@
                         </div>
                         <%} else{ counter+=1; %>
                             <div class="projectContainer">
-                                <div class="projectInfo">
+                                <div class="projectInfoLeft">
                                     <div>
                                         <h2>
                                             <%= project.project_name %>
@@ -87,7 +88,8 @@
                                 </div>
 
                             </div>
-                            <div class="projectImageContainer"><img src="<%= project.images[0].secure_url %>" alt="">
+                            <div class="projectImageContainer"><img
+                                    src="<%= project.images[0]?.secure_url || 'images/blue_sand.png'%>" alt="">
                             </div>
                             </div>
                             <%} }) %>
