@@ -352,6 +352,13 @@
                             </a><br>
                             <% }) %>
 
+                                <div>
+                                    <h5>Template chosen:</h5>
+                                    <img id="templateView"
+                                        src="<%= experience.template_value == 1 ? '/images/template1.png' : '/images/template2.png' %>"
+                                        alt="Template preview">
+                                </div>
+
                                 <h5>Skills</h5>
                                 <% experience.tags.forEach((tag)=> { %>
                                     <p class="skillsViewParagraph">
@@ -405,8 +412,19 @@
                                         <button type="button" class="editExperienceVideosButton"
                                             data-id="<%= experience.experience_id %>">Edit
                                             Videos</button>
-                                        <br>
-                                        <br>
+
+                                        <div class="templateContainer">
+                                            <label class="template-title">Choose a project template:</label>
+                                            <label class="template">
+                                                <input id="template1" type="radio" name="template" value="1">
+                                                <img src="/images/template1.png" alt="image of the first template">
+                                            </label>
+                                            <label class="template">
+                                                <input id="template2" type="radio" name="template" value="2">
+                                                <img src="images/template2.png" alt="image of the second template">
+                                            </label>
+                                        </div>
+
                                         <h5>Skills:</h5>
                                         <div id="outerExperienceContainer">
                                             <% experience.tags.forEach((tag, index)=> { %>
@@ -465,6 +483,18 @@
                             <input type="file" name="experienceDocs" id="experienceDocs" accept=".pdf,.doc,.docx,.txt"
                                 multiple>
                             <span class="experienceFileView" id="experienceDocsFileName">No files chosen</span>
+
+                            <div class="templateContainer">
+                                <label class="template-title">Choose a project template:</label>
+                                <label class="template">
+                                    <input id="template1" type="radio" name="template" value="1">
+                                    <img src="/images/template1.png" alt="image of the first template">
+                                </label>
+                                <label class="template">
+                                    <input id="template2" type="radio" name="template" value="2">
+                                    <img src="images/template2.png" alt="image of the second template">
+                                </label>
+                            </div>
 
                             <div id="experienceskillsContainer">
                                 <label for="experienceSkills">Skills</label>

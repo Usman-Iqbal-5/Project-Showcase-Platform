@@ -530,7 +530,7 @@ app.get("/experience/:experience_id", async (req, res, next) => {
     }
 
     // console.log("porjects (no image, not tags, no videos", project);
-    const experiencesWithTags = await getTags(experience);
+    const experiencesWithTags = await getExperienceTag(experience);
     // console.log("projects with tags", projectsWithTags);
     const experiencesWithImages = await getExperienceImages(
       experiencesWithTags
@@ -948,6 +948,7 @@ app.post("/saveExperience", async (req, res) => {
     title,
     description,
     explanation,
+    template,
     skills: skillsArray,
   } = req.body;
   console.log(req.body);
@@ -955,8 +956,14 @@ app.post("/saveExperience", async (req, res) => {
 
   try {
     await db.query(
-      "UPDATE experience SET experience_name = $1, description = $2, job_explanation = $3 WHERE experience_id = $4",
-      [title.trim(), description.trim(), explanation.trim(), experience_id]
+      "UPDATE experience SET experience_name = $1, description = $2, template_value = $3, job_explanation = $4 WHERE experience_id = $5",
+      [
+        title.trim(),
+        description.trim(),
+        template,
+        explanation.trim(),
+        experience_id,
+      ]
     );
 
     // Delete all old tags for the project
@@ -996,6 +1003,7 @@ app.post(
       const experienceTitle = req.body.title;
       const description = req.body.description;
       const explanation = req.body.explanation;
+      const template = req.body.template;
       const skillsArray = req.body.experienceSkills;
 
       const images = req.files.experienceImages || [];
@@ -1006,11 +1014,12 @@ app.post(
       //console.log("DOC FILES:", docs);
 
       const result = await db.query(
-        "INSERT INTO experience (student_id, experience_name, description, job_explanation) VALUES ($1, $2, $3, $4) RETURNING *;",
+        "INSERT INTO experience (student_id, experience_name, description, template, job_explanation) VALUES ($1, $2, $3, $4, $5) RETURNING *;",
         [
           student_id,
           experienceTitle.trim(),
           description.trim(),
+          template,
           explanation.trim(),
         ]
       );
