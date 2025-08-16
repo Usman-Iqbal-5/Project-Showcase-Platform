@@ -473,9 +473,16 @@ app.get("/project/:project_id", async (req, res, next) => {
     //   JSON.stringify(projectsWithVideos[0].images)
     // );
 
-    res.render("projectTemplate2.ejs", {
-      project: projectsWithVideos[0],
-    });
+    // console.log(projectsWithVideos[0].template_value);
+    if (projectsWithVideos[0].template_value == 1) {
+      return res.render("projectTemplate1.ejs", {
+        project: projectsWithVideos[0],
+      });
+    } else {
+      return res.render("projectTemplate2.ejs", {
+        project: projectsWithVideos[0],
+      });
+    }
   } catch (error) {
     console.log("error");
     next(error);
@@ -753,6 +760,7 @@ app.post(
       const projectTitle = req.body.title;
       const description = req.body.description;
       const explanation = req.body.explanation;
+      const template = req.body.template;
       const skillsArray = req.body.skills;
 
       const images = req.files.projectImages || [];
@@ -763,11 +771,12 @@ app.post(
       //console.log("DOC FILES:", docs);
 
       const result = await db.query(
-        "INSERT INTO project (student_id, project_name, description, job_explanation) VALUES ($1, $2, $3, $4) RETURNING *;",
+        "INSERT INTO project (student_id, project_name, description, template_value, job_explanation) VALUES ($1, $2, $3, $4, $5) RETURNING *;",
         [
           student_id,
           projectTitle.trim(),
           description.trim(),
+          template,
           explanation.trim(),
         ]
       );
@@ -819,6 +828,7 @@ app.post("/saveProject", async (req, res) => {
     title,
     description,
     explanation,
+    template,
     skills: skillsArray,
   } = req.body;
   console.log(req.body);
@@ -826,8 +836,14 @@ app.post("/saveProject", async (req, res) => {
 
   try {
     await db.query(
-      "UPDATE project SET project_name = $1, description = $2, job_explanation = $3 WHERE project_id = $4",
-      [title.trim(), description.trim(), explanation.trim(), project_id]
+      "UPDATE project SET project_name = $1, description = $2, template_value =$3, job_explanation = $4 WHERE project_id = $5",
+      [
+        title.trim(),
+        description.trim(),
+        template,
+        explanation.trim(),
+        project_id,
+      ]
     );
 
     // Delete all old tags for the project

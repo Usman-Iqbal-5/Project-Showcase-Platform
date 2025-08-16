@@ -248,7 +248,7 @@ div[id^="epxerienceView"]{
     user-select: none;
     margin-bottom: 3rem
 }
-/* CSS for the Experience Eidt Form*/
+/* CSS for the Experience Edit Form*/
 
 form[id^="experienceEditForm"]{
     border: #f0f0f0 solid 2px;
@@ -639,10 +639,17 @@ div[id^="projectView"]{
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 
 }
+#templateView{
+    width: 135px;
+    height: 100px;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
 
 .skillsViewParagraph{
     background-color: #e0e0e0;
     width: 100%;
+    margin-top: 0rem;
     padding: 0.5rem;
     height: 2.5rem;
     border-radius: 6px;
@@ -694,7 +701,7 @@ div[id^="projectView"]{
     user-select: none;
     margin-bottom: 3rem
 }
-/* CSS for the Project Eidt Form*/
+/* CSS for the Project Edit Form*/
 
 form[id^="projectEditForm"]{
     border: #f0f0f0 solid 2px;
@@ -744,6 +751,37 @@ form[id^="projectEditForm"]{
     padding: 5px 5px;
     user-select: none;
     margin-bottom: 0rem
+}
+.templateContainer{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+.template-title{
+    display: block;
+    width: 100%;
+}
+.template {
+    display: inline-block;
+    margin: 10px;
+    cursor: pointer;
+    border: 3px solid transparent;
+    box-shadow: 0px 4px 8px rgb(0, 0, 0, 0.2);
+    overflow: hidden;
+    transition: border 0.2s ease;
+}
+
+.template img {
+     width: 135px;
+    height: 100px;
+    border-radius: 6px;
+    object-position: 1;
+    display: block;
+}
+input[type="radio"]{
+    display: none;
+}
+input[type="radio"]:checked + img{
+    border: #007bff solid 2px;
 }
 
 .skillFlexBox{

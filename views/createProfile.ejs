@@ -165,6 +165,13 @@
                     </a><br>
                     <% }) %>
 
+                        <div>
+                            <h5>Template chosen:</h5>
+                            <img id="templateView" src="<%= project.template_value== 1? " /images/template1.png"
+                                : "/images/template2.png" %>"
+                            alt="">
+                        </div>
+
                         <h5>Skills</h5>
                         <% project.tags.forEach((tag)=> { %>
                             <p class="skillsViewParagraph">
@@ -212,8 +219,19 @@
                             <% }) %>
                                 <button type="button" class="editVideosButton" data-id="<%= project.project_id %>">Edit
                                     Videos</button>
-                                <br>
-                                <br>
+
+                                <div class="templateContainer">
+                                    <label class="template-title">Choose a project template:</label>
+                                    <label class="template">
+                                        <input id="template1" type="radio" name="template" value="1">
+                                        <img src="/images/template1.png" alt="image of the first template">
+                                    </label>
+                                    <label class="template">
+                                        <input id="template2" type="radio" name="template" value="2">
+                                        <img src="images/template2.png" alt="image of the second template">
+                                    </label>
+                                </div>
+
                                 <h5>Skills:</h5>
                                 <div id="outerContainer">
                                     <% project.tags.forEach((tag, index)=> { %>
@@ -270,6 +288,18 @@
                     <label for="projectDocs" class="custom-file-upload">Uplaod Files</label>
                     <input type="file" name="projectDocs" id="projectDocs" accept=".pdf,.doc,.docx,.txt" multiple>
                     <span class="fileView" id="docsFileName">No files chosen</span>
+
+                    <div class="templateContainer">
+                        <label class="template-title">Choose a project template:</label>
+                        <label class="template">
+                            <input id="template1" type="radio" name="template" value="1">
+                            <img src="/images/template1.png" alt="image of the first template">
+                        </label>
+                        <label class="template">
+                            <input id="template2" type="radio" name="template" value="2">
+                            <img src="images/template2.png" alt="image of the second template">
+                        </label>
+                    </div>
 
                     <div id="skills-container">
                         <label for="Skills">Skills</label>
