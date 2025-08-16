@@ -18,23 +18,40 @@
 <body>
     <main>
         <section class="images">
-            <!-- Bootstrap carousal-->
+            <!-- Bootstrap carousel -->
             <div id="carouselExampleIndicators" class="carousel slide">
+
                 <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
-                        class="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
-                        aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
-                        aria-label="Slide 3"></button>
+                    <% if (Array.isArray(project.images) && project.images.length> 0) { %>
+                        <% project.images.forEach((image, index)=> { %>
+                            <button type="button" data-bs-target="#carouselExampleIndicators"
+                                data-bs-slide-to="<%= index %>" class="<%= index === 0 ? 'active' : '' %>"
+                                aria-current="<%= index === 0 ? 'true' : 'false' %>"
+                                aria-label="Slide <%= index + 1 %>">
+                            </button>
+                            <% }) %>
+                                <% } else { %>
+                                    <!-- Default indicator -->
+                                    <button type="button" data-bs-target="#carouselExampleIndicators"
+                                        data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1">
+                                    </button>
+                                    <% } %>
                 </div>
+
                 <div class="carousel-inner">
-                    <% project.images.forEach((image, index)=> { %>
-                        <div class="carousel-item <%=index===0 ? 'active' : '' %>">
-                            <img src="<%= image.secure_url %>" class="d-block w-100">
-                        </div>
-                        <% }) %>
+                    <% if (Array.isArray(project.images) && project.images.length> 0) { %>
+                        <% project.images.forEach((image, index)=> { %>
+                            <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
+                                <img src="<%= image.secure_url %>" class="d-block w-100">
+                            </div>
+                            <% }) %>
+                                <% } else { %>
+                                    <div class="carousel-item active">
+                                        <img src="/images/blue_sand.png" class="d-block w-100">
+                                    </div>
+                                    <% } %>
                 </div>
+
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
                     data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -47,6 +64,7 @@
                 </button>
             </div>
         </section>
+
 
         <section class="heroSection">
             <h1>
