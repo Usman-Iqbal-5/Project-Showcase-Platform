@@ -109,33 +109,33 @@ p{
     border: none;
     color: #fff;
 }
-.projectLayout{
+.activityLayout{
     margin-bottom: 4rem;
 }
-.projectContainer{
+.activityContainer{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     justify-content: space-between;
     column-gap: 3rem;
     margin-bottom: 6rem;
 }
-.projectImageContainer{
+.activityImageContainer{
     width: 40vw;
     height: min(33vw);
 }
-.projectImageContainer img{
+.activityImageContainer img{
     width: 100%;
     height: 100%;
     border-radius: 6px;
 }
-.projectInfoRight{
+.activityInfoRight{
     width: 40vw;
     padding-left: 4rem;
     padding-right: 0.5px;
     display: flex;
     align-items: center;
 }
-.projectInfoLeft{
+.activityInfoLeft{
     width: 40vw;
     padding-right: 4rem;
     padding-left: 0.5rem;
@@ -143,12 +143,12 @@ p{
     align-items: center;
 
 }
-.projectInfoRight a{
+.activityInfoRight a{
     display: block;
     color: #313E44;
     margin-top: 2rem;
 }
-.projectInfoLeft a{
+.activityInfoLeft a{
     display: block;
     color: #313E44;
     margin-top: 2rem;
@@ -167,7 +167,7 @@ p{
     padding-top: 0px;
     padding-bottom: 10px;
 }
-.noProjectsContainer{
+.noActivitiesContainer{
     background-color: #f0f0f0;
     width: 60%;
     height: 30%;

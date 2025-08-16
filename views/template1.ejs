@@ -16,15 +16,21 @@
 <body>
     <main>
         <section class="heroSection">
-            <h1>
-                <%= project.project_name%>
-            </h1>
+            <% if (type==="project" ) { %>
+                <h1>
+                    <%= activity.project_name%>
+                </h1>
+                <% } else {%>
+                    <h1>
+                        <%= activity.experience_name%>
+                    </h1>
+                    <% } %>
 
-            <% project.tags.forEach(tag=> { %>
-                <p class=" tag">
-                    &#10003; &nbsp; <%= tag.tag_name %>
-                </p>
-                <% }) %>
+                        <% activity.tags.forEach(tag=> { %>
+                            <p class=" tag">
+                                &#10003; &nbsp; <%= tag.tag_name %>
+                            </p>
+                            <% }) %>
         </section>
 
         <section id="banner">
@@ -37,36 +43,36 @@
 
         </section>
 
-        <section class="jobExplanation">
+        <section class="job-explanation">
             <h2>
                 How this project makes me suitable for the job.
             </h2>
             <p class="text">
-                <%= project.job_explanation%>
+                <%= activity.job_explanation%>
             </p>
         </section>
 
-        <section class="projectExplanation">
+        <section class="description">
             <h2>
                 Understanding the purpose and scope of this project.
             </h2>
             <p class="text">
-                <%= project.description%>
+                <%= activity.description%>
             </p>
         </section>
 
-        <section class="projectDemo">
+        <section class="demo">
             <h2>Project Demo</h2>
 
             <div class="image-grid">
-                <% const counter=0; project.images.forEach(image=> { %>
+                <% const counter=0; activity.images.forEach(image=> { %>
                     <img src="<%= image.secure_url%>" alt="">
                     <% }) %>
 
             </div>
 
             <div class="video-grid">
-                <% project.videos.forEach(video=> { %>
+                <% activity.videos.forEach(video=> { %>
                     <div class="video-container">
                         <video src="<%= video.secure_url%>" controls width="400px"></video>
                     </div>

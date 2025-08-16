@@ -16,48 +16,48 @@
 <body>
     <main>
         <section class="heroSection">
-            <h1>Welcome to <%= student.first_name %>’s Projects</h1>
-            <p class="heroParagraph">View <%= student.first_name %>’s projects, the hard work, skills learnt and lessons
-                    learnt.</p>
+            <h1>Welcome to <%= student.first_name %>’s Experiences</h1>
+            <p class="heroParagraph">View <%= student.first_name %>’s experiences, the hard work, skills learnt and
+                    lessons learnt.</p>
             <div class="heroButtonContainer">
                 <button class="primary">Download CV</button>
                 <button class="secondary">Export Projects as PDF</button>
             </div>
         </section>
 
-        <section class="activityLayout">
-            <%if(projects.length===0){ %>
+        <section class="projectLayout">
+            <%if(experiences.length===0){ %>
                 <div class="noActivitiesContainer">
 
                     <h3>No projects found</h3>
                     <div class="documentIcon">&#x1F4C4;</div>
                 </div>
                 <%} %>
-                    <% let counter=0; projects.forEach(project=> {
+                    <% let counter=0; experiences.forEach(experience=> {
                         if (counter%2==0){
                         counter+=1;
                         %>
                         <div class="activityContainer">
                             <div class="activityImageContainer"><img
-                                    src="<%= project.images[0]?.secure_url || `images/blue_sand.png`%>" alt="">
+                                    src="<%= experience.images[0]?.secure_url || `images/blue_sand.png`%>" alt="">
                             </div>
                             <div class="activityInfoRight">
                                 <div>
                                     <h2>
-                                        <%= project.project_name %>
+                                        <%= experience.experience_name %>
                                     </h2>
                                     <p>
-                                        <% const words=project.description.split(/\s+/); const
+                                        <% const words=experience.description.split(/\s+/); const
                                             limitedDescription=words.slice(0, 20).join(" "); %>
                             <%= limitedDescription %> ...
                         </p>
                         <div>
-                            <% project.tags.forEach(tag => { %>
+                            <% experience.tags.forEach(tag => { %>
                                 <p class=" tag">
                                             &#10003 &nbsp; <%=tag.tag_name%>
                                     </p>
                                     <% }) %>
-                                        <a href="/project/<%= project.project_id %>">Learn More</a>
+                                        <a href="/experience/<%= experience.experience_id %>">Learn More</a>
 
                                 </div>
                             </div>
@@ -69,27 +69,27 @@
                                 <div class="activityInfoLeft">
                                     <div>
                                         <h2>
-                                            <%= project.project_name %>
+                                            <%= experience.experience_name %>
                                         </h2>
                                         <p>
-                                            <% const words=project.description.split(/\s+/); const
+                                            <% const words=experience.description.split(/\s+/); const
                                                 limitedDescription=words.slice(0, 20).join(" "); %>
                             <%= limitedDescription %> ...
                         </p>
                         <div>
-                            <% project.tags.forEach(tag => { %>
+                            <% experience.tags.forEach(tag => { %>
                                 <p class=" tag">
                                                 &#10003 <%= tag.tag_name %>
                                         </p>
                                         <% }) %>
-                                            <a href="/project/<%= project.project_id %>">Learn More</a>
+                                            <a href="/experience/<%= experience.experience_id %>">Learn More</a>
 
                                     </div>
                                 </div>
 
                             </div>
                             <div class="activityImageContainer"><img
-                                    src="<%= project.images[0]?.secure_url || 'images/blue_sand.png'%>" alt="">
+                                    src="<%= experience.images[0]?.secure_url || 'images/blue_sand.png'%>" alt="">
                             </div>
                             </div>
                             <%} }) %>

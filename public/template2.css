@@ -110,7 +110,7 @@ h2{
     display: flex;
     justify-content: flex-end;
 }
-.jobExplanation{
+.job-explanation{
     margin-left: 9.7%;
     margin-right: 9.7%;
 }
@@ -120,7 +120,7 @@ h2{
     font-size: 1rem !important;
     width:75%;
 }
-.projectExplanation{
+.description{
     margin-left: 9.7%;
     margin-right: 9.7%;
 }

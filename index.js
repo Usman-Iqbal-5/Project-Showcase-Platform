@@ -442,6 +442,26 @@ app.get("/projectsPage", isAuthenticated, async (req, res) => {
   });
 });
 
+app.get("/experiencesPage", isAuthenticated, async (req, res) => {
+  const student = req.user;
+  //console.log(student);
+
+  const results = await db.query(
+    "SELECT * FROM experience WHERE student_id = $1 ORDER BY student_id ASC",
+    [student.student_id]
+  );
+
+  const experiencesRows = results.rows;
+  const experiencesWithImages = await getExperienceImages(experiencesRows);
+  const experiencesWithTags = await getExperienceTags(experiencesWithImages);
+  //console.log(projectsWithTags);
+
+  res.render("experiencesPage.ejs", {
+    experiences: experiencesWithTags,
+    student,
+  });
+});
+
 app.get("/project/:project_id", async (req, res, next) => {
   const projectId = req.params.project_id;
   const studentId = req.user.student_id;
@@ -475,12 +495,67 @@ app.get("/project/:project_id", async (req, res, next) => {
 
     // console.log(projectsWithVideos[0].template_value);
     if (projectsWithVideos[0].template_value == 1) {
-      return res.render("projectTemplate1.ejs", {
-        project: projectsWithVideos[0],
+      return res.render("template1.ejs", {
+        activity: projectsWithVideos[0],
+        type: "project",
       });
     } else {
-      return res.render("projectTemplate2.ejs", {
-        project: projectsWithVideos[0],
+      return res.render("template2.ejs", {
+        activity: projectsWithVideos[0],
+        type: "project",
+      });
+    }
+  } catch (error) {
+    console.log("error");
+    next(error);
+  }
+});
+
+app.get("/experience/:experience_id", async (req, res, next) => {
+  const experienceId = req.params.experience_id;
+  const studentId = req.user.student_id;
+
+  try {
+    const result = await db.query(
+      "SELECT * FROM experience WHERE experience_id = $1 AND student_id = $2",
+      [experienceId, studentId]
+    );
+    const experience = result.rows;
+
+    if (Array.isArray(experience) && experience.length === 0) {
+      // No project found → pass a 404 error to the error handler
+      const err = new Error("Project not found");
+      err.status = 404;
+      return next(err);
+    }
+
+    // console.log("porjects (no image, not tags, no videos", project);
+    const experiencesWithTags = await getTags(experience);
+    // console.log("projects with tags", projectsWithTags);
+    const experiencesWithImages = await getExperienceImages(
+      experiencesWithTags
+    );
+    // console.log("projects wirh images", projectsWithImages);
+    const experiencesWithVideos = await getExperienceVideos(
+      experiencesWithImages
+    );
+    // console.log("This is the projects with videos:", projectsWithVideos);
+
+    // console.log(
+    //   "images that is printed to the profile page:",
+    //   JSON.stringify(projectsWithVideos[0].images)
+    // );
+
+    // console.log(projectsWithVideos[0].template_value);
+    if (experiencesWithVideos[0].template_value == 1) {
+      return res.render("template1.ejs", {
+        activity: experiencesWithVideos[0],
+        type: "experience",
+      });
+    } else {
+      return res.render("template2.ejs", {
+        activity: experiencesWithVideos[0],
+        type: "experience",
       });
     }
   } catch (error) {
