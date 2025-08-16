@@ -54,6 +54,28 @@
                 <%= project.description%>
             </p>
         </section>
+
+        <section class="projectDemo">
+            <h2>Project Demo</h2>
+
+            <div class="image-grid">
+                <% const counter=0; project.images.forEach(image=> { %>
+                    <img src="<%= image.secure_url%>" alt="">
+                    <% }) %>
+
+            </div>
+
+            <div class="video-grid">
+                <% project.videos.forEach(video=> { %>
+                    <div class="video-container">
+                        <video src="<%= video.secure_url%>" controls width="400px"></video>
+                    </div>
+                    <% }) %>
+            </div>
+
+
+
+        </section>
         <footer></footer>
 
     </main>

@@ -460,9 +460,21 @@ app.get("/project/:project_id", async (req, res, next) => {
       return next(err);
     }
 
+    // console.log("porjects (no image, not tags, no videos", project);
     const projectsWithTags = await getTags(project);
-    res.render("projectTemplate1.ejs", {
-      project: projectsWithTags[0],
+    // console.log("projects with tags", projectsWithTags);
+    const projectsWithImages = await getImages(projectsWithTags);
+    // console.log("projects wirh images", projectsWithImages);
+    const projectsWithVideos = await getVideos(projectsWithImages);
+    // console.log("This is the projects with videos:", projectsWithVideos);
+
+    // console.log(
+    //   "images that is printed to the profile page:",
+    //   JSON.stringify(projectsWithVideos[0].images)
+    // );
+
+    res.render("projectTemplate2.ejs", {
+      project: projectsWithVideos[0],
     });
   } catch (error) {
     console.log("error");
@@ -1209,21 +1221,21 @@ passport.serializeUser((user, done) => {
   done(null, user.student_id); // it then holds student_id in the session
 });
 
-//404 handler - catches requests that didn’t match any route.
-app.use((req, res, next) => {
-  const err = new Error("Page not found");
-  err.status = 404;
-  next(err); // Pass to the error handler
-});
+// //404 handler - catches requests that didn’t match any route.
+// app.use((req, res, next) => {
+//   const err = new Error("Page not found");
+//   err.status = 404;
+//   next(err); // Pass to the error handler
+// });
 
-// catches any error that is passed to next
-app.use((err, req, res, next) => {
-  res.status(err.status || 500);
-  res.render("error.ejs", {
-    message: err.message,
-    status: err.status || 500,
-  });
-});
+// // catches any error that is passed to next
+// app.use((err, req, res, next) => {
+//   res.status(err.status || 500);
+//   res.render("error.ejs", {
+//     message: err.message,
+//     status: err.status || 500,
+//   });
+// });
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
