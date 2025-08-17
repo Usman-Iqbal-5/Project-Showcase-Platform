@@ -19,6 +19,7 @@ h1{
 }
 
 .container{
+    margin-top: 3rem;
     margin-left: 9.7%;
     margin-right: 9.7%;
     display: grid;

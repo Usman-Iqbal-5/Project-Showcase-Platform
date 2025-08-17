@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="/template2.css">
+    <link rel="stylesheet" href="/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
@@ -17,139 +18,140 @@
 
 <body>
     <main>
-        <section class="images">
-            <!-- Bootstrap carousel -->
-            <div id="carouselExampleIndicators" class="carousel slide">
+        <%- include("partials/header.ejs") %>
+            <section class="images">
+                <!-- Bootstrap carousel -->
+                <div id="carouselExampleIndicators" class="carousel slide">
 
-                <div class="carousel-indicators">
-                    <% if (Array.isArray(activity.images) && activity.images.length> 0) { %>
-                        <% activity.images.forEach((image, index)=> { %>
-                            <button type="button" data-bs-target="#carouselExampleIndicators"
-                                data-bs-slide-to="<%= index %>" class="<%= index === 0 ? 'active' : '' %>"
-                                aria-current="<%= index === 0 ? 'true' : 'false' %>"
-                                aria-label="Slide <%= index + 1 %>">
-                            </button>
-                            <% }) %>
-                                <% } else { %>
-                                    <!-- Default indicator -->
-                                    <button type="button" data-bs-target="#carouselExampleIndicators"
-                                        data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1">
-                                    </button>
-                                    <% } %>
-                </div>
-
-                <div class="carousel-inner">
-                    <% if (Array.isArray(activity.images) && activity.images.length> 0) { %>
-                        <% activity.images.forEach((image, index)=> { %>
-                            <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
-                                <img src="<%= image.secure_url %>" class="d-block w-100">
-                            </div>
-                            <% }) %>
-                                <% } else { %>
-                                    <div class="carousel-item active">
-                                        <img src="/images/blue_sand.png" class="d-block w-100">
-                                    </div>
-                                    <% } %>
-                </div>
-
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
-                    data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
-                    data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-            </div>
-        </section>
-
-
-        <section class="heroSection">
-            <% if (type==="project" ) { %>
-                <h1>
-                    <%= activity.project_name%>
-                </h1>
-                <% } else {%>
-                    <h1>
-                        <%= activity.experience_name%>
-                    </h1>
-                    <% } %>
-
-                        <% activity.tags.forEach(tag=> { %>
-                            <p class=" tag">
-                                &#10003; &nbsp; <%= tag.tag_name %>
-                            </p>
-                            <% }) %>
-        </section>
-
-        <section id="banner">
-
-            <div id="banner-container">
-                <p id="banner-item1">case</p>
-                <p id="banner-item2"></p>
-                <p id="banner-item3">Project-showcase</p>
-            </div>
-
-        </section>
-
-        <section class="job-explanation">
-            <h2>
-                How this project makes me suitable for the job.
-            </h2>
-            <p class="text">
-                <%= activity.job_explanation%>
-            </p>
-        </section>
-
-        <% if (Array.isArray(activity.videos) && activity.videos.length) { %>
-            <section class="videos">
-                <!-- Bootstrap carousel for videos -->
-                <div id="carouselVideoIndicators" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-indicators">
-                        <% activity.videos.forEach((video, index)=> { %>
-                            <button type="button" data-bs-target="#carouselVideoIndicators"
-                                data-bs-slide-to="<%= index %>" class="<%= index === 0 ? 'active' : '' %>"
-                                aria-current="<%= index === 0 ? 'true' : 'false' %>"
-                                aria-label="Slide <%= index + 1 %>">
-                            </button>
-                            <% }) %>
+                        <% if (Array.isArray(activity.images) && activity.images.length> 0) { %>
+                            <% activity.images.forEach((image, index)=> { %>
+                                <button type="button" data-bs-target="#carouselExampleIndicators"
+                                    data-bs-slide-to="<%= index %>" class="<%= index === 0 ? 'active' : '' %>"
+                                    aria-current="<%= index === 0 ? 'true' : 'false' %>"
+                                    aria-label="Slide <%= index + 1 %>">
+                                </button>
+                                <% }) %>
+                                    <% } else { %>
+                                        <!-- Default indicator -->
+                                        <button type="button" data-bs-target="#carouselExampleIndicators"
+                                            data-bs-slide-to="0" class="active" aria-current="true"
+                                            aria-label="Slide 1">
+                                        </button>
+                                        <% } %>
                     </div>
 
                     <div class="carousel-inner">
-                        <% activity.videos.forEach((video, index)=> { %>
-                            <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
-                                <video class="d-block" autoplay muted loop>
-                                    <source src="<%= video.secure_url %>" type="video/mp4">
-                                    Your browser does not support HTML5 video.
-                                </video>
-                            </div>
-                            <% }) %>
+                        <% if (Array.isArray(activity.images) && activity.images.length> 0) { %>
+                            <% activity.images.forEach((image, index)=> { %>
+                                <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
+                                    <img src="<%= image.secure_url %>" class="d-block w-100">
+                                </div>
+                                <% }) %>
+                                    <% } else { %>
+                                        <div class="carousel-item active">
+                                            <img src="/images/blue_sand.png" class="d-block w-100">
+                                        </div>
+                                        <% } %>
                     </div>
 
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselVideoIndicators"
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
                         data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Previous</span>
                     </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselVideoIndicators"
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
                         data-bs-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Next</span>
                     </button>
                 </div>
             </section>
-            <% } %>
-                <section class="description">
-                    <h2>
-                        Understanding the purpose and scope of this project.
-                    </h2>
-                    <p class="text">
-                        <%= activity.description%>
-                    </p>
+
+            <section class="heroSection">
+                <% if (type==="project" ) { %>
+                    <h1>
+                        <%= activity.project_name%>
+                    </h1>
+                    <% } else {%>
+                        <h1>
+                            <%= activity.experience_name%>
+                        </h1>
+                        <% } %>
+
+                            <% activity.tags.forEach(tag=> { %>
+                                <p class=" tag">
+                                    &#10003; &nbsp; <%= tag.tag_name %>
+                                </p>
+                                <% }) %>
+            </section>
+
+            <section id="banner">
+
+                <div id="banner-container">
+                    <p id="banner-item1">case</p>
+                    <p id="banner-item2"></p>
+                    <p id="banner-item3">Project-showcase</p>
+                </div>
+
+            </section>
+
+            <section class="job-explanation">
+                <h2>
+                    How this project makes me suitable for the job.
+                </h2>
+                <p class="text">
+                    <%= activity.job_explanation%>
+                </p>
+            </section>
+
+            <% if (Array.isArray(activity.videos) && activity.videos.length) { %>
+                <section class="videos">
+                    <!-- Bootstrap carousel for videos -->
+                    <div id="carouselVideoIndicators" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-indicators">
+                            <% activity.videos.forEach((video, index)=> { %>
+                                <button type="button" data-bs-target="#carouselVideoIndicators"
+                                    data-bs-slide-to="<%= index %>" class="<%= index === 0 ? 'active' : '' %>"
+                                    aria-current="<%= index === 0 ? 'true' : 'false' %>"
+                                    aria-label="Slide <%= index + 1 %>">
+                                </button>
+                                <% }) %>
+                        </div>
+
+                        <div class="carousel-inner">
+                            <% activity.videos.forEach((video, index)=> { %>
+                                <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
+                                    <video class="d-block" autoplay muted loop>
+                                        <source src="<%= video.secure_url %>" type="video/mp4">
+                                        Your browser does not support HTML5 video.
+                                    </video>
+                                </div>
+                                <% }) %>
+                        </div>
+
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselVideoIndicators"
+                            data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselVideoIndicators"
+                            data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
                 </section>
-                <footer></footer>
+                <% } %>
+                    <section class="description">
+                        <h2>
+                            Understanding the purpose and scope of this project.
+                        </h2>
+                        <p class="text">
+                            <%= activity.description%>
+                        </p>
+                    </section>
+                    <footer></footer>
 
     </main>
 

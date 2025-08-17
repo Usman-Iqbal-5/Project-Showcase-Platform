@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="/login.css">
+    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
@@ -14,27 +15,28 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="item1">
-            <h1>Log in</h1>
-            <form action="/login" method="post" autocomplete="off">
-                <input type="email" name="email" placeholder="Email" required
-                    class="<%= locals.error ? 'errorInputs' : '' %>">
-                <input type="password" name="password" placeholder="password" required
-                    class="<%= locals.error? 'errorInputs' : '' %>">
-                <% if (locals.error) { %>
-                    <p class="error">
-                        Invalid credentials &mdash; either email or password not recognised.
-                    </p>
-                    <% } %>
+    <%- include("partials/header.ejs") %>
+        <div class="container">
+            <div class="item1">
+                <h1>Log in</h1>
+                <form action="/login" method="post" autocomplete="off">
+                    <input type="email" name="email" placeholder="Email" required
+                        class="<%= locals.error ? 'errorInputs' : '' %>">
+                    <input type="password" name="password" placeholder="password" required
+                        class="<%= locals.error? 'errorInputs' : '' %>">
+                    <% if (locals.error) { %>
+                        <p class="error">
+                            Invalid credentials &mdash; either email or password not recognised.
+                        </p>
+                        <% } %>
 
-                        <button id="submit-button" type="submit">Login</button>
-            </form>
-            <div class="line-through">Don't have an account</div>
-            <button id="log-in-button" type="submit" onclick="window.location.href='/register'">Sign up</button>
+                            <button id="submit-button" type="submit">Login</button>
+                </form>
+                <div class="line-through">Don't have an account</div>
+                <button id="log-in-button" type="submit" onclick="window.location.href='/register'">Sign up</button>
+            </div>
+            <img src="/images/blue_sand.png" alt="blue-shaded sand dune">
         </div>
-        <img src="/images/blue_sand.png" alt="blue-shaded sand dune">
-    </div>
 
 
 </body>

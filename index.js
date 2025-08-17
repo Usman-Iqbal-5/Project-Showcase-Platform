@@ -38,11 +38,27 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+function noCache(req, res, next) {
+  //clear cache - so browser doesn't store pages with sensitve data
+  res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+  res.setHeader("expires", "0");
+  return next();
+}
+
 // checks if authenticated
 function isAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) return next();
-  res.redirect("/login");
+  if (req.isAuthenticated()) {
+    noCache(req, res, next);
+  } else {
+    res.redirect("/login");
+  }
 }
+
+//Middleware that allows all ejs templates to use userAuthenicated
+app.use((req, res, next) => {
+  res.locals.userAuthenticated = req.isAuthenticated();
+  next();
+});
 
 const getImages = async (projects) => {
   const projectIds = projects.map((p) => p.project_id);
@@ -268,9 +284,12 @@ app.get("/register", (req, res) => {
   res.render("register.ejs");
 });
 
-app.get("/login", (req, res) => {
+app.get("/login", noCache, (req, res) => {
   const error = req.query.error;
   console.log(error);
+  if (req.isAuthenticated()) {
+    return res.redirect("/profile");
+  }
   res.render("login.ejs", { error });
 });
 
@@ -462,7 +481,7 @@ app.get("/experiencesPage", isAuthenticated, async (req, res) => {
   });
 });
 
-app.get("/project/:project_id", async (req, res, next) => {
+app.get("/project/:project_id", isAuthenticated, async (req, res, next) => {
   const projectId = req.params.project_id;
   const studentId = req.user.student_id;
 
@@ -511,58 +530,62 @@ app.get("/project/:project_id", async (req, res, next) => {
   }
 });
 
-app.get("/experience/:experience_id", async (req, res, next) => {
-  const experienceId = req.params.experience_id;
-  const studentId = req.user.student_id;
+app.get(
+  "/experience/:experience_id",
+  isAuthenticated,
+  async (req, res, next) => {
+    const experienceId = req.params.experience_id;
+    const studentId = req.user.student_id;
 
-  try {
-    const result = await db.query(
-      "SELECT * FROM experience WHERE experience_id = $1 AND student_id = $2",
-      [experienceId, studentId]
-    );
-    const experience = result.rows;
+    try {
+      const result = await db.query(
+        "SELECT * FROM experience WHERE experience_id = $1 AND student_id = $2",
+        [experienceId, studentId]
+      );
+      const experience = result.rows;
 
-    if (Array.isArray(experience) && experience.length === 0) {
-      // No project found → pass a 404 error to the error handler
-      const err = new Error("Project not found");
-      err.status = 404;
-      return next(err);
+      if (Array.isArray(experience) && experience.length === 0) {
+        // No project found → pass a 404 error to the error handler
+        const err = new Error("Project not found");
+        err.status = 404;
+        return next(err);
+      }
+
+      // console.log("porjects (no image, not tags, no videos", project);
+      const experiencesWithTags = await getExperienceTags(experience);
+      // console.log("projects with tags", projectsWithTags);
+      const experiencesWithImages = await getExperienceImages(
+        experiencesWithTags
+      );
+      // console.log("projects wirh images", projectsWithImages);
+      const experiencesWithVideos = await getExperienceVideos(
+        experiencesWithImages
+      );
+      // console.log("This is the projects with videos:", projectsWithVideos);
+
+      // console.log(
+      //   "images that is printed to the profile page:",
+      //   JSON.stringify(projectsWithVideos[0].images)
+      // );
+
+      // console.log(projectsWithVideos[0].template_value);
+      if (experiencesWithVideos[0].template_value == 1) {
+        return res.render("template1.ejs", {
+          activity: experiencesWithVideos[0],
+          type: "experience",
+        });
+      } else {
+        return res.render("template2.ejs", {
+          activity: experiencesWithVideos[0],
+          type: "experience",
+        });
+      }
+    } catch (error) {
+      console.log("error");
+      next(error);
     }
-
-    // console.log("porjects (no image, not tags, no videos", project);
-    const experiencesWithTags = await getExperienceTag(experience);
-    // console.log("projects with tags", projectsWithTags);
-    const experiencesWithImages = await getExperienceImages(
-      experiencesWithTags
-    );
-    // console.log("projects wirh images", projectsWithImages);
-    const experiencesWithVideos = await getExperienceVideos(
-      experiencesWithImages
-    );
-    // console.log("This is the projects with videos:", projectsWithVideos);
-
-    // console.log(
-    //   "images that is printed to the profile page:",
-    //   JSON.stringify(projectsWithVideos[0].images)
-    // );
-
-    // console.log(projectsWithVideos[0].template_value);
-    if (experiencesWithVideos[0].template_value == 1) {
-      return res.render("template1.ejs", {
-        activity: experiencesWithVideos[0],
-        type: "experience",
-      });
-    } else {
-      return res.render("template2.ejs", {
-        activity: experiencesWithVideos[0],
-        type: "experience",
-      });
-    }
-  } catch (error) {
-    console.log("error");
-    next(error);
   }
-});
+);
 
 app.post("/uploadProfileDetails", isAuthenticated, async (req, res) => {
   const student_id = req.user.student_id;

@@ -6,68 +6,71 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Videos</title>
     <link rel="stylesheet" href="editVideo.css">
+    <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <section class="main">
-        <a href="/createProfile?openForm=<%= experience_id %>">
-            <svg class="backArrow" xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 640 640"><!--!Font Awesome Free v7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
-                <path
-                    d="M73.4 297.4C60.9 309.9 60.9 330.2 73.4 342.7L233.4 502.7C245.9 515.2 266.2 515.2 278.7 502.7C291.2 490.2 291.2 469.9 278.7 457.4L173.3 352L544 352C561.7 352 576 337.7 576 320C576 302.3 561.7 288 544 288L173.3 288L278.7 182.6C291.2 170.1 291.2 149.8 278.7 137.3C266.2 124.8 245.9 124.8 233.4 137.3L73.4 297.3z" />
-            </svg>
-        </a>
-        <div class="outermostExperienceContainer">
-            <h2>Edit Experience Videos</h2>
-            <div class="outerExperienceVideoContainer">
-                <% experiences[0].videos.forEach((video)=>{ %>
-                    <div class="innerExperienceVideoContainer">
-                        <video src="<%= video.secure_url %>" controls width="400px"></video>
-                        <form action="/DeleteExperienceVideo" method="post">
-                            <input type="hidden" name="media_id" value="<%= video.media_id %>">
-                            <input type="hidden" name="experience_id" value="<%= experience_id %>">
-                            <button class="deleteExperienceVideoButton" type="submit">Delete</button>
-                        </form>
-                    </div>
-                    <%})%>
+    <%- include("partials/header.ejs") %>
+        <section class="main">
+            <a href="/createProfile?openForm=<%= experience_id %>">
+                <svg class="backArrow" xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 640 640"><!--!Font Awesome Free v7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+                    <path
+                        d="M73.4 297.4C60.9 309.9 60.9 330.2 73.4 342.7L233.4 502.7C245.9 515.2 266.2 515.2 278.7 502.7C291.2 490.2 291.2 469.9 278.7 457.4L173.3 352L544 352C561.7 352 576 337.7 576 320C576 302.3 561.7 288 544 288L173.3 288L278.7 182.6C291.2 170.1 291.2 149.8 278.7 137.3C266.2 124.8 245.9 124.8 233.4 137.3L73.4 297.3z" />
+                </svg>
+            </a>
+            <div class="outermostExperienceContainer">
+                <h2>Edit Experience Videos</h2>
+                <div class="outerExperienceVideoContainer">
+                    <% experiences[0].videos.forEach((video)=>{ %>
+                        <div class="innerExperienceVideoContainer">
+                            <video src="<%= video.secure_url %>" controls width="400px"></video>
+                            <form action="/DeleteExperienceVideo" method="post">
+                                <input type="hidden" name="media_id" value="<%= video.media_id %>">
+                                <input type="hidden" name="experience_id" value="<%= experience_id %>">
+                                <button class="deleteExperienceVideoButton" type="submit">Delete</button>
+                            </form>
+                        </div>
+                        <%})%>
+                </div>
+
+                <div class="uploadSection">
+                    <h2 class="uploadSectionTitle">Upload a new project video</h2>
+                    <form class="uploadForm" action="/uploadNewExperienceVideo" method="post"
+                        enctype="multipart/form-data">
+                        <input type="hidden" name="experience_id" value="<%= experience_id %>">
+                        <label class="videoUploadLabel" for="experienceVideoUpload">Upload a new Video</label>
+                        <input type="file" name="experienceVideo" id="experienceVideoUpload" multiple>
+                        <span class="experienceFileView" id="experienceVideosFileName">No files chosen</span>
+                        <button class="uploadVideo" type="submit">Upload</button>
+                    </form>
+                </div>
             </div>
 
-            <div class="uploadSection">
-                <h2 class="uploadSectionTitle">Upload a new project video</h2>
-                <form class="uploadForm" action="/uploadNewExperienceVideo" method="post" enctype="multipart/form-data">
-                    <input type="hidden" name="experience_id" value="<%= experience_id %>">
-                    <label class="videoUploadLabel" for="experienceVideoUpload">Upload a new Video</label>
-                    <input type="file" name="experienceVideo" id="experienceVideoUpload" multiple>
-                    <span class="experienceFileView" id="experienceVideosFileName">No files chosen</span>
-                    <button class="uploadVideo" type="submit">Upload</button>
-                </form>
-            </div>
-        </div>
-
-    </section>
+        </section>
 
 
-    <script>
-        function setupFileInput(idInput, idDisplay) {
-            const input = document.getElementById(idInput);
-            const display = document.getElementById(idDisplay);
+        <script>
+            function setupFileInput(idInput, idDisplay) {
+                const input = document.getElementById(idInput);
+                const display = document.getElementById(idDisplay);
 
-            input.addEventListener('change', () => {
-                if (input.files.length === 0) {
-                    display.textContent = 'No files chosen';
-                } else if (input.files.length === 1) {
-                    display.textContent = input.files[0].name;
-                } else {
-                    display.textContent = `${input.files.length} files selected`;
-                }
-            });
-        }
+                input.addEventListener('change', () => {
+                    if (input.files.length === 0) {
+                        display.textContent = 'No files chosen';
+                    } else if (input.files.length === 1) {
+                        display.textContent = input.files[0].name;
+                    } else {
+                        display.textContent = `${input.files.length} files selected`;
+                    }
+                });
+            }
 
-        setupFileInput('experienceVideoUpload', 'experienceVideosFileName');
-    </script>
+            setupFileInput('experienceVideoUpload', 'experienceVideosFileName');
+        </script>
 </body>
 
 

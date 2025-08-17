@@ -1,0 +1,84 @@
+.active {
+  color: #c16200;
+}
+
+header {
+  width: 100% !important;
+  background-color: #004480 !important;
+}
+
+nav {
+  margin: 0 auto !important;
+  margin-bottom: 0rem !important;
+  width: 84% !important;
+  font-family: manrope;
+  padding: 1rem 5px !important;
+  border-radius: 80px !important;
+  padding-left: 3rem !important;
+  padding-right: 3rem !important;
+  display: flex;
+  align-items: center;
+}
+
+nav > ul {
+  /*removes the bullet point from the li */
+  min-width: 100%;
+  list-style: none !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding-left: 0px !important;
+  gap: 1rem !important;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+nav a {
+  color: #fff !important;
+  text-decoration: none !important;
+}
+
+.menu {
+  list-style: none !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 1rem !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.menu li {
+  flex-basis: max-content !important;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.menu li a {
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  transition: all ease 0.1s !important;
+}
+.menu li a:hover {
+  color: #f2af29 !important;
+}
+
+.logo {
+  color: #fff !important;
+  font-size: 23px !important;
+  font-weight: 200 !important;
+}
+
+.logo span {
+  color: #ffbb00 !important;
+  font-weight: 800 !important;
+}
+.cta a {
+  padding: 6px 12px !important;
+  border-radius: 6px !important;
+  color: #fff !important;
+  background-color: hsl(0, 0%, 100%, 20%);
+  text-decoration: none !important;
+  line-height: 1 !important;
+  font-weight: 700 !important;
+}

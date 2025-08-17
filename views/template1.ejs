@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="/template1.css">
+    <link rel="stylesheet" href="/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
@@ -13,74 +14,75 @@
 
 <body>
     <main>
-        <section class="heroSection">
-            <% if (type==="project" ) { %>
-                <h1>
-                    <%= activity.project_name%>
-                </h1>
-                <% } else {%>
+        <%- include("partials/header.ejs") %>
+            <section class="heroSection">
+                <% if (type==="project" ) { %>
                     <h1>
-                        <%= activity.experience_name%>
+                        <%= activity.project_name%>
                     </h1>
-                    <% } %>
+                    <% } else {%>
+                        <h1>
+                            <%= activity.experience_name%>
+                        </h1>
+                        <% } %>
 
-                        <% activity.tags.forEach(tag=> { %>
-                            <p class=" tag">
-                                &#10003; &nbsp; <%= tag.tag_name %>
-                            </p>
-                            <% }) %>
-        </section>
+                            <% activity.tags.forEach(tag=> { %>
+                                <p class=" tag">
+                                    &#10003; &nbsp; <%= tag.tag_name %>
+                                </p>
+                                <% }) %>
+            </section>
 
-        <section id="banner">
+            <section id="banner">
 
-            <div id="banner-container">
-                <p id="banner-item1">case</p>
-                <p id="banner-item2"></p>
-                <p id="banner-item3">Project-showcase</p>
-            </div>
+                <div id="banner-container">
+                    <p id="banner-item1">case</p>
+                    <p id="banner-item2"></p>
+                    <p id="banner-item3">Project-showcase</p>
+                </div>
 
-        </section>
+            </section>
 
-        <section class="job-explanation">
-            <h2>
-                How this project makes me suitable for the job.
-            </h2>
-            <p class="text">
-                <%= activity.job_explanation%>
-            </p>
-        </section>
+            <section class="job-explanation">
+                <h2>
+                    How this project makes me suitable for the job.
+                </h2>
+                <p class="text">
+                    <%= activity.job_explanation%>
+                </p>
+            </section>
 
-        <section class="description">
-            <h2>
-                Understanding the purpose and scope of this project.
-            </h2>
-            <p class="text">
-                <%= activity.description%>
-            </p>
-        </section>
+            <section class="description">
+                <h2>
+                    Understanding the purpose and scope of this project.
+                </h2>
+                <p class="text">
+                    <%= activity.description%>
+                </p>
+            </section>
 
-        <section class="demo">
-            <h2>Project Demo</h2>
+            <section class="demo">
+                <h2>Project Demo</h2>
 
-            <div class="image-grid">
-                <% const counter=0; activity.images.forEach(image=> { %>
-                    <img src="<%= image.secure_url%>" alt="">
-                    <% }) %>
+                <div class="image-grid">
+                    <% const counter=0; activity.images.forEach(image=> { %>
+                        <img src="<%= image.secure_url%>" alt="">
+                        <% }) %>
 
-            </div>
+                </div>
 
-            <div class="video-grid">
-                <% activity.videos.forEach(video=> { %>
-                    <div class="video-container">
-                        <video src="<%= video.secure_url%>" controls width="400px"></video>
-                    </div>
-                    <% }) %>
-            </div>
+                <div class="video-grid">
+                    <% activity.videos.forEach(video=> { %>
+                        <div class="video-container">
+                            <video src="<%= video.secure_url%>" controls width="400px"></video>
+                        </div>
+                        <% }) %>
+                </div>
 
 
 
-        </section>
-        <footer></footer>
+            </section>
+            <footer></footer>
 
     </main>
 </body>
