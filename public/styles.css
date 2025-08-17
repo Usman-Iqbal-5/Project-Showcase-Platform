@@ -36,6 +36,7 @@ nav > ul {
 nav a {
   color: #fff !important;
   text-decoration: none !important;
+  padding-bottom: 2px !important;
 }
 
 .menu {
