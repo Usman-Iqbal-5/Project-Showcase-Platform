@@ -2,12 +2,14 @@
   color: #c16200;
 }
 
+/*Header*/
+
 header {
   width: 100% !important;
-  background-color: #004480 !important;
+  background-color: #003666 !important;
 }
 
-nav {
+.header-nav {
   margin: 0 auto !important;
   margin-bottom: 0rem !important;
   width: 84% !important;
@@ -20,8 +22,7 @@ nav {
   align-items: center;
 }
 
-nav > ul {
-  /*removes the bullet point from the li */
+.header-nav > ul {
   min-width: 100%;
   list-style: none !important;
   display: flex !important;
@@ -33,13 +34,13 @@ nav > ul {
   margin-bottom: 0px;
 }
 
-nav a {
+.header-nav a {
   color: #fff !important;
   text-decoration: none !important;
   padding-bottom: 2px !important;
 }
 
-.menu {
+.header-menu {
   list-style: none !important;
   display: flex !important;
   align-items: center !important;
@@ -48,29 +49,29 @@ nav a {
   padding: 0 !important;
 }
 
-.menu li {
+.header-menu li {
   flex-basis: max-content !important;
   height: 2.5rem;
   display: flex;
   align-items: center;
 }
 
-.menu li a {
+.header-menu li a {
   font-size: 13px !important;
-  font-weight: 700 !important;
+  font-weight: 600 !important;
   transition: all ease 0.1s !important;
 }
-.menu li a:hover {
+.header-nav-title:hover a {
   color: #f2af29 !important;
 }
 
-.logo {
+.header-logo {
   color: #fff !important;
   font-size: 23px !important;
   font-weight: 200 !important;
 }
 
-.logo span {
+.logo-dot {
   color: #ffbb00 !important;
   font-weight: 800 !important;
 }
@@ -82,4 +83,66 @@ nav a {
   text-decoration: none !important;
   line-height: 1 !important;
   font-weight: 700 !important;
+}
+
+.cta a:hover {
+  background-color: #fff;
+  color: #004480 !important;
+}
+
+/* Footer */
+
+footer {
+  margin-top: 3rem;
+  padding-top: 3rem;
+  width: 100% !important;
+  height: 250px;
+  background-color: #003666 !important;
+}
+
+.footer-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 3rem;
+  justify-content: space-between;
+  margin-right: 9.7%;
+  margin-left: 9.7%;
+}
+
+.footer-logo {
+  color: #fff !important;
+  margin-top: 0px !important;
+  font-size: 23px !important;
+  font-weight: 200 !important;
+}
+
+.logo-dot {
+  color: #ffbb00 !important;
+  font-weight: 800 !important;
+}
+
+.logo-text {
+  color: #fff !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  width: 15vw !important;
+}
+
+.footer-nav-title {
+  list-style: none !important;
+}
+
+.footer-menu {
+  display: grid !important;
+  text-align: left !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 1rem !important;
+  margin-top: 0px !important;
+}
+
+.footer-nav-title a {
+  color: #fff !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  text-decoration: none;
 }

@@ -56,24 +56,25 @@
 
             </div>
         </section>
-        <script>
-            function setupFileInput(idInput, idDisplay) {
-                const input = document.getElementById(idInput);
-                const display = document.getElementById(idDisplay);
+        <%- include("partials/footer.ejs") %>
+            <script>
+                function setupFileInput(idInput, idDisplay) {
+                    const input = document.getElementById(idInput);
+                    const display = document.getElementById(idDisplay);
 
-                input.addEventListener('change', () => {
-                    if (input.files.length === 0) {
-                        display.textContent = 'No files chosen';
-                    } else if (input.files.length === 1) {
-                        display.textContent = input.files[0].name;
-                    } else {
-                        display.textContent = `${input.files.length} files selected`;
-                    }
-                });
-            }
+                    input.addEventListener('change', () => {
+                        if (input.files.length === 0) {
+                            display.textContent = 'No files chosen';
+                        } else if (input.files.length === 1) {
+                            display.textContent = input.files[0].name;
+                        } else {
+                            display.textContent = `${input.files.length} files selected`;
+                        }
+                    });
+                }
 
-            setupFileInput('imageUpload', 'imagesFileName');
-        </script>
+                setupFileInput('imageUpload', 'imagesFileName');
+            </script>
 </body>
 
 </html>

@@ -38,29 +38,29 @@
                 <button id="log-in-button" type="submit" onclick="window.location.href = '/login'">Log in</button>
             </div>
         </div>
+        <%- include("partials/footer.ejs") %>
+            <script>
+                const password = document.querySelector("#password");
+                const reEnteredPassword = document.querySelector("#re-entered-password");
+                const feedback = document.querySelector("#feeback");
 
-        <script>
-            const password = document.querySelector("#password");
-            const reEnteredPassword = document.querySelector("#re-entered-password");
-            const feedback = document.querySelector("#feeback");
-
-            reEnteredPassword.addEventListener("input", () => {
-                if (password.value === reEnteredPassword.value) {
-                    feedback.innerHTML = "Passwords match"
-                    feedback.classList.add("correct");
-                    password.classList.add("correctInputs")
-                    reEnteredPassword.classList.add("correctInputs");
-                } else {
-                    feedback.innerHTML = "Passwords don't match"
-                    feedback.classList.remove("correct");
-                    password.classList.remove("correctInputs")
-                    reEnteredPassword.classList.remove("correctInputs");
-                    feedback.classList.add("error");
-                    password.classList.add("errorInputs")
-                    reEnteredPassword.classList.add("errorInputs");
-                }
-            })
-        </script>
+                reEnteredPassword.addEventListener("input", () => {
+                    if (password.value === reEnteredPassword.value) {
+                        feedback.innerHTML = "Passwords match"
+                        feedback.classList.add("correct");
+                        password.classList.add("correctInputs")
+                        reEnteredPassword.classList.add("correctInputs");
+                    } else {
+                        feedback.innerHTML = "Passwords don't match"
+                        feedback.classList.remove("correct");
+                        password.classList.remove("correctInputs")
+                        reEnteredPassword.classList.remove("correctInputs");
+                        feedback.classList.add("error");
+                        password.classList.add("errorInputs")
+                        reEnteredPassword.classList.add("errorInputs");
+                    }
+                })
+            </script>
 </body>
 
 </html>
