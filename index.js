@@ -587,6 +587,10 @@ app.get(
   }
 );
 
+app.get("/about", (req, res) => {
+  res.render("about.ejs");
+});
+
 app.post("/uploadProfileDetails", isAuthenticated, async (req, res) => {
   const student_id = req.user.student_id;
   const student = req.body;
