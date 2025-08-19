@@ -52,7 +52,7 @@
                 </p>
             </section>
 
-            <section class="files" <%=Array.isArray(activity.files) && activity.files.length < 0 ? "hidden" : "" %>>
+            <section class="files" <%=Array.isArray(activity.files) && activity.files.length> 0 ? "" : "hidden" %>>
                 <h2 class="file-title">
                     Project Document Files
                 </h2>

@@ -276,7 +276,7 @@ form[id^="experienceEditForm"] {
   cursor: pointer;
   padding: 5px 5px;
   user-select: none;
-  margin-bottom: 0rem;
+  margin-bottom: 1.5rem;
 }
 
 .editExperienceVideosButton {
@@ -738,7 +738,7 @@ form[id^="projectEditForm"] {
   cursor: pointer;
   padding: 5px 5px;
   user-select: none;
-  margin-bottom: 0rem;
+  margin-bottom: 1.5rem;
 }
 
 .editVideosButton {
