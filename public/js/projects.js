@@ -23,6 +23,13 @@ document.querySelectorAll(".editVideosButton").forEach((button) => {
   });
 });
 
+document.querySelectorAll(".editFilesButton").forEach((button) => {
+  button.addEventListener("click", () => {
+    const id = button.dataset.id;
+    window.location.href = `/editFiles?openForm=${id}`;
+  });
+});
+
 document.querySelector("#addSkillButton").addEventListener("click", () => {
   const container = document.querySelector("#skills-container");
   const newInput = document.createElement("input");

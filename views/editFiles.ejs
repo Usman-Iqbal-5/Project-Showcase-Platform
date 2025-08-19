@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Images</title>
-    <link rel="stylesheet" href="editImage.css">
+    <title>Edit Files</title>
+    <link rel="stylesheet" href="editFiles.css">
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,7 +15,7 @@
 <body>
     <%- include("partials/header.ejs") %>
         <section class="main">
-            <a href="/createProfile?openForm=<%= experience_id %>">
+            <a href="/createProfile?openForm=<%= project_id %>">
                 <svg class="backArrow" xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 640 640"><!--!Font Awesome Free v7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
                     <path
@@ -25,30 +25,30 @@
 
 
             <div class="outermostContainer">
-                <h2>Edit Experience Images</h2>
-                <div class="outerExperienceImageContainer">
-                    <% experiences[0].images.forEach((image)=>{ %>
-                        <div class="innerImageContainer">
-                            <img src="<%= image.secure_url %>" alt="">
-                            <form action="/DeleteExperienceImage" method="post">
-                                <input type="hidden" name="media_id" value="<%= image.media_id %>">
-                                <input type="hidden" name="experience_id" value="<%= experience_id%>">
-                                <button class="deleteExperiencesImageButton" type="submit">Delete</button>
+                <h2>Edit Project Files</h2>
+                <div class="outerFileContainer">
+                    <% projects[0].files.forEach((file)=>{ %>
+                        <div class="innerFileContainer">
+                            <a href="<%= file.secure_url %>" alt="">
+                                <%= file.original_filename %>
+                            </a>
+                            <form action="/Deletefile" method="post">
+                                <input type="hidden" name="media_id" value="<%= file.media_id %>">
+                                <input type="hidden" name="project_id" value="<%= project_id %>">
+                                <button class="deleteFileButton" type="submit">Delete</button>
                             </form>
                         </div>
 
                         <%})%>
                 </div>
                 <div class="uploadSection">
-                    <h2 class="uploadSectionTitle">Upload a new experience image</h2>
-                    <form class="uploadForm" action="/uploadNewExperienceImage" method="post"
-                        enctype="multipart/form-data">
-                        <input type="hidden" name="experience_id" value="<%= experience_id %>">
-                        <label class="imageUploadLabel" for="imageUpload">New Image</label>
-                        <input type="file" name="experienceImage" id="imageUpload" accept=".jpg, .jpeg, .png, .webp"
-                            multiple>
-                        <span class="fileView" id="imagesFileName">No files chosen</span>
-                        <button class="uploadImage" type="submit">Upload</button>
+                    <h2 class="uploadSectionTitle">Upload a new project file</h2>
+                    <form class="uploadForm" action="/uploadNewFile" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="project_id" value="<%= project_id %>">
+                        <label class="fileUploadLabel" for="fileUpload">Choose file</label>
+                        <input type="file" name="projectFile" id="fileUpload" accept=".docx" multiple required>
+                        <span class="fileView" id="filesFileName">No files chosen</span>
+                        <button class="uploadFile" type="submit">Upload</button>
 
                     </form>
 
@@ -73,7 +73,8 @@
                         }
                     });
                 }
-                setupFileInput('imageUpload', 'imagesFileName');
+
+                setupFileInput('fileUpload', 'filesFileName');
             </script>
 </body>
 

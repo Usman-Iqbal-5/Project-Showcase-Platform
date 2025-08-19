@@ -122,6 +122,13 @@ document.querySelectorAll(".editExperienceVideosButton").forEach((button) => {
   });
 });
 
+document.querySelectorAll(".editExperienceFilesButton").forEach((button) => {
+  button.addEventListener("click", () => {
+    const id = button.dataset.id;
+    window.location.href = `/editExperienceFiles?openForm=${id}`;
+  });
+});
+
 let experienceToDeleteId = null;
 
 document.querySelectorAll(".delete-experience-button").forEach((button) => {

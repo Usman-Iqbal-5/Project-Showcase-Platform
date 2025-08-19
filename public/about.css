@@ -6,16 +6,13 @@ body {
   width: 100%;
   height: 100%;
   box-sizing: border-box;
+  font-family: "manrope", monospace;
 }
 
 *,
 *::before,
 *::after {
   box-sizing: border-box;
-}
-
-main {
-  font-family: "manrope", monospace;
 }
 
 #hero-section {
@@ -318,9 +315,10 @@ h5 {
   margin: 0;
   font-size: 1.4vw;
 }
-
 p {
   color: #6d7d8b;
   font-size: 18px;
+}
+.decription-text {
   margin: 0;
 }

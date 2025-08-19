@@ -14,6 +14,9 @@ const projectStorage = new CloudinaryStorage({
   params: (req, file) => {
     console.log("Uploading file type:", file.mimetype);
 
+    const ext = file.originalname.split(".").pop();
+    const name = file.originalname.replace(/\.[^/.]+$/, ""); // filename without extension
+
     if (file.mimetype.startsWith("image/")) {
       console.log("Treating as image");
       return {
@@ -28,12 +31,24 @@ const projectStorage = new CloudinaryStorage({
         allowed_formats: ["mp4", "mov", "avi", "webm"],
         resource_type: "video",
       };
+    } else if (file.mimetype === "application/pdf") {
+      console.log("Treating as PDF");
+      return {
+        folder: "my_project_pdfs",
+        resource_type: "auto",
+        public_id: name, // no extension here so Cloudinary doesn’t block it
+        format: "pdf", // ensures extension in URL
+      };
     } else {
       console.log("Treating as raw");
+
+      // Add timestamp or a random string to make it unique
+      const uniqueId = `${name}_${Date.now()}.${ext}`;
+
       return {
         folder: "my_project_files",
-        allowed_formats: ["pdf", "doc", "docx", "txt"],
         resource_type: "raw",
+        public_id: uniqueId, // now unique per upload
       };
     }
   },
@@ -43,6 +58,9 @@ const experienceStorage = new CloudinaryStorage({
   cloudinary,
   params: (req, file) => {
     console.log("Uploading file type:", file.mimetype);
+
+    const ext = file.originalname.split(".").pop();
+    const name = file.originalname.replace(/\.[^/.]+$/, ""); // filename without extension
 
     if (file.mimetype.startsWith("image/")) {
       console.log("Treating as image");
@@ -58,12 +76,22 @@ const experienceStorage = new CloudinaryStorage({
         allowed_formats: ["mp4", "mov", "avi", "webm"],
         resource_type: "video",
       };
+    } else if (file.mimetype === "application/pdf") {
+      console.log("Treating as PDF");
+      return {
+        folder: "experiences_pdfs",
+        resource_type: "auto",
+        public_id: name,
+        format: "pdf",
+      };
     } else {
       console.log("Treating as raw");
+      const uniqueId = `${name}_${Date.now()}.${ext}`;
+
       return {
-        folder: "experience_files",
-        allowed_formats: ["pdf", "doc", "docx", "txt"],
+        folder: "experiences_files",
         resource_type: "raw",
+        public_id: uniqueId,
       };
     }
   },

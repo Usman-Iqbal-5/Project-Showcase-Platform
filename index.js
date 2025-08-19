@@ -384,6 +384,25 @@ app.get("/editExperienceImages", isAuthenticated, async (req, res) => {
   });
 });
 
+app.get("/editExperienceFiles", isAuthenticated, async (req, res) => {
+  const experienceId = req.query.openForm;
+
+  const experiences = await db.query(
+    "SELECT * FROM experience WHERE experience_id = $1 ORDER BY experience_id ASC",
+    [experienceId]
+  );
+
+  //console.log("project where + project_id: ", projects.rows);
+
+  const experiencesWithFiles = await getExperienceFiles(experiences.rows);
+  //console.log("projects with images array", projectsWithImages);
+
+  res.render("editExperienceFiles.ejs", {
+    experience_id: experienceId,
+    experiences: experiencesWithFiles,
+  });
+});
+
 app.get("/editImages", isAuthenticated, async (req, res) => {
   const projectId = req.query.openForm;
 
@@ -419,6 +438,25 @@ app.get("/editVideos", isAuthenticated, async (req, res) => {
   res.render("editVideos.ejs", {
     project_id: projectId,
     projects: projectsWithVideos,
+  });
+});
+
+app.get("/editFiles", isAuthenticated, async (req, res) => {
+  const projectId = req.query.openForm;
+
+  const projects = await db.query(
+    "SELECT * FROM project WHERE project_id = $1 ORDER BY project_id ASC",
+    [projectId]
+  );
+
+  //console.log("project where + project_id: ", projects.rows);
+
+  const projectsWithFiles = await getFiles(projects.rows);
+  //console.log("projects with videos array", projectsWithVideos);
+
+  res.render("editFiles.ejs", {
+    project_id: projectId,
+    projects: projectsWithFiles,
   });
 });
 
@@ -663,6 +701,48 @@ app.post("/DeleteImage", isAuthenticated, async (req, res) => {
   }
 });
 
+app.post("/DeleteFile", isAuthenticated, async (req, res) => {
+  const { media_id, project_id } = req.body;
+
+  try {
+    const media = await db.query(
+      "DELETE FROM project_media WHERE media_id = $1 RETURNING *",
+      [media_id]
+    );
+    const publicIdToDelete = media.rows[0].public_id;
+    await cloudinary.uploader.destroy(publicIdToDelete, {
+      resource_type: "raw",
+    });
+
+    console.log(media.rows[0].publicIdToDelete);
+    res.redirect(`/editFiles?openForm=${project_id}`);
+  } catch (error) {
+    console.log(error);
+    res.send(`Unable to remove image: ${error}`);
+  }
+});
+
+app.post("/DeleteExperienceFile", isAuthenticated, async (req, res) => {
+  const { media_id, experience_id } = req.body;
+
+  try {
+    const media = await db.query(
+      "DELETE FROM experience_media WHERE media_id = $1 RETURNING *",
+      [media_id]
+    );
+    const publicIdToDelete = media.rows[0].public_id;
+    await cloudinary.uploader.destroy(publicIdToDelete, {
+      resource_type: "raw",
+    });
+
+    console.log(media.rows[0].publicIdToDelete);
+    res.redirect(`/editExperienceFiles?openForm=${experience_id}`);
+  } catch (error) {
+    console.log(error);
+    res.send(`Unable to remove image: ${error}`);
+  }
+});
+
 app.post("/DeleteExperienceImage", isAuthenticated, async (req, res) => {
   const { media_id, experience_id } = req.body;
 
@@ -756,6 +836,37 @@ app.post(
 );
 
 app.post(
+  "/uploadNewFile",
+  isAuthenticated,
+  projectUpload.array("projectFile"),
+  async (req, res) => {
+    //console.log(req.body);
+    const projectId = req.body.project_id;
+    const files = req.files;
+
+    try {
+      for (const file of files) {
+        //console.log(image);
+        await db.query(
+          "INSERT INTO project_media (project_id, public_id, secure_url, resource_type, original_filename) VALUES ($1, $2, $3, $4, $5);",
+          [
+            projectId,
+            file.filename,
+            file.path,
+            file.mimetype,
+            file.originalname,
+          ]
+        );
+      }
+      return res.redirect(`/editFiles?openForm=${projectId}`);
+    } catch (error) {
+      console.error(error);
+      res.send("Unable to upload file: ", error);
+    }
+  }
+);
+
+app.post(
   "/uploadNewExperienceImage",
   isAuthenticated,
   experienceUpload.array("experienceImage"),
@@ -782,6 +893,37 @@ app.post(
     } catch (error) {
       console.error(error);
       res.send("Unable to upload image: ", error);
+    }
+  }
+);
+
+app.post(
+  "/uploadNewExperienceFile",
+  isAuthenticated,
+  experienceUpload.array("experienceFile"),
+  async (req, res) => {
+    //console.log(req.body);
+    const experienceId = req.body.experience_id;
+    const files = req.files;
+
+    try {
+      for (const file of files) {
+        //console.log(image);
+        await db.query(
+          "INSERT INTO experience_media (experience_id, public_id, secure_url, resource_type, original_filename) VALUES ($1, $2, $3, $4, $5);",
+          [
+            experienceId,
+            file.filename,
+            file.path,
+            file.mimetype,
+            file.originalname,
+          ]
+        );
+      }
+      return res.redirect(`/editExperienceFiles?openForm=${experienceId}`);
+    } catch (error) {
+      console.error(error);
+      res.send("Unable to upload file: ", error);
     }
   }
 );
@@ -1041,7 +1183,7 @@ app.post(
       //console.log("DOC FILES:", docs);
 
       const result = await db.query(
-        "INSERT INTO experience (student_id, experience_name, description, template, job_explanation) VALUES ($1, $2, $3, $4, $5) RETURNING *;",
+        "INSERT INTO experience (student_id, experience_name, description, template_value, job_explanation) VALUES ($1, $2, $3, $4, $5) RETURNING *;",
         [
           student_id,
           experienceTitle.trim(),
