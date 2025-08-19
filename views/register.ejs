@@ -29,7 +29,7 @@
                     <input type="email" name="email" placeholder="Email" required>
                     <input id="password" type="password" name="password" placeholder="Password" required>
                     <input id="re-entered-password" type="password" placeholder="Re-enter your password" required>
-                    <p id="feeback"></p>
+                    <p id="feedback"></p>
                     <button id="submit-button" type="submit">Create Account</button>
 
 
@@ -42,25 +42,42 @@
             <script>
                 const password = document.querySelector("#password");
                 const reEnteredPassword = document.querySelector("#re-entered-password");
-                const feedback = document.querySelector("#feeback");
+                const feedback = document.querySelector("#feedback"); // ✅ must match your HTML id
 
-                reEnteredPassword.addEventListener("input", () => {
-                    if (password.value === reEnteredPassword.value) {
-                        feedback.innerHTML = "Passwords match"
+                function validatePasswords() {
+                    if (password.value !== "" && password.value === reEnteredPassword.value) {
+                        feedback.textContent = "Passwords match";
+                        feedback.classList.remove("error");
                         feedback.classList.add("correct");
-                        password.classList.add("correctInputs")
+
+                        password.classList.remove("errorInputs");
+                        password.classList.add("correctInputs");
+
+                        reEnteredPassword.classList.remove("errorInputs");
                         reEnteredPassword.classList.add("correctInputs");
-                    } else {
-                        feedback.innerHTML = "Passwords don't match"
+                    } else if (reEnteredPassword.value !== "") {
+                        feedback.textContent = "Passwords don't match";
                         feedback.classList.remove("correct");
-                        password.classList.remove("correctInputs")
-                        reEnteredPassword.classList.remove("correctInputs");
                         feedback.classList.add("error");
-                        password.classList.add("errorInputs")
+
+                        password.classList.remove("correctInputs");
+                        password.classList.add("errorInputs");
+
+                        reEnteredPassword.classList.remove("correctInputs");
                         reEnteredPassword.classList.add("errorInputs");
+                    } else {
+                        // clear feedback if nothing typed yet
+                        feedback.textContent = "";
+                        feedback.classList.remove("correct", "error");
+                        password.classList.remove("correctInputs", "errorInputs");
+                        reEnteredPassword.classList.remove("correctInputs", "errorInputs");
                     }
-                })
+                }
+
+                password.addEventListener("input", validatePasswords);
+                reEnteredPassword.addEventListener("input", validatePasswords);
             </script>
+
 </body>
 
 </html>

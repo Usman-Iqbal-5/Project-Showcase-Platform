@@ -165,3 +165,22 @@ document.getElementById("confirmDelete").addEventListener("click", () => {
 
   document.getElementById("deleteModal").style.display = "none";
 });
+
+function setupFileInput(idInput, idDisplay) {
+  const input = document.getElementById(idInput);
+  const display = document.getElementById(idDisplay);
+
+  input.addEventListener("change", () => {
+    if (input.files.length === 0) {
+      display.textContent = "No files chosen";
+    } else if (input.files.length === 1) {
+      display.textContent = input.files[0].name;
+    } else {
+      display.textContent = `${input.files.length} files selected`;
+    }
+  });
+}
+
+setupFileInput("experienceImages", "experienceImagesFileName");
+setupFileInput("experienceVideos", "experienceVideosFileName");
+setupFileInput("experienceDocs", "experienceDocsFileName");

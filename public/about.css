@@ -121,6 +121,7 @@ h1 {
   margin-bottom: 0;
 }
 #banner-item1 {
+  color: hsl(208, 97%, 20%);
   flex-basis: calc(16.5%);
   max-width: 16.5%;
   font-size: 7.5vw;
@@ -141,6 +142,7 @@ h1 {
   background-position: center;
 }
 #banner-item3 {
+  color: hsl(208, 97%, 20%);
   flex-basis: calc(64.5%);
   max-width: 64.5%;
   font-size: 7.5vw;

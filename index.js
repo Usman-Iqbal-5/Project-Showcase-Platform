@@ -544,21 +544,21 @@ app.get("/project/:project_id", isAuthenticated, async (req, res, next) => {
     // console.log("projects wirh images", projectsWithImages);
     const projectsWithVideos = await getVideos(projectsWithImages);
     // console.log("This is the projects with videos:", projectsWithVideos);
-
+    const projectsWithFiles = await getFiles(projectsWithVideos);
     // console.log(
     //   "images that is printed to the profile page:",
     //   JSON.stringify(projectsWithVideos[0].images)
     // );
 
     // console.log(projectsWithVideos[0].template_value);
-    if (projectsWithVideos[0].template_value == 1) {
+    if (projectsWithFiles[0].template_value == 1) {
       return res.render("template1.ejs", {
-        activity: projectsWithVideos[0],
+        activity: projectsWithFiles[0],
         type: "project",
       });
     } else {
       return res.render("template2.ejs", {
-        activity: projectsWithVideos[0],
+        activity: projectsWithFiles[0],
         type: "project",
       });
     }
@@ -599,6 +599,9 @@ app.get(
       const experiencesWithVideos = await getExperienceVideos(
         experiencesWithImages
       );
+      const experiencesWithFiles = await getExperienceFiles(
+        experiencesWithVideos
+      );
       // console.log("This is the projects with videos:", projectsWithVideos);
 
       // console.log(
@@ -607,14 +610,14 @@ app.get(
       // );
 
       // console.log(projectsWithVideos[0].template_value);
-      if (experiencesWithVideos[0].template_value == 1) {
+      if (experiencesWithFiles[0].template_value == 1) {
         return res.render("template1.ejs", {
-          activity: experiencesWithVideos[0],
+          activity: experiencesWithFiles[0],
           type: "experience",
         });
       } else {
         return res.render("template2.ejs", {
-          activity: experiencesWithVideos[0],
+          activity: experiencesWithFiles[0],
           type: "experience",
         });
       }
