@@ -1493,21 +1493,21 @@ passport.serializeUser((user, done) => {
   done(null, user.student_id); // it then holds student_id in the session
 });
 
-// //404 handler - catches requests that didn’t match any route.
-// app.use((req, res, next) => {
-//   const err = new Error("Page not found");
-//   err.status = 404;
-//   next(err); // Pass to the error handler
-// });
+//404 handler - catches requests that didn’t match any route.
+app.use((req, res, next) => {
+  const err = new Error("Page not found");
+  err.status = 404;
+  next(err); // Pass to the error handler
+});
 
-// // catches any error that is passed to next
-// app.use((err, req, res, next) => {
-//   res.status(err.status || 500);
-//   res.render("error.ejs", {
-//     message: err.message,
-//     status: err.status || 500,
-//   });
-// });
+// catches any error that is passed to next
+app.use((err, req, res, next) => {
+  res.status(err.status || 500);
+  res.render("error.ejs", {
+    message: err.message,
+    status: err.status || 500,
+  });
+});
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
