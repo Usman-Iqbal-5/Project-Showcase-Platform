@@ -137,8 +137,9 @@ document.querySelectorAll(".delete-experience-button").forEach((button) => {
     const experienceName = button.dataset.name;
 
     document.getElementById(
-      "modalText"
+      "modal-text"
     ).textContent = `Are you sure you want to delete "${experienceName}"?`;
+    document.getElementById("warning").textContent = "Remove experience";
     document
       .getElementById("deleteModalOverlay")
       .classList.remove("modal-hidden");
@@ -164,6 +165,22 @@ document.getElementById("confirmDelete").addEventListener("click", () => {
   });
 
   document.getElementById("deleteModal").style.display = "none";
+});
+
+// store scroll position before submitting
+document.querySelectorAll("form[id^='experienceEditForm']").forEach((form) => {
+  form.addEventListener("submit", () => {
+    sessionStorage.setItem("scrollY", window.scrollY);
+  });
+});
+
+// then load the croll position when reloading the page - when the project saves.
+window.addEventListener("load", () => {
+  const scrollY = sessionStorage.getItem("scrollY");
+  if (scrollY !== null) {
+    window.scrollTo(0, parseInt(scrollY));
+    sessionStorage.removeItem("scrollY");
+  }
 });
 
 function setupFileInput(idInput, idDisplay) {

@@ -133,8 +133,9 @@ document.querySelectorAll(".delete-project-button").forEach((button) => {
     const projectName = button.dataset.name;
 
     document.getElementById(
-      "modalText"
+      "modal-text"
     ).textContent = `Are you sure you want to delete "${projectName}"?`;
+    document.getElementById("warning").textContent = "Remove project";
     document
       .getElementById("deleteModalOverlay")
       .classList.remove("modal-hidden");

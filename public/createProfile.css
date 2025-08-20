@@ -541,23 +541,40 @@ input[class="experiences-skill-field"] {
 
 #deleteModal {
   background: #f0f0f0;
-  border: #fff 10px solid;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 60%;
+  border: solid 1px hsl(0, 0%, 0%, 0.5);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   color: #000;
-  padding-top: 2rem;
-  padding-right: 5rem;
+  font-weight: 600;
+  padding-top: 1rem;
   padding-bottom: 1rem;
-  padding-left: 5rem;
   border-radius: 6px;
   text-align: center;
 }
-
+.warning {
+  margin-top: 0rem;
+  font-weight: 600;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  padding-right: 5rem;
+  padding-left: 5rem;
+  color: red;
+}
+.underline {
+  width: 100%;
+  border-bottom: #c0c0c0 1px solid;
+}
+#modal-text {
+  margin-top: 1rem;
+  padding-right: 5rem;
+  padding-left: 5rem;
+}
 #confirmDelete {
   box-sizing: border-box;
   display: inline-block;
   background-color: red;
   color: #fff;
-  width: max-content;
+  width: 15%;
   height: 2.5rem;
   border: none;
   padding: 5px;
@@ -571,7 +588,7 @@ input[class="experiences-skill-field"] {
   cursor: pointer;
   user-select: none;
   margin-right: 0.3rem;
-  margin-bottom: 3rem;
+  margin-bottom: 1rem;
 }
 
 #cancelDelete {
@@ -580,7 +597,7 @@ input[class="experiences-skill-field"] {
   background-color: inherit;
   color: red;
   border: solid 1px red;
-  width: max-content;
+  width: 15%;
   height: 2.5rem;
   padding: 5px;
   padding-left: 10px;
@@ -592,7 +609,7 @@ input[class="experiences-skill-field"] {
   transition: all ease 0.3s;
   cursor: pointer;
   user-select: none;
-  margin-bottom: 3rem;
+  margin-bottom: 1rem;
 }
 
 .modal-hidden {
