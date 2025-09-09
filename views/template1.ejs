@@ -2,110 +2,109 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="/template1.css">
-    <link rel="stylesheet" href="/styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="/template1.css">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <%- include("partials/header.ejs") %>
-        <main>
-            <section class="heroSection">
-                <% if (type==="project" ) { %>
-                    <h1>
-                        <%= activity.project_name%>
-                    </h1>
-                    <% } else {%>
-                        <h1>
-                            <%= activity.experience_name%>
-                        </h1>
-                        <% } %>
+  <%- include("partials/header.ejs") %>
+  <main>
+    <section class="heroSection">
+      <% if (type==="project" ) { %>
+      <h1>
+        <%= activity.project_name%>
+      </h1>
+      <% } else {%>
+      <h1>
+        <%= activity.experience_name%>
+      </h1>
+      <% } %>
 
-                            <% activity.tags.forEach(tag=> { %>
-                                <p class=" tag">
-                                    &#10003; &nbsp; <%= tag.tag_name %>
-                                </p>
-                                <% }) %>
-            </section>
+      <% activity.tags.forEach(tag=> { %>
+      <p class=" tag">
+        &#10003; &nbsp; <%= tag.tag_name %>
+      </p>
+      <% }) %>
+    </section>
 
-            <section id="banner">
+    <section id="banner">
 
-                <div id="banner-container">
-                    <p id="banner-item1">case</p>
-                    <p id="banner-item2"></p>
-                    <p id="banner-item3">Project-showcase</p>
-                </div>
+      <div id="banner-container">
+        <p id="banner-item1">case</p>
+        <p id="banner-item2"></p>
+        <p id="banner-item3">Project-showcase</p>
+      </div>
 
-            </section>
+    </section>
 
-            <section class="job-explanation">
-                <h2>
-                    How this project makes me suitable for the job.
-                </h2>
-                <p class="text">
-                    <%= activity.job_explanation%>
-                </p>
-            </section>
+    <section class="job-explanation">
+      <h2>
+        How this project makes me suitable for the job.
+      </h2>
+      <p class="text">
+        <%= activity.job_explanation%>
+      </p>
+    </section>
 
-            <section class="files" <%=Array.isArray(activity.files) && activity.files.length> 0 ? "" : "hidden" %>>
-                <h2 class="file-title">
-                    Project Document Files
-                </h2>
-                <div class="file-container">
-                    <% activity.files.forEach((file)=> { %>
-                        <div class="attachment-background">
-                            <svg class="attachment" xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 640 640"><!--!Font Awesome Free v7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
-                                <path
-                                    d="M288.6 76.8C344.8 20.6 436 20.6 492.2 76.8C548.4 133 548.4 224.2 492.2 280.4L328.2 444.4C293.8 478.8 238.1 478.8 203.7 444.4C169.3 410 169.3 354.3 203.7 319.9L356.5 167.3C369 154.8 389.3 154.8 401.8 167.3C414.3 179.8 414.3 200.1 401.8 212.6L249 365.3C239.6 374.7 239.6 389.9 249 399.2C258.4 408.5 273.6 408.6 282.9 399.2L446.9 235.2C478.1 204 478.1 153.3 446.9 122.1C415.7 90.9 365 90.9 333.8 122.1L169.8 286.1C116.7 339.2 116.7 425.3 169.8 478.4C222.9 531.5 309 531.5 362.1 478.4L492.3 348.3C504.8 335.8 525.1 335.8 537.6 348.3C550.1 360.8 550.1 381.1 537.6 393.6L407.4 523.6C329.3 601.7 202.7 601.7 124.6 523.6C46.5 445.5 46.5 318.9 124.6 240.8L288.6 76.8z" />
-                            </svg>
-                        </div>
-                        <div class="file-info">
-                            <h3>
-                                <%=file.original_filename%>
-                            </h3>
-                            <p>This project document file is related to <%= activity.project_name%>.</p>
-                            <p>Click on the below button to download the file and view the document.</p>
-                            <a href="<%= file.secure_url %>" class="primary-button file-view-button">View File</a>
-                        </div>
-                        <% }) %>
-                </div>
-            </section>
+    <section class="files" <%=Array.isArray(activity.files) && activity.files.length> 0 ? "" : "hidden" %>>
+      <h2 class="file-title">
+        Project Document Files
+      </h2>
+      <div class="file-container">
+        <% activity.files.forEach((file)=> { %>
+        <div class="attachment-background">
+          <svg class="attachment" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+            <!--!Font Awesome Free v7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+            <path d="M288.6 76.8C344.8 20.6 436 20.6 492.2 76.8C548.4 133 548.4 224.2 492.2 280.4L328.2 444.4C293.8 478.8 238.1 478.8 203.7 444.4C169.3 410 169.3 354.3 203.7 319.9L356.5 167.3C369 154.8 389.3 154.8 401.8 167.3C414.3 179.8 414.3 200.1 401.8 212.6L249 365.3C239.6 374.7 239.6 389.9 249 399.2C258.4 408.5 273.6 408.6 282.9 399.2L446.9 235.2C478.1 204 478.1 153.3 446.9 122.1C415.7 90.9 365 90.9 333.8 122.1L169.8 286.1C116.7 339.2 116.7 425.3 169.8 478.4C222.9 531.5 309 531.5 362.1 478.4L492.3 348.3C504.8 335.8 525.1 335.8 537.6 348.3C550.1 360.8 550.1 381.1 537.6 393.6L407.4 523.6C329.3 601.7 202.7 601.7 124.6 523.6C46.5 445.5 46.5 318.9 124.6 240.8L288.6 76.8z" />
+          </svg>
+        </div>
+        <div class="file-info">
+          <h3>
+            <%=file.original_filename%>
+          </h3>
+          <p>This project document file is related to <%= activity.project_name%>.</p>
+          <p>Click on the below button to download the file and view the document.</p>
+          <a href="<%= file.secure_url %>" class="primary-button file-view-button">View File</a>
+        </div>
+        <% }) %>
+      </div>
+    </section>
 
-            <section class="description">
-                <h2>
-                    Understanding the purpose and scope of this project.
-                </h2>
-                <p class="text">
-                    <%= activity.description%>
-                </p>
-            </section>
+    <section class="description">
+      <h2>
+        Understanding the purpose and scope of this project.
+      </h2>
+      <p class="text">
+        <%= activity.description%>
+      </p>
+    </section>
 
-            <section class="demo">
-                <h2>Project Demo</h2>
+    <section class="demo">
+      <h2>Project Demo</h2>
 
-                <div class="image-grid">
-                    <% const counter=0; activity.images.forEach(image=> { %>
-                        <img src="<%= image.secure_url%>" alt="">
-                        <% }) %>
+      <div class="image-grid">
+        <% const counter=0; activity.images.forEach(image=> { %>
+        <img src="<%= image.secure_url%>" alt="">
+        <% }) %>
 
-                </div>
+      </div>
 
-                <div class="video-grid">
-                    <% activity.videos.forEach(video=> { %>
-                        <div class="video-container">
-                            <video src="<%= video.secure_url%>" controls width="400px"></video>
-                        </div>
-                        <% }) %>
-                </div>
-            </section>
-        </main>
-        <%- include("partials/footer.ejs") %>
+      <div class="video-grid">
+        <% activity.videos.forEach(video=> { %>
+        <div class="video-container">
+          <video src="<%= video.secure_url%>" controls width="400px"></video>
+        </div>
+        <% }) %>
+      </div>
+    </section>
+  </main>
+  <%- include("partials/footer.ejs") %>
 </body>
 
 </html>

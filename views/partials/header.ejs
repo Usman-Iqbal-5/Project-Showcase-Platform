@@ -1,31 +1,30 @@
 <header>
-    <% if (userAuthenticated) { %>
-        <nav class="header-nav">
-            <ul>
-                <li class="header-logo">Projects <span class="logo-dot">.</span></li>
-                <ul class="header-menu">
-                    <li class="header-nav-title"><a href="/profile" class="nav-link">My Profile</a></li>
-                    <li class="header-nav-title"><a href="/createProfile" class="nav-link">Create Profile</a></li>
-                    <li class="header-nav-title"><a href="/projectsPage" class="nav-link">Projects</a></li>
-                    <li class="header-nav-title"><a href="/experiencesPage" class="nav-link">Experiences</a></li>
-                    <li class="cta"><a href="#" id="logoutButton">Logout</a></li>
-                </ul>
-            </ul>
-        </nav>
-        <% } else {%>
-            <nav class="header-nav">
-                <ul>
-                    <li class="header-logo">Projects <span class="logo-dot">.</span></li>
-                    <ul class=" header-menu">
-                        <li class="header-nav-title"><a href="/about" class="nav-link">About</a></li>
-                        <li class="header-nav-title"><a href="/register" class="nav-link">Sign up</a></li>
-                        <li class="cta"><a href="/login">Sign in</a></li>
-                    </ul>
-                </ul>
-            </nav>
-            <% } %>
+  <% if (userAuthenticated) { %>
+  <nav class="header-nav">
+    <ul>
+      <li class="header-logo">Projects <span class="logo-dot">.</span></li>
+      <ul class="header-menu">
+        <li class="header-nav-title"><a href="/profile" class="nav-link">My Profile</a></li>
+        <li class="header-nav-title"><a href="/createProfile" class="nav-link">Create Profile</a></li>
+        <li class="header-nav-title"><a href="/projectsPage" class="nav-link">Projects</a></li>
+        <li class="header-nav-title"><a href="/experiencesPage" class="nav-link">Experiences</a></li>
+        <li class="cta"><a href="#" id="logoutButton">Logout</a></li>
+      </ul>
+    </ul>
+  </nav>
+  <% } else {%>
+  <nav class="header-nav">
+    <ul>
+      <li class="header-logo">Projects <span class="logo-dot">.</span></li>
+      <ul class=" header-menu">
+        <li class="header-nav-title"><a href="/about" class="nav-link">About</a></li>
+        <li class="header-nav-title"><a href="/register" class="nav-link">Sign up</a></li>
+        <li class="cta"><a href="/login">Sign in</a></li>
+      </ul>
+    </ul>
+  </nav>
+  <% } %>
 </header>
-
 
 
 <script>

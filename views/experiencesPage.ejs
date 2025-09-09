@@ -2,102 +2,100 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="activitiesPage.css">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="activitiesPage.css">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
 
 
 </head>
 
 <body>
-    <%- include("partials/header.ejs") %>
-        <main>
-            <section class="heroSection">
-                <h1>Welcome to <%= student.first_name %>’s Experiences</h1>
-                <p class="heroParagraph">View <%= student.first_name %>’s experiences, the hard work, skills learnt and
-                        lessons learnt.</p>
-                <div class="heroButtonContainer">
-                    <button class="primary">Download CV</button>
-                    <button class="secondary">Export Projects as PDF</button>
-                </div>
-            </section>
+  <%- include("partials/header.ejs") %>
+  <main>
+    <section class="heroSection">
+      <h1>Welcome to <%= student.first_name %>’s Experiences</h1>
+      <p class="heroParagraph">View <%= student.first_name %>’s experiences, the hard work, skills learnt and
+        lessons learnt.</p>
+      <div class="heroButtonContainer">
+        <button class="primary">Download CV</button>
+        <button class="secondary">Export Projects as PDF</button>
+      </div>
+    </section>
 
-            <section class="projectLayout">
-                <%if(experiences.length===0){ %>
-                    <div class="noActivitiesContainer">
+    <section class="projectLayout">
+      <%if(experiences.length===0){ %>
+      <div class="noActivitiesContainer">
 
-                        <h3>No projects found</h3>
-                        <div class="documentIcon">&#x1F4C4;</div>
-                    </div>
-                    <%} %>
-                        <% let counter=0; experiences.forEach(experience=> {
+        <h3>No projects found</h3>
+        <div class="documentIcon">&#x1F4C4;</div>
+      </div>
+      <%} %>
+      <% let counter=0; experiences.forEach(experience=> {
                             if (counter%2==0){
                             counter+=1;
                             %>
-                            <div class="activityContainer">
-                                <div class="activityImageContainer"><img
-                                        src="<%= experience.images[0]?.secure_url || `images/blue_sand.png`%>" alt="">
-                                </div>
-                                <div class="activityInfoRight">
-                                    <div>
-                                        <h2>
-                                            <%= experience.experience_name %>
-                                        </h2>
-                                        <p>
-                                            <% const words=experience.description.split(/\s+/); const
+      <div class="activityContainer">
+        <div class="activityImageContainer"><img src="<%= experience.images[0]?.secure_url || `images/blue_sand.png`%>" alt="">
+        </div>
+        <div class="activityInfoRight">
+          <div>
+            <h2>
+              <%= experience.experience_name %>
+            </h2>
+            <p>
+              <% const words=experience.description.split(/\s+/); const
                                                 limitedDescription=words.slice(0, 20).join(" "); %>
-                            <%= limitedDescription %> ...
-                        </p>
-                        <div>
-                            <% experience.tags.forEach(tag => { %>
-                                <p class=" tag">
-                                                &#10003 &nbsp; <%=tag.tag_name%>
-                                        </p>
-                                        <% }) %>
-                                            <a href="/experience/<%= experience.experience_id %>">Learn More</a>
+              <%= limitedDescription %> ...
+            </p>
+            <div>
+              <% experience.tags.forEach(tag => { %>
+              <p class=" tag">
+                &#10003 &nbsp; <%=tag.tag_name%>
+              </p>
+              <% }) %>
+              <a href="/experience/<%= experience.experience_id %>">Learn More</a>
 
-                                    </div>
-                                </div>
+            </div>
+          </div>
 
-                            </div>
-                            </div>
-                            <%} else{ counter+=1; %>
-                                <div class="activityContainer">
-                                    <div class="activityInfoLeft">
-                                        <div>
-                                            <h2>
-                                                <%= experience.experience_name %>
-                                            </h2>
-                                            <p>
-                                                <% const words=experience.description.split(/\s+/); const
+        </div>
+      </div>
+      <%} else{ counter+=1; %>
+      <div class="activityContainer">
+        <div class="activityInfoLeft">
+          <div>
+            <h2>
+              <%= experience.experience_name %>
+            </h2>
+            <p>
+              <% const words=experience.description.split(/\s+/); const
                                                     limitedDescription=words.slice(0, 20).join(" "); %>
-                            <%= limitedDescription %> ...
-                        </p>
-                        <div>
-                            <% experience.tags.forEach(tag => { %>
-                                <p class=" tag">
-                                                    &#10003 <%= tag.tag_name %>
-                                            </p>
-                                            <% }) %>
-                                                <a href="/experience/<%= experience.experience_id %>">Learn More</a>
+              <%= limitedDescription %> ...
+            </p>
+            <div>
+              <% experience.tags.forEach(tag => { %>
+              <p class=" tag">
+                &#10003 <%= tag.tag_name %>
+              </p>
+              <% }) %>
+              <a href="/experience/<%= experience.experience_id %>">Learn More</a>
 
-                                        </div>
-                                    </div>
+            </div>
+          </div>
 
-                                </div>
-                                <div class="activityImageContainer"><img
-                                        src="<%= experience.images[0]?.secure_url || 'images/blue_sand.png'%>" alt="">
-                                </div>
-                                </div>
-                                <%} }) %>
-            </section>
-        </main>
-        <%- include("partials/footer.ejs") %>
+        </div>
+        <div class="activityImageContainer"><img src="<%= experience.images[0]?.secure_url || 'images/blue_sand.png'%>" alt="">
+        </div>
+      </div>
+      <%} }) %>
+    </section>
+  </main>
+  <%- include("partials/footer.ejs") %>
 </body>
 
 </html>

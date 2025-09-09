@@ -2,79 +2,77 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Images</title>
-    <link rel="stylesheet" href="editImage.css">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Images</title>
+  <link rel="stylesheet" href="editImage.css">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <%- include("partials/header.ejs") %>
-        <section class="main">
-            <a href="/createProfile?openForm=<%= project_id %>">
-                <svg class="backArrow" xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 640 640"><!--!Font Awesome Free v7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
-                    <path
-                        d="M73.4 297.4C60.9 309.9 60.9 330.2 73.4 342.7L233.4 502.7C245.9 515.2 266.2 515.2 278.7 502.7C291.2 490.2 291.2 469.9 278.7 457.4L173.3 352L544 352C561.7 352 576 337.7 576 320C576 302.3 561.7 288 544 288L173.3 288L278.7 182.6C291.2 170.1 291.2 149.8 278.7 137.3C266.2 124.8 245.9 124.8 233.4 137.3L73.4 297.3z" />
-                </svg>
-            </a>
+  <%- include("partials/header.ejs") %>
+  <section class="main">
+    <a href="/createProfile?openForm=<%= project_id %>">
+      <svg class="backArrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+        <!--!Font Awesome Free v7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+        <path d="M73.4 297.4C60.9 309.9 60.9 330.2 73.4 342.7L233.4 502.7C245.9 515.2 266.2 515.2 278.7 502.7C291.2 490.2 291.2 469.9 278.7 457.4L173.3 352L544 352C561.7 352 576 337.7 576 320C576 302.3 561.7 288 544 288L173.3 288L278.7 182.6C291.2 170.1 291.2 149.8 278.7 137.3C266.2 124.8 245.9 124.8 233.4 137.3L73.4 297.3z" />
+      </svg>
+    </a>
 
 
-            <div class="outermostContainer">
-                <h2>Edit Project Images</h2>
-                <div class="outerImageContainer">
-                    <% projects[0].images.forEach((image)=>{ %>
-                        <div class="innerImageContainer">
-                            <img src="<%= image.secure_url %>" alt="">
-                            <form action="/DeleteImage" method="post">
-                                <input type="hidden" name="media_id" value="<%= image.media_id %>">
-                                <input type="hidden" name="project_id" value="<%= project_id %>">
-                                <button class="deleteImageButton" type="submit">Delete</button>
-                            </form>
-                        </div>
+    <div class="outermostContainer">
+      <h2>Edit Project Images</h2>
+      <div class="outerImageContainer">
+        <% projects[0].images.forEach((image)=>{ %>
+        <div class="innerImageContainer">
+          <img src="<%= image.secure_url %>" alt="">
+          <form action="/DeleteImage" method="post">
+            <input type="hidden" name="media_id" value="<%= image.media_id %>">
+            <input type="hidden" name="project_id" value="<%= project_id %>">
+            <button class="deleteImageButton" type="submit">Delete</button>
+          </form>
+        </div>
 
-                        <%})%>
-                </div>
-                <div class="uploadSection">
-                    <h2 class="uploadSectionTitle">Upload a new project image</h2>
-                    <form class="uploadForm" action="/uploadNewImage" method="post" enctype="multipart/form-data">
-                        <input type="hidden" name="project_id" value="<%= project_id %>">
-                        <label class="imageUploadLabel" for="imageUpload">Choose image</label>
-                        <input type="file" name="projectImage" id="imageUpload" accept=".jpg, .jpeg, .png, .webp"
-                            multiple required>
-                        <span class="fileView" id="imagesFileName">No files chosen</span>
-                        <button class="uploadImage" type="submit">Upload</button>
+        <%})%>
+      </div>
+      <div class="uploadSection">
+        <h2 class="uploadSectionTitle">Upload a new project image</h2>
+        <form class="uploadForm" action="/uploadNewImage" method="post" enctype="multipart/form-data">
+          <input type="hidden" name="project_id" value="<%= project_id %>">
+          <label class="imageUploadLabel" for="imageUpload">Choose image</label>
+          <input type="file" name="projectImage" id="imageUpload" accept=".jpg, .jpeg, .png, .webp" multiple required>
+          <span class="fileView" id="imagesFileName">No files chosen</span>
+          <button class="uploadImage" type="submit">Upload</button>
 
-                    </form>
+        </form>
 
-                </div>
+      </div>
 
 
-            </div>
-        </section>
-        <%- include("partials/footer.ejs") %>
-            <script>
-                function setupFileInput(idInput, idDisplay) {
-                    const input = document.getElementById(idInput);
-                    const display = document.getElementById(idDisplay);
+    </div>
+  </section>
+  <%- include("partials/footer.ejs") %>
+  <script>
+    function setupFileInput(idInput, idDisplay) {
+      const input = document.getElementById(idInput);
+      const display = document.getElementById(idDisplay);
 
-                    input.addEventListener('change', () => {
-                        if (input.files.length === 0) {
-                            display.textContent = 'No files chosen';
-                        } else if (input.files.length === 1) {
-                            display.textContent = input.files[0].name;
-                        } else {
-                            display.textContent = `${input.files.length} files selected`;
-                        }
-                    });
-                }
+      input.addEventListener('change', () => {
+        if (input.files.length === 0) {
+          display.textContent = 'No files chosen';
+        } else if (input.files.length === 1) {
+          display.textContent = input.files[0].name;
+        } else {
+          display.textContent = `${input.files.length} files selected`;
+        }
+      });
+    }
 
-                setupFileInput('imageUpload', 'imagesFileName');
-            </script>
+    setupFileInput('imageUpload', 'imagesFileName');
+  </script>
 </body>
 
 </html>

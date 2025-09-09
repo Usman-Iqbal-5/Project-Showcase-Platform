@@ -2,566 +2,499 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="/createProfile.css">
-    <link rel="stylesheet" href="/styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="/createProfile.css">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <%- include("partials/header.ejs") %>
-        <main>
-            <section id="profileDetails">
-                <h2>Profile Information</h2>
-                <div id="profileDetailsView">
-                    <div class="profileDetailsTitleContainer">
-                        <h3>Profile Details</h3>
-                        <button id="editProfileDetails" class="profileDetailsButton">Edit</button>
-                    </div>
-                    <div class="outerProfileDetailsFlexBox">
-                        <div class="photoCard">
-                            <img src="" alt="">
-                            <p class="photoCardName">
-                                <%= `${student.first_name} ${student.last_name}` %>
-                            </p>
-                        </div>
-                        <div id="profileDetailsContainer">
-                            <div>
-                                <p class="profileDetailTitles">First Name</p>
-                                <p>
-                                    <%= student.first_name %>
-                                </p>
-                            </div>
-                            <div>
-                                <p class="profileDetailTitles">Last Name</p>
-                                <p>
-                                    <%= student.last_name %>
-                                </p>
-                            </div>
-                            <div>
-                                <p class="profileDetailTitles">Email</p>
-                                <p>
-                                    <%= student.email %>
-                                </p>
-                            </div>
-                            <div>
-                                <p class="profileDetailTitles">Phone Number</p>
-                                <% if(student.phone_number==null || student.phone_number==="" ){ %>
-                                    <p class="unset">Unset</p>
-                                    <% } else{ %>
-                                        <p>
-                                            <%= student.phone_number %>
-                                        </p>
-                                        <% } %>
-                            </div>
-                            <div>
-                                <p class="profileDetailTitles">Title</p>
-                                <% if(student.phone_number==null || student.phone_number==="" ){ %>
-                                    <p class="unset">Unset</p>
-                                    <% } else{ %>
-                                        <p>
-                                            <%= student.title%>
-                                        </p>
-                                        <% } %>
-                            </div>
-                            <div>
-                                <p class="profileDetailTitles">Degree</p>
-                                <% if(student.phone_number==null || student.phone_number==="" ){ %>
-                                    <p class="unset">Unset</p>
-                                    <% } else{ %>
-                                        <p>
-                                            <%= student.degree_name %>
-                                        </p>
-                                        <% } %>
-                            </div>
-                        </div>
+  <%- include("partials/header.ejs") %>
+  <main>
+    <section id="profileDetails">
+      <h2>Profile Information</h2>
+      <div id="profileDetailsView">
+        <div class="profileDetailsTitleContainer">
+          <h3>Profile Details</h3>
+          <button id="editProfileDetails" class="profileDetailsButton">Edit</button>
+        </div>
+        <div class="outerProfileDetailsFlexBox">
+          <div class="photoCard">
+            <img src="" alt="">
+            <p class="photoCardName">
+              <%= `${student.first_name} ${student.last_name}` %>
+            </p>
+          </div>
+          <div id="profileDetailsContainer">
+            <div>
+              <p class="profileDetailTitles">First Name</p>
+              <p>
+                <%= student.first_name %>
+              </p>
+            </div>
+            <div>
+              <p class="profileDetailTitles">Last Name</p>
+              <p>
+                <%= student.last_name %>
+              </p>
+            </div>
+            <div>
+              <p class="profileDetailTitles">Email</p>
+              <p>
+                <%= student.email %>
+              </p>
+            </div>
+            <div>
+              <p class="profileDetailTitles">Phone Number</p>
+              <% if(student.phone_number==null || student.phone_number==="" ){ %>
+              <p class="unset">Unset</p>
+              <% } else{ %>
+              <p>
+                <%= student.phone_number %>
+              </p>
+              <% } %>
+            </div>
+            <div>
+              <p class="profileDetailTitles">Title</p>
+              <% if(student.phone_number==null || student.phone_number==="" ){ %>
+              <p class="unset">Unset</p>
+              <% } else{ %>
+              <p>
+                <%= student.title%>
+              </p>
+              <% } %>
+            </div>
+            <div>
+              <p class="profileDetailTitles">Degree</p>
+              <% if(student.phone_number==null || student.phone_number==="" ){ %>
+              <p class="unset">Unset</p>
+              <% } else{ %>
+              <p>
+                <%= student.degree_name %>
+              </p>
+              <% } %>
+            </div>
+          </div>
 
-                    </div>
+        </div>
 
-                    <div class="aboutMeView">
-                        <p class="profileDetailTitles">About Me</p>
-                        <% if(student.phone_number==null || student.phone_number==="" ){ %>
-                            <p class="unset">Unset</p>
-                            <% } else{ %>
-                                <p>
-                                    <%= student.about_me %>
-                                </p>
-                                <% } %>
-                    </div>
+        <div class="aboutMeView">
+          <p class="profileDetailTitles">About Me</p>
+          <% if(student.phone_number==null || student.phone_number==="" ){ %>
+          <p class="unset">Unset</p>
+          <% } else{ %>
+          <p>
+            <%= student.about_me %>
+          </p>
+          <% } %>
+        </div>
+      </div>
+      <form id="profileDetailsEditForm" action="/uploadProfileDetails" method="post" hidden>
+        <div class="outmostProfileDetailsContainer">
+          <div class="profileDetailsTitleContainer">
+            <h3>Edit Profile</h3>
+            <button class="profileDetailsButton" type=" submit">Save</button>
+          </div>
+          <p>Profile Details</p>
+          <input type="hidden" name="student_id" value="<%= student.student_id %>">
+          <div class="detailEditContainer">
+            <input type="text" name="first_name" value="<%= student.first_name %>" id="firstName" placeholder="First name">
+            <input type="text" name="last_name" value="<%= student.last_name %>" id="lastName" placeholder="Last name">
+            <input type="text" name="email" value="<%= student.email %>" id="email" placeholder="Email">
+            <input type="text" name="phone_number" value="<%= student.phone_number %>" id="phoneNumber" placeholder="Phone">
+          </div>
+          <p>Title</p>
+          <input type="text" name="title" value="<%= student.title %>" id="studentTitle" placeholder="Title">
+          <p>Degree</p>
+          <input type="text" name="degree_name" value="<%= student.degree_name %>" id="degreeName" placeholder="degree">
+          <p>About Me</p>
+          <textarea name="about_me" value="<%= student.about_me %>" id="aboutMe" placeholder="Tell us more about yourself"><%= student.about_me %></textarea>
+        </div>
+      </form>
+    </section>
 
+    <!-- PROJECTS -->
+    <h2>Projects</h2>
+    <% projects.forEach(project=> { %>
+    <div id="projectView<%= project.project_id %>" <%=openForm==project.project_id.toString() ? 'hidden'
+                    : '' %>>
+      <h3>
+        <%= project.project_name %>
+      </h3>
+      <h5>Project Description: </h5>
+      <p class="text">
+        <%= project.description %>
+      </p>
+      <h5>Job Explanation:</h5>
+      <p class="text">
+        <%= project.job_explanation %>
+      </p>
+      <h5>Images</h5>
+      <div class="imageContainer">
+        <% project.images.forEach((image)=> { %>
+        <img src="<%= image.secure_url %>" alt="">
+        <% }) %>
+      </div>
 
+      <h5>Videos</h5>
+      <div class="videoContainer">
+        <% project.videos.forEach((video)=> { %>
+        <video src="<%= video.secure_url %>" controls width="400px"></video>
+        <% }) %>
+      </div>
 
-                </div>
+      <h5>Files</h5>
+      <% project.files.forEach((file)=> { %>
+      <a href="<%= file.secure_url %>" target="_blank">
+        <%= file.original_filename %>
+      </a><br>
+      <% }) %>
 
-                <form id="profileDetailsEditForm" action="/uploadProfileDetails" method="post" hidden>
-                    <div class="outmostProfileDetailsContainer">
-                        <div class="profileDetailsTitleContainer">
-                            <h3>Edit Profile</h3>
-                            <button class="profileDetailsButton" type=" submit">Save</button>
-                        </div>
-                        <p>Profile Details</p>
-                        <input type="hidden" name="student_id" value="<%= student.student_id %>">
-                        <div class="detailEditContainer">
-                            <input type="text" name="first_name" value="<%= student.first_name %>" id="firstName"
-                                placeholder="First name">
-                            <input type="text" name="last_name" value="<%= student.last_name %>" id="lastName"
-                                placeholder="Last name">
-                            <input type="text" name="email" value="<%= student.email %>" id="email" placeholder="Email">
-                            <input type="text" name="phone_number" value="<%= student.phone_number %>" id="phoneNumber"
-                                placeholder="Phone">
-                        </div>
-                        <p>Title</p>
-                        <input type="text" name="title" value="<%= student.title %>" id="studentTitle"
-                            placeholder="Title">
-                        <p>Degree</p>
-                        <input type="text" name="degree_name" value="<%= student.degree_name %>" id="degreeName"
-                            placeholder="degree">
-                        <p>About Me</p>
-                        <textarea name="about_me" value="<%= student.about_me %>" id="aboutMe"
-                            placeholder="Tell us more about yourself"><%= student.about_me %></textarea>
-                    </div>
-                </form>
-            </section>
+      <div>
+        <h5>Template chosen:</h5>
+        <img id="templateView" src="<%= project.template_value== 1? " /images/template1.png"
+                                    : "/images/template2.png" %>" alt="">
+      </div>
 
+      <h5>Skills</h5>
+      <% project.tags.forEach((tag)=> { %>
+      <p class="skillsViewParagraph">
+        <%= tag.tag_name %>
+      </p>
+      <% }) %>
 
+      <div class="viewButtonsContainer">
+        <button class="edit-button" data-id="<%= project.project_id %>">Edit
+          project</button>
+        <button class="delete-project-button" data-id="<%= project.project_id %>" data-name="<%= project.project_name %>">Delete Project</button>
 
-            <!-- PROJECTS -->
-            <h2>Projects</h2>
-            <% projects.forEach(project=> { %>
-                <div id="projectView<%= project.project_id %>" <%=openForm==project.project_id.toString() ? 'hidden'
-                    : '' %>
-                    >
-                    <h3>
-                        <%= project.project_name %>
-                    </h3>
-                    <h5>Project Description: </h5>
-                    <p class="text">
-                        <%= project.description %>
-                    </p>
-                    <h5>Job Explanation:</h5>
-                    <p class="text">
-                        <%= project.job_explanation %>
-                    </p>
+      </div>
+    </div>
+    <form id="projectEditForm<%= project.project_id %>" action="/saveProject" method="post" <%=openForm==project.project_id.toString() ? '' : 'hidden' %>>
+      <h3>Edit Project</h3>
+      <input type="hidden" name="project_id" value="<%= project.project_id %>">
+      <label for="title">Project Title</label>
+      <input class="project-title" type="text" name="title" value="<%=project.project_name %>">
+      <label for="project-edit-form-description">Project Description</label>
+      <textarea name="description" id="project-edit-form-description" class="project-description" placeholder="Enter project description"> <%= project.description %></textarea>
+      <label for="project-edit-form-explanation">Job Explanation</label>
+      <textarea name="explanation" id="project-edit-form-explanation" class="project-explanation" placeholder="Enter "> <%= project.job_explanation %></textarea>
 
-                    <h5>Images</h5>
-                    <div class="imageContainer">
-                        <% project.images.forEach((image)=> { %>
-                            <img src="<%= image.secure_url %>" alt="">
-                            <% }) %>
-                    </div>
+      <% project.images.forEach((image)=>{ %>
+      <img src="<%= image.secure_url %>" alt="" width="100px">
+      <p>
+        <%= image.original_filename %>
+      </p>
+      <% }) %>
 
+      <button type="button" class="editImagesButton" data-id="<%= project.project_id %>">Edit
+        Images</button>
 
-                    <h5>Videos</h5>
-                    <div class="videoContainer">
-                        <% project.videos.forEach((video)=> { %>
-                            <video src="<%= video.secure_url %>" controls width="400px"></video>
-                            <% }) %>
-                    </div>
+      <% project.videos.forEach((video)=>{ %>
+      <video src="<%= video.secure_url %>" controls width="100px"></video>
+      <p>
+        <%= video.original_filename %>
+      </p>
+      <% }) %>
+      <button type="button" class="editVideosButton" data-id="<%= project.project_id %>">Edit
+        Videos</button>
 
-                    <h5>Files</h5>
-                    <% project.files.forEach((file)=> { %>
-                        <a href="<%= file.secure_url %>" target="_blank">
-                            <%= file.original_filename %>
-                        </a><br>
-                        <% }) %>
+      <% project.files.forEach((file)=>{ %>
+      <p>
+        <a href="<%= file.secure_url %>">
+          <%= file.original_filename %>
+        </a>
+      </p>
+      <% }) %>
+      <button type="button" class="editFilesButton" data-id="<%= project.project_id %>">Edit
+        Files</button>
 
-                            <div>
-                                <h5>Template chosen:</h5>
-                                <img id="templateView" src="<%= project.template_value== 1? " /images/template1.png"
-                                    : "/images/template2.png" %>"
-                                alt="">
-                            </div>
+      <div class="templateContainer">
+        <label class="template-title">Choose a project template:</label>
+        <label class="template">
+          <input id="template1" type="radio" name="template" value="1">
+          <img src="/images/template1.png" alt="image of the first template">
+        </label>
+        <label class="template">
+          <input id="template2" type="radio" name="template" value="2">
+          <img src="images/template2.png" alt="image of the second template">
+        </label>
+      </div>
 
-                            <h5>Skills</h5>
-                            <% project.tags.forEach((tag)=> { %>
-                                <p class="skillsViewParagraph">
-                                    <%= tag.tag_name %>
-                                </p>
-                                <% }) %>
+      <h5>Skills:</h5>
+      <div id="outerContainer">
+        <% project.tags.forEach((tag, index)=> { %>
+        <div id="innerContainer<%= tag.tag_id%>">
+          <div class="skillFlexBox">
+            <input type="hidden" name="skills[<%= index %>][id]" value="<%= tag.tag_id %>">
+            <input class="editSkill" type="text" name="skills[<%= index %>][name]" value="<%= tag.tag_name %>">
+            <button class="deleteTagButton" data-id="<%= tag.tag_id %>">
+              <svg class="trashCan" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                <!--!Font Awesome Free v7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+                <path d="M262.2 48C248.9 48 236.9 56.3 232.2 68.8L216 112L120 112C106.7 112 96 122.7 96 136C96 149.3 106.7 160 120 160L520 160C533.3 160 544 149.3 544 136C544 122.7 533.3 112 520 112L424 112L407.8 68.8C403.1 56.3 391.2 48 377.8 48L262.2 48zM128 208L128 512C128 547.3 156.7 576 192 576L448 576C483.3 576 512 547.3 512 512L512 208L464 208L464 512C464 520.8 456.8 528 448 528L192 528C183.2 528 176 520.8 176 512L176 208L128 208zM288 280C288 266.7 277.3 256 264 256C250.7 256 240 266.7 240 280L240 456C240 469.3 250.7 480 264 480C277.3 480 288 469.3 288 456L288 280zM400 280C400 266.7 389.3 256 376 256C362.7 256 352 266.7 352 280L352 456C352 469.3 362.7 480 376 480C389.3 480 400 469.3 400 456L400 280z" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <% }) %>
+      </div>
+      <button class="addNewSkills" type="button">Add Skills</button>
+      <div class="saveUpdatedProjectContainer">
+        <button class="saveUpdatedProject" type="submit">Save</button>
+      </div>
 
-                                    <div class="viewButtonsContainer">
-                                        <button class="edit-button" data-id="<%= project.project_id %>">Edit
-                                            project</button>
-                                        <button class="delete-project-button" data-id="<%= project.project_id %>"
-                                            data-name="<%= project.project_name %>">Delete Project</button>
-
-                                    </div>
-                </div>
-                <form id="projectEditForm<%= project.project_id %>" action="/saveProject" method="post"
-                    <%=openForm==project.project_id.toString() ? '' : 'hidden' %>>
-                    <h3>Edit Project</h3>
-                    <input type="hidden" name="project_id" value="<%= project.project_id %>">
-                    <label for="title">Project Title</label>
-                    <input class="project-title" type="text" name="title" value="<%=project.project_name %>">
-                    <label for="description">Project Description</label>
-                    <textarea name="description" id="description" class="project-description"
-                        placeholder="Enter project description"> <%= project.description %></textarea>
-                    <label for="explanation">Job Explanation</label>
-                    <textarea name="explanation" id="explanation" class="project-explanation"
-                        placeholder="Enter "> <%= project.job_explanation %></textarea>
-
-                    <% project.images.forEach((image)=>{ %>
-                        <img src="<%= image.secure_url %>" alt="" width="100px">
-                        <p>
-                            <%= image.original_filename %>
-                        </p>
-                        <% }) %>
-
-                            <button type="button" class="editImagesButton" data-id="<%= project.project_id %>">Edit
-                                Images</button>
-
-                            <% project.videos.forEach((video)=>{ %>
-                                <video src="<%= video.secure_url %>" controls width="100px"></video>
-                                <p>
-                                    <%= video.original_filename %>
-                                </p>
-                                <% }) %>
-                                    <button type="button" class="editVideosButton"
-                                        data-id="<%= project.project_id %>">Edit
-                                        Videos</button>
-
-                                    <% project.files.forEach((file)=>{ %>
-                                        <p>
-                                            <a href="<%= file.secure_url %>">
-                                                <%= file.original_filename %>
-                                            </a>
-                                        </p>
-                                        <% }) %>
-                                            <button type="button" class="editFilesButton"
-                                                data-id="<%= project.project_id %>">Edit
-                                                Files</button>
-
-                                            <div class="templateContainer">
-                                                <label class="template-title">Choose a project template:</label>
-                                                <label class="template">
-                                                    <input id="template1" type="radio" name="template" value="1">
-                                                    <img src="/images/template1.png" alt="image of the first template">
-                                                </label>
-                                                <label class="template">
-                                                    <input id="template2" type="radio" name="template" value="2">
-                                                    <img src="images/template2.png" alt="image of the second template">
-                                                </label>
-                                            </div>
-
-                                            <h5>Skills:</h5>
-                                            <div id="outerContainer">
-                                                <% project.tags.forEach((tag, index)=> { %>
-                                                    <div id="innerContainer<%= tag.tag_id%>">
-                                                        <div class="skillFlexBox">
-                                                            <input type="hidden" name="skills[<%= index %>][id]"
-                                                                value="<%= tag.tag_id %>">
-                                                            <input class="editSkill" type="text"
-                                                                name="skills[<%= index %>][name]"
-                                                                value="<%= tag.tag_name %>">
-                                                            <button class="deleteTagButton" data-id="<%= tag.tag_id %>">
-                                                                <svg class="trashCan" xmlns="http://www.w3.org/2000/svg"
-                                                                    viewBox="0 0 640 640"><!--!Font Awesome Free v7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
-                                                                    <path
-                                                                        d="M262.2 48C248.9 48 236.9 56.3 232.2 68.8L216 112L120 112C106.7 112 96 122.7 96 136C96 149.3 106.7 160 120 160L520 160C533.3 160 544 149.3 544 136C544 122.7 533.3 112 520 112L424 112L407.8 68.8C403.1 56.3 391.2 48 377.8 48L262.2 48zM128 208L128 512C128 547.3 156.7 576 192 576L448 576C483.3 576 512 547.3 512 512L512 208L464 208L464 512C464 520.8 456.8 528 448 528L192 528C183.2 528 176 520.8 176 512L176 208L128 208zM288 280C288 266.7 277.3 256 264 256C250.7 256 240 266.7 240 280L240 456C240 469.3 250.7 480 264 480C277.3 480 288 469.3 288 456L288 280zM400 280C400 266.7 389.3 256 376 256C362.7 256 352 266.7 352 280L352 456C352 469.3 362.7 480 376 480C389.3 480 400 469.3 400 456L400 280z" />
-                                                                </svg>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                    <% }) %>
-                                            </div>
-                                            <button class="addNewSkills" type="button">Add Skills</button>
-                                            <div class="saveUpdatedProjectContainer">
-                                                <button class="saveUpdatedProject" type="submit">Save</button>
-                                            </div>
-
-                </form>
-                <% }) %>
+    </form>
+    <% }) %>
 
 
-                    <form id="addProjectEntryForm" action="/addProject" method="post" autocomplete="off"
-                        enctype="multipart/form-data">
-                        <h3>Upload a New Project</h3>
-                        <label for="title">Project Title</label>
-                        <input class="project-title" type="text" name="title" id="title"
-                            placeholder="Enter Project Title" required>
-                        <label for="description">Project Description</label>
-                        <textarea class="project-description" name="description" id="description"
-                            placeholder="Enter project description"></textarea>
-                        <label for="explanation">Project Job Explanation</label>
-                        <textarea class="project-explanation" name="explanation" id="explanation"
-                            placeholder="Enter how this project links to your intended job role">
+    <form id="addProjectEntryForm" action="/addProject" method="post" autocomplete="off" enctype="multipart/form-data">
+      <h3>Upload a New Project</h3>
+      <label for="title">Project Title</label>
+      <input class="project-title" type="text" name="title" id="title" placeholder="Enter Project Title" required>
+      <label for="project-initial-description">Project Description</label>
+      <textarea class="project-description" name="description" id="project-initial-description" placeholder="Enter project description"></textarea>
+      <label for="project-initial-explanation">Project Job Explanation</label>
+      <textarea class="project-explanation" name="explanation" id="project-initial-explanation" placeholder="Enter how this project links to your intended job role">
                 </textarea>
 
-                        <label for="projectImages" class="custom-file-upload">Uplaod images</label>
-                        <input type="file" name="projectImages" id="projectImages" accept=".jpg, .jpeg, .png, .webp"
-                            multiple>
-                        <span class="fileView" id="imagesFileName">No files chosen</span>
+      <label for="projectImages" class="custom-file-upload">Uplaod images</label>
+      <input type="file" name="projectImages" id="projectImages" accept=".jpg, .jpeg, .png, .webp" multiple>
+      <span class="fileView" id="imagesFileName">No files chosen</span>
 
-                        <label for="projectVideos" class="custom-file-upload">Uplaod videos</label>
-                        <input type="file" name="projectVideos" id="projectVideos" accept=".mp4, .mov, .avi, .webm"
-                            multiple>
-                        <span class="fileView" id="videosFileName">No files chosen</span>
+      <label for="projectVideos" class="custom-file-upload">Uplaod videos</label>
+      <input type="file" name="projectVideos" id="projectVideos" accept=".mp4, .mov, .avi, .webm" multiple>
+      <span class="fileView" id="videosFileName">No files chosen</span>
 
-                        <label for="projectDocs" class="custom-file-upload">Uplaod Files</label>
-                        <input type="file" name="projectDocs" id="projectDocs" accept=".pdf,.doc,.docx,.txt" multiple>
-                        <span class="fileView" id="docsFileName">No files chosen</span>
+      <label for="projectDocs" class="custom-file-upload">Uplaod Files</label>
+      <input type="file" name="projectDocs" id="projectDocs" accept=".pdf,.doc,.docx,.txt" multiple>
+      <span class="fileView" id="docsFileName">No files chosen</span>
 
-                        <div class="templateContainer">
-                            <label class="template-title">Choose a project template:</label>
-                            <label class="template">
-                                <input id="template1" type="radio" name="template" value="1">
-                                <img src="/images/template1.png" alt="image of the first template">
-                            </label>
-                            <label class="template">
-                                <input id="template2" type="radio" name="template" value="2">
-                                <img src="images/template2.png" alt="image of the second template">
-                            </label>
-                        </div>
+      <div class="templateContainer">
+        <label class="template-title">Choose a project template:</label>
+        <label class="template">
+          <input id="template1" type="radio" name="template" value="1">
+          <img src="/images/template1.png" alt="image of the first template">
+        </label>
+        <label class="template">
+          <input id="template2" type="radio" name="template" value="2">
+          <img src="images/template2.png" alt="image of the second template">
+        </label>
+      </div>
 
-                        <div id="skills-container">
-                            <label for="Skills">Skills</label>
-                            <input class="skill-field" type="text" name="skills[]" placeholder="Add a skill">
-                        </div>
-                        <button id="addSkillButton" type="button">Add skill</button>
-                        <button id="add-project" type="submit">Upload Project</button>
-                    </form>
+      <div id="skills-container">
+        <label for="Skills">Skills</label>
+        <input class="skill-field" type="text" name="skills[]" placeholder="Add a skill">
+      </div>
+      <button id="addSkillButton" type="button">Add skill</button>
+      <button id="add-project" type="submit">Upload Project</button>
+    </form>
 
 
+    <!-- EXPERIENCES -->
+    <h2>Experiences</h2>
+    <% experiences.forEach(experience=> { %>
+    <div id="epxerienceView<%= experience.experience_id %>" <%=openForm==experience.experience_id.toString() ? 'hidden' : '' %>>
+      <h3>
+        <%= experience.experience_name %>
+      </h3>
+      <h5>Project Description: </h5>
+      <p class="text">
+        <%= experience.description %>
+      </p>
+      <h5>Job Explanation:</h5>
+      <p class="text">
+        <%= experience.job_explanation %>
+      </p>
+
+      <h5>Images</h5>
+      <div class="imageContainer">
+        <% experience.images.forEach((image)=> { %>
+        <img src="<%= image.secure_url %>" alt="">
+        <% }) %>
+      </div>
 
 
-                    <!-- EXPERIENCES -->
-                    <h2>Experiences</h2>
-                    <% experiences.forEach(experience=> { %>
-                        <div id="epxerienceView<%= experience.experience_id %>"
-                            <%=openForm==experience.experience_id.toString() ? 'hidden' : '' %>
-                            >
-                            <h3>
-                                <%= experience.experience_name %>
-                            </h3>
-                            <h5>Project Description: </h5>
-                            <p class="text">
-                                <%= experience.description %>
-                            </p>
-                            <h5>Job Explanation:</h5>
-                            <p class="text">
-                                <%= experience.job_explanation %>
-                            </p>
+      <h5>Videos</h5>
+      <div class="videoContainer">
+        <% experience.videos.forEach((video)=> { %>
+        <video src="<%= video.secure_url %>" controls></video>
+        <% }) %>
+      </div>
 
-                            <h5>Images</h5>
-                            <div class="imageContainer">
-                                <% experience.images.forEach((image)=> { %>
-                                    <img src="<%= image.secure_url %>" alt="">
-                                    <% }) %>
-                            </div>
+      <h5>Files</h5>
+      <% experience.files.forEach((file)=> { %>
+      <a href="<%= file.secure_url %>" target="_blank">
+        <%= file.original_filename %>
+      </a><br>
+      <% }) %>
 
+      <div>
+        <h5>Template chosen:</h5>
+        <img id="templateView" src="<%= experience.template_value == 1 ? '/images/template1.png' : '/images/template2.png' %>" alt="Template preview">
+      </div>
 
-                            <h5>Videos</h5>
-                            <div class="videoContainer">
-                                <% experience.videos.forEach((video)=> { %>
-                                    <video src="<%= video.secure_url %>" controls></video>
-                                    <% }) %>
-                            </div>
+      <h5>Skills</h5>
+      <% experience.tags.forEach((tag)=> { %>
+      <p class="skillsViewParagraph">
+        <%= tag.tag_name %>
+      </p>
+      <% }) %>
 
-                            <h5>Files</h5>
-                            <% experience.files.forEach((file)=> { %>
-                                <a href="<%= file.secure_url %>" target="_blank">
-                                    <%= file.original_filename %>
-                                </a><br>
-                                <% }) %>
+      <div class="ViewButtonsContainer">
+        <button class="edit-experience-button" data-id="<%= experience.experience_id %>">Edit
+          experience</button>
+        <button class="delete-experience-button" data-id="<%= experience.experience_id %>" data-name="<%= experience.experience_name %>">Delete
+          experience</button>
 
-                                    <div>
-                                        <h5>Template chosen:</h5>
-                                        <img id="templateView"
-                                            src="<%= experience.template_value == 1 ? '/images/template1.png' : '/images/template2.png' %>"
-                                            alt="Template preview">
-                                    </div>
+      </div>
+    </div>
 
-                                    <h5>Skills</h5>
-                                    <% experience.tags.forEach((tag)=> { %>
-                                        <p class="skillsViewParagraph">
-                                            <%= tag.tag_name %>
-                                        </p>
-                                        <% }) %>
+    <form id="experienceEditForm<%= experience.experience_id %>" action="/saveExperience" method="post" <%=openForm==experience.experience_id.toString() ? '' : 'hidden' %>>
+      <h3>Edit Experience</h3>
+      <input type="hidden" name="experience_id" value="<%= experience.experience_id %>">
+      <label for="title">experience Title</label>
+      <input class="experience-title" type="text" name="title" value="<%=experience.experience_name %>">
+      <label for="experience-edit-form-description">experience Description</label>
+      <textarea name="description" id="experience-edit-form-description" class="experience-description" placeholder="Enter experience description"> <%= experience.description %></textarea>
+      <label for="experience-edit-form-explanation">Job Explanation</label>
+      <textarea name="explanation" id="experience-edit-form-explanation" class="project-explanation" placeholder="Enter "> <%= experience.job_explanation %></textarea>
 
-                                            <div class="ViewButtonsContainer">
-                                                <button class="edit-experience-button"
-                                                    data-id="<%= experience.experience_id %>">Edit
-                                                    experience</button>
-                                                <button class="delete-experience-button"
-                                                    data-id="<%= experience.experience_id %>"
-                                                    data-name="<%= experience.experience_name %>">Delete
-                                                    experience</button>
+      <% experience.images.forEach((image)=>{ %>
+      <img src="<%= image.secure_url %>" alt="" width="100px">
+      <p>
+        <%= image.original_filename %>
+      </p>
+      <% }) %>
 
-                                            </div>
-                        </div>
+      <button type="button" class="editExperienceImagesButton" data-id="<%= experience.experience_id %>">Edit
+        Images</button>
 
-                        <form id="experienceEditForm<%= experience.experience_id %>" action="/saveExperience"
-                            method="post" <%=openForm==experience.experience_id.toString() ? '' : 'hidden' %>>
-                            <h3>Edit Experience</h3>
-                            <input type="hidden" name="experience_id" value="<%= experience.experience_id %>">
-                            <label for="title">experience Title</label>
-                            <input class="experience-title" type="text" name="title"
-                                value="<%=experience.experience_name %>">
-                            <label for="description">experience Description</label>
-                            <textarea name="description" id="description" class="experience-description"
-                                placeholder="Enter experience description"> <%= experience.description %></textarea>
-                            <label for="explanation">Job Explanation</label>
-                            <textarea name="explanation" id="explanation" class="project-explanation"
-                                placeholder="Enter "> <%= experience.job_explanation %></textarea>
+      <% experience.videos.forEach((video)=>{ %>
+      <video src="<%= video.secure_url %>" controls width="100px"></video>
+      <p>
+        <%= video.original_filename %>
+      </p>
+      <% }) %>
+      <button type="button" class="editExperienceVideosButton" data-id="<%= experience.experience_id %>">Edit
+        Videos</button>
 
-                            <% experience.images.forEach((image)=>{ %>
-                                <img src="<%= image.secure_url %>" alt="" width="100px">
-                                <p>
-                                    <%= image.original_filename %>
-                                </p>
-                                <% }) %>
+      <% experience.files.forEach((file)=>{ %>
+      <p>
+        <a href="<%= file.secure_url %>">
+          <%= file.original_filename %>
+        </a>
+      </p>
+      <% }) %>
+      <button type="button" class="editExperienceFilesButton" data-id="<%= experience.experience_id %>">Edit
+        Files</button>
 
-                                    <button type="button" class="editExperienceImagesButton"
-                                        data-id="<%= experience.experience_id %>">Edit
-                                        Images</button>
+      <div class="templateContainer">
+        <label class="template-title">Choose a project template:</label>
+        <label class="template">
+          <input id="template1" type="radio" name="template" value="1">
+          <img src="/images/template1.png" alt="image of the first template">
+        </label>
+        <label class="template">
+          <input id="template2" type="radio" name="template" value="2">
+          <img src="images/template2.png" alt="image of the second template">
+        </label>
+      </div>
 
-                                    <% experience.videos.forEach((video)=>{ %>
-                                        <video src="<%= video.secure_url %>" controls width="100px"></video>
-                                        <p>
-                                            <%= video.original_filename %>
-                                        </p>
-                                        <% }) %>
-                                            <button type="button" class="editExperienceVideosButton"
-                                                data-id="<%= experience.experience_id %>">Edit
-                                                Videos</button>
+      <h5>Skills:</h5>
+      <div id="outerExperienceContainer">
+        <% experience.tags.forEach((tag, index)=> { %>
+        <div id="innerExperienceContainer<%= tag.tag_id%>">
+          <div class="skillExperienceFlexBox">
+            <input type="hidden" name="skills[<%= index %>][id]" value="<%= tag.tag_id %>">
+            <input class="editExperienceSkill" type="text" name="skills[<%= index %>][name]" value="<%= tag.tag_name %>">
+            <button class="deleteExperienceTagButton" data-id="<%= tag.tag_id %>">
+              <svg class="trashCan" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                <!--!Font Awesome Free v7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+                <path d="M262.2 48C248.9 48 236.9 56.3 232.2 68.8L216 112L120 112C106.7 112 96 122.7 96 136C96 149.3 106.7 160 120 160L520 160C533.3 160 544 149.3 544 136C544 122.7 533.3 112 520 112L424 112L407.8 68.8C403.1 56.3 391.2 48 377.8 48L262.2 48zM128 208L128 512C128 547.3 156.7 576 192 576L448 576C483.3 576 512 547.3 512 512L512 208L464 208L464 512C464 520.8 456.8 528 448 528L192 528C183.2 528 176 520.8 176 512L176 208L128 208zM288 280C288 266.7 277.3 256 264 256C250.7 256 240 266.7 240 280L240 456C240 469.3 250.7 480 264 480C277.3 480 288 469.3 288 456L288 280zM400 280C400 266.7 389.3 256 376 256C362.7 256 352 266.7 352 280L352 456C352 469.3 362.7 480 376 480C389.3 480 400 469.3 400 456L400 280z" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <% }) %>
+      </div>
+      <button class="addNewExperienceSkills" type="button">Add
+        Skills</button>
+      <div class="saveUpdatedExperienceContainer">
+        <button class="saveUpdatedExperience" type="submit">Save</button>
+      </div>
 
-                                            <% experience.files.forEach((file)=>{ %>
-                                                <p>
-                                                    <a href="<%= file.secure_url %>">
-                                                        <%= file.original_filename %>
-                                                    </a>
-                                                </p>
-                                                <% }) %>
-                                                    <button type="button" class="editExperienceFilesButton"
-                                                        data-id="<%= experience.experience_id %>">Edit
-                                                        Files</button>
+    </form>
+    <% }) %>
 
-                                                    <div class="templateContainer">
-                                                        <label class="template-title">Choose a project template:</label>
-                                                        <label class="template">
-                                                            <input id="template1" type="radio" name="template"
-                                                                value="1">
-                                                            <img src="/images/template1.png"
-                                                                alt="image of the first template">
-                                                        </label>
-                                                        <label class="template">
-                                                            <input id="template2" type="radio" name="template"
-                                                                value="2">
-                                                            <img src="images/template2.png"
-                                                                alt="image of the second template">
-                                                        </label>
-                                                    </div>
-
-                                                    <h5>Skills:</h5>
-                                                    <div id="outerExperienceContainer">
-                                                        <% experience.tags.forEach((tag, index)=> { %>
-                                                            <div id="innerExperienceContainer<%= tag.tag_id%>">
-                                                                <div class="skillExperienceFlexBox">
-                                                                    <input type="hidden" name="skills[<%= index %>][id]"
-                                                                        value="<%= tag.tag_id %>">
-                                                                    <input class="editExperienceSkill" type="text"
-                                                                        name="skills[<%= index %>][name]"
-                                                                        value="<%= tag.tag_name %>">
-                                                                    <button class="deleteExperienceTagButton"
-                                                                        data-id="<%= tag.tag_id %>">
-                                                                        <svg class="trashCan"
-                                                                            xmlns="http://www.w3.org/2000/svg"
-                                                                            viewBox="0 0 640 640"><!--!Font Awesome Free v7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
-                                                                            <path
-                                                                                d="M262.2 48C248.9 48 236.9 56.3 232.2 68.8L216 112L120 112C106.7 112 96 122.7 96 136C96 149.3 106.7 160 120 160L520 160C533.3 160 544 149.3 544 136C544 122.7 533.3 112 520 112L424 112L407.8 68.8C403.1 56.3 391.2 48 377.8 48L262.2 48zM128 208L128 512C128 547.3 156.7 576 192 576L448 576C483.3 576 512 547.3 512 512L512 208L464 208L464 512C464 520.8 456.8 528 448 528L192 528C183.2 528 176 520.8 176 512L176 208L128 208zM288 280C288 266.7 277.3 256 264 256C250.7 256 240 266.7 240 280L240 456C240 469.3 250.7 480 264 480C277.3 480 288 469.3 288 456L288 280zM400 280C400 266.7 389.3 256 376 256C362.7 256 352 266.7 352 280L352 456C352 469.3 362.7 480 376 480C389.3 480 400 469.3 400 456L400 280z" />
-                                                                        </svg>
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                            <% }) %>
-                                                    </div>
-                                                    <button class="addNewExperienceSkills" type="button">Add
-                                                        Skills</button>
-                                                    <div class="saveUpdatedExperienceContainer">
-                                                        <button class="saveUpdatedExperience"
-                                                            type="submit">Save</button>
-                                                    </div>
-
-                        </form>
-                        <% }) %>
-
-                            <form id="addExperienceEntryForm" action="/addExperience" method="post" autocomplete="off"
-                                enctype="multipart/form-data">
-                                <h3>Upload a New Experience</h3>
-                                <label for="experience-title">Experience Title</label>
-                                <input class="experience-title" type="text" name="title" id="experience-title"
-                                    placeholder="Enter Experience Title" required>
-                                <label for="experience-description">Experience Description</label>
-                                <textarea class="experience-description" name="description" id="experience-description"
-                                    placeholder="Enter experience description"></textarea>
-                                <label for="experience-explantion">Experience Job Explanation</label>
-                                <textarea class="experience-explanation" name="explanation" id="experience-explanation"
-                                    placeholder="Enter how this experience links to your intended job role">
+    <form id="addExperienceEntryForm" action="/addExperience" method="post" autocomplete="off" enctype="multipart/form-data">
+      <h3>Upload a New Experience</h3>
+      <label for="experience-title">Experience Title</label>
+      <input class="experience-title" type="text" name="title" id="experience-title" placeholder="Enter Experience Title" required>
+      <label for="experience-initial-description">Experience Description</label>
+      <textarea class="experience-description" name="description" id="experience-initial-description" placeholder="Enter experience description"></textarea>
+      <label for="experience-initial-explantion">Experience Job Explanation</label>
+      <textarea class="experience-explanation" name="explanation" id="experience-initial-explanation" placeholder="Enter how this experience links to your intended job role">
                 </textarea>
 
-                                <label for="experienceImages" class="custom-file-upload">Uplaod images</label>
-                                <input type="file" name="experienceImages" id="experienceImages"
-                                    accept=".jpg, .jpeg, .png, .webp" multiple>
-                                <span class="experienceFileView" id="experienceImagesFileName">No files chosen</span>
+      <label for="experienceImages" class="custom-file-upload">Uplaod images</label>
+      <input type="file" name="experienceImages" id="experienceImages" accept=".jpg, .jpeg, .png, .webp" multiple>
+      <span class="experienceFileView" id="experienceImagesFileName">No files chosen</span>
 
-                                <label for="experienceVideos" class="custom-file-upload">Uplaod videos</label>
-                                <input type="file" name="experienceVideos" id="experienceVideos"
-                                    accept=".mp4, .mov, .avi, .webm" multiple>
-                                <span class="experienceFileView" id="experienceVideoFileName">No files chosen</span>
+      <label for="experienceVideos" class="custom-file-upload">Uplaod videos</label>
+      <input type="file" name="experienceVideos" id="experienceVideos" accept=".mp4, .mov, .avi, .webm" multiple>
+      <span class="experienceFileView" id="experienceVideoFileName">No files chosen</span>
 
-                                <label for="experienceDocs" class="custom-file-upload">Uplaod Files</label>
-                                <input type="file" name="experienceDocs" id="experienceDocs"
-                                    accept=".pdf,.doc,.docx,.txt" multiple>
-                                <span class="experienceFileView" id="experienceDocsFileName">No files chosen</span>
+      <label for="experienceDocs" class="custom-file-upload">Uplaod Files</label>
+      <input type="file" name="experienceDocs" id="experienceDocs" accept=".pdf,.doc,.docx,.txt" multiple>
+      <span class="experienceFileView" id="experienceDocsFileName">No files chosen</span>
 
-                                <div class="templateContainer">
-                                    <label class="template-title">Choose a project template:</label>
-                                    <label class="template">
-                                        <input id="template1" type="radio" name="template" value="1" checked>
-                                        <img src="/images/template1.png" alt="image of the first template">
-                                    </label>
-                                    <label class="template">
-                                        <input id="template2" type="radio" name="template" value="2">
-                                        <img src="images/template2.png" alt="image of the second template">
-                                    </label>
-                                </div>
+      <div class="templateContainer">
+        <label class="template-title">Choose a project template:</label>
+        <label class="template">
+          <input id="template1" type="radio" name="template" value="1" checked>
+          <img src="/images/template1.png" alt="image of the first template">
+        </label>
+        <label class="template">
+          <input id="template2" type="radio" name="template" value="2">
+          <img src="images/template2.png" alt="image of the second template">
+        </label>
+      </div>
 
-                                <div id="experienceskillsContainer">
-                                    <label for="experienceSkills">Skills</label>
-                                    <input class="experiences-skill-field" type="text" name="experienceSkills[]"
-                                        placeholder="Add a skill" id="experienceSkills">
-                                </div>
-                                <button id="addExperienceSkillButton" type="button">Add skill</button>
-                                <button id="add-experience" type="submit">Upload Experience</button>
-                            </form>
+      <div id="experienceskillsContainer">
+        <label for="experienceSkills">Skills</label>
+        <input class="experiences-skill-field" type="text" name="experienceSkills[]" placeholder="Add a skill" id="experienceSkills">
+      </div>
+      <button id="addExperienceSkillButton" type="button">Add skill</button>
+      <button id="add-experience" type="submit">Upload Experience</button>
+    </form>
 
 
-                            <br>
-                            <br>
-                            <br>
+    <br>
+    <br>
+    <br>
 
-                            <!--DELETE CONFIRMATION MODAL -->
-                            <div id="deleteModalOverlay" class="modal-hidden">
-                                <div id="deleteModal">
-                                    <h3 id="warning" class="warning">Remove item</h3>
-                                    <div class="underline"></div>
-                                    <p id="modal-text"></p>
-                                    <button id="confirmDelete">Delete</button>
-                                    <button id="cancelDelete">Cancel</button>
-                                </div>
-                            </div>
+    <!--DELETE CONFIRMATION MODAL -->
+    <div id="deleteModalOverlay" class="modal-hidden">
+      <div id="deleteModal">
+        <h3 id="warning" class="warning">Remove item</h3>
+        <div class="underline"></div>
+        <p id="modal-text"></p>
+        <button id="confirmDelete">Delete</button>
+        <button id="cancelDelete">Cancel</button>
+      </div>
+    </div>
 
 
 
-        </main>
-        <%- include("partials/footer.ejs") %>
-            <script src="js/experience.js"></script>
-            <script src="js/projects.js"></script>
-            <script src="js/profileDetails.js"></script>
+  </main>
+  <%- include("partials/footer.ejs") %>
+  <script src="js/experience.js"></script>
+  <script src="js/projects.js"></script>
+  <script src="js/profileDetails.js"></script>
 </body>
 
 </html>

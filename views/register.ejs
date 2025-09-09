@@ -2,81 +2,81 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
-    <link rel="stylesheet" href="register.css">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register</title>
+  <link rel="stylesheet" href="register.css">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
 
 
 </head>
 
 <body>
-    <%- include("partials/header.ejs") %>
-        <div class="container">
-            <img src="/images/blue_sand.png" alt="blue-shaded sand dune">
-            <div class="item2">
-                <h1>create an account</h1>
-                <form action="/register" method="post" autocomplete="off">
-                    <div class="name-container">
-                        <input type="text" name="firstName" placeholder="First Name" required>
-                        <input type="text" name="lastName" placeholder="Last Name" required>
+  <%- include("partials/header.ejs") %>
+  <div class="container">
+    <img src="/images/blue_sand.png" alt="blue-shaded sand dune">
+    <div class="item2">
+      <h1>create an account</h1>
+      <form action="/register" method="post" autocomplete="off">
+        <div class="name-container">
+          <input type="text" name="firstName" placeholder="First Name" required>
+          <input type="text" name="lastName" placeholder="Last Name" required>
 
-                    </div>
-                    <input type="email" name="email" placeholder="Email" required>
-                    <input id="password" type="password" name="password" placeholder="Password" required>
-                    <input id="re-entered-password" type="password" placeholder="Re-enter your password" required>
-                    <p id="feedback"></p>
-                    <button id="submit-button" type="submit">Create Account</button>
-
-
-                </form>
-                <div class="line-through">Already have an account</div>
-                <button id="log-in-button" type="submit" onclick="window.location.href = '/login'">Log in</button>
-            </div>
         </div>
-        <%- include("partials/footer.ejs") %>
-            <script>
-                const password = document.querySelector("#password");
-                const reEnteredPassword = document.querySelector("#re-entered-password");
-                const feedback = document.querySelector("#feedback"); // ✅ must match your HTML id
+        <input type="email" name="email" placeholder="Email" required>
+        <input id="password" type="password" name="password" placeholder="Password" required>
+        <input id="re-entered-password" type="password" placeholder="Re-enter your password" required>
+        <p id="feedback"></p>
+        <button id="submit-button" type="submit">Create Account</button>
 
-                function validatePasswords() {
-                    if (password.value !== "" && password.value === reEnteredPassword.value) {
-                        feedback.textContent = "Passwords match";
-                        feedback.classList.remove("error");
-                        feedback.classList.add("correct");
 
-                        password.classList.remove("errorInputs");
-                        password.classList.add("correctInputs");
+      </form>
+      <div class="line-through">Already have an account</div>
+      <button id="log-in-button" type="submit" onclick="window.location.href = '/login'">Log in</button>
+    </div>
+  </div>
+  <%- include("partials/footer.ejs") %>
+  <script>
+    const password = document.querySelector("#password");
+    const reEnteredPassword = document.querySelector("#re-entered-password");
+    const feedback = document.querySelector("#feedback"); // ✅ must match your HTML id
 
-                        reEnteredPassword.classList.remove("errorInputs");
-                        reEnteredPassword.classList.add("correctInputs");
-                    } else if (reEnteredPassword.value !== "") {
-                        feedback.textContent = "Passwords don't match";
-                        feedback.classList.remove("correct");
-                        feedback.classList.add("error");
+    function validatePasswords() {
+      if (password.value !== "" && password.value === reEnteredPassword.value) {
+        feedback.textContent = "Passwords match";
+        feedback.classList.remove("error");
+        feedback.classList.add("correct");
 
-                        password.classList.remove("correctInputs");
-                        password.classList.add("errorInputs");
+        password.classList.remove("errorInputs");
+        password.classList.add("correctInputs");
 
-                        reEnteredPassword.classList.remove("correctInputs");
-                        reEnteredPassword.classList.add("errorInputs");
-                    } else {
-                        // clear feedback if nothing typed yet
-                        feedback.textContent = "";
-                        feedback.classList.remove("correct", "error");
-                        password.classList.remove("correctInputs", "errorInputs");
-                        reEnteredPassword.classList.remove("correctInputs", "errorInputs");
-                    }
-                }
+        reEnteredPassword.classList.remove("errorInputs");
+        reEnteredPassword.classList.add("correctInputs");
+      } else if (reEnteredPassword.value !== "") {
+        feedback.textContent = "Passwords don't match";
+        feedback.classList.remove("correct");
+        feedback.classList.add("error");
 
-                password.addEventListener("input", validatePasswords);
-                reEnteredPassword.addEventListener("input", validatePasswords);
-            </script>
+        password.classList.remove("correctInputs");
+        password.classList.add("errorInputs");
+
+        reEnteredPassword.classList.remove("correctInputs");
+        reEnteredPassword.classList.add("errorInputs");
+      } else {
+        // clear feedback if nothing typed yet
+        feedback.textContent = "";
+        feedback.classList.remove("correct", "error");
+        password.classList.remove("correctInputs", "errorInputs");
+        reEnteredPassword.classList.remove("correctInputs", "errorInputs");
+      }
+    }
+
+    password.addEventListener("input", validatePasswords);
+    reEnteredPassword.addEventListener("input", validatePasswords);
+  </script>
 
 </body>
 
