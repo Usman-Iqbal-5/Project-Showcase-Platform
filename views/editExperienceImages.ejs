@@ -43,7 +43,7 @@
         <form class="uploadForm" action="/uploadNewExperienceImage" method="post" enctype="multipart/form-data">
           <input type="hidden" name="experience_id" value="<%= experience_id %>">
           <label class="imageUploadLabel" for="imageUpload">New Image</label>
-          <input type="file" name="experienceImage" id="imageUpload" accept=".jpg, .jpeg, .png, .webp" multiple>
+          <input type="file" name="experienceImage" id="imageUpload" accept=".jpg, .jpeg, .png, .webp" multiple required>
           <span class="fileView" id="imagesFileName">No files chosen</span>
           <button class="uploadImage" type="submit">Save new Images</button>
 
