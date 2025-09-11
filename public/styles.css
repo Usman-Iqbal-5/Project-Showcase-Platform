@@ -83,6 +83,7 @@ header {
   text-decoration: none !important;
   line-height: 1 !important;
   font-weight: 700 !important;
+  transition: all ease 0.1s !important;
 }
 
 .cta a:hover {
@@ -113,6 +114,7 @@ footer {
   color: #fff !important;
   margin-top: 0px !important;
   margin-bottom: 1.5 !important;
+  transition: all ease 0.1s !important;
   font-size: 23px !important;
   font-weight: 200 !important;
 }
