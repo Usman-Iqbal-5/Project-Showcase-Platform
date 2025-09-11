@@ -25,9 +25,12 @@
         <%= message %>
       </p>
 
-      <% if (status==404) { %>
-      <button class="redirectButton" onclick="window.location.href='/projectsPage'">Go Back Home</button>
+      <% if (userAuthenticated) { %>
+      <button class="redirectButton" onclick="window.location.href='/createProfile'">Go To Portfolio</button>
+      <% } else { %>
+      <button class="redirectButton" onclick="window.location.href='/login'">Go to login</button>
       <% } %>
+
     </section>
   </main>
   <%- include("partials/footer.ejs") %>

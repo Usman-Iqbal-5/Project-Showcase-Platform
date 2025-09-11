@@ -28,7 +28,7 @@
       <div class="outerFileContainer">
         <% projects[0].files.forEach((file)=>{ %>
         <div class="innerFileContainer">
-          <a href="<%= file.secure_url %>" alt="">
+          <a href="<%= file.secure_url %>">
             <%= file.original_filename %>
           </a>
           <form action="/Deletefile" method="post">

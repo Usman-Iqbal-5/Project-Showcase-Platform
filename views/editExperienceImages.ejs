@@ -28,7 +28,7 @@
       <div class="outerExperienceImageContainer">
         <% experiences[0].images.forEach((image)=>{ %>
         <div class="innerImageContainer">
-          <img src="<%= image.secure_url %>" alt="">
+          <img src="<%= image.secure_url %>" alt="project image">
           <form action="/DeleteExperienceImage" method="post">
             <input type="hidden" name="media_id" value="<%= image.media_id %>">
             <input type="hidden" name="experience_id" value="<%= experience_id%>">

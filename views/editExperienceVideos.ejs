@@ -26,7 +26,7 @@
       <div class="outerExperienceVideoContainer">
         <% experiences[0].videos.forEach((video)=>{ %>
         <div class="innerExperienceVideoContainer">
-          <video src="<%= video.secure_url %>" controls width="400px"></video>
+          <video src="<%= video.secure_url %>" controls width="400px">This video is not supported</video>
           <form action="/DeleteExperienceVideo" method="post">
             <input type="hidden" name="media_id" value="<%= video.media_id %>">
             <input type="hidden" name="experience_id" value="<%= experience_id %>">

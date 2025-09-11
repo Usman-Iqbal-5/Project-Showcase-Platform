@@ -284,7 +284,7 @@ app.get("/register", (req, res) => {
   res.render("register.ejs");
 });
 
-app.get("/login", noCache, (req, res) => {
+app.get("/login", (req, res) => {
   const error = req.query.error;
   console.log(error);
   if (req.isAuthenticated()) {

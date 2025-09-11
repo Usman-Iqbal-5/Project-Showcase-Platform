@@ -90,7 +90,7 @@
 
       <div class="image-grid">
         <% const counter=0; activity.images.forEach(image=> { %>
-        <img src="<%= image.secure_url%>" alt="">
+        <img src="<%= image.secure_url%>" alt="project image">
         <% }) %>
 
       </div>
@@ -98,7 +98,7 @@
       <div class="video-grid">
         <% activity.videos.forEach(video=> { %>
         <div class="video-container">
-          <video src="<%= video.secure_url%>" controls width="400px"></video>
+          <video src="<%= video.secure_url%>" controls width="400px">This video is not supported</video>
         </div>
         <% }) %>
       </div>

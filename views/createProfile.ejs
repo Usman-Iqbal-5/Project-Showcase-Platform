@@ -141,7 +141,7 @@
       <h5>Images</h5>
       <div class="imageContainer">
         <% project.images.forEach((image)=> { %>
-        <img src="<%= image.secure_url %>" alt="">
+        <img src="<%= image.secure_url %>" alt="project image">
         <% }) %>
       </div>
 
@@ -190,7 +190,7 @@
       <textarea name="explanation" id="project-edit-form-explanation" class="project-explanation" placeholder="Enter "> <%= project.job_explanation %></textarea>
 
       <% project.images.forEach((image)=>{ %>
-      <img src="<%= image.secure_url %>" alt="" width="100px">
+      <img src="<%= image.secure_url %>" alt="project image" width="100px">
       <p>
         <%= image.original_filename %>
       </p>
@@ -318,7 +318,7 @@
       <h5>Images</h5>
       <div class="imageContainer">
         <% experience.images.forEach((image)=> { %>
-        <img src="<%= image.secure_url %>" alt="">
+        <img src="<%= image.secure_url %>" alt="experience image">
         <% }) %>
       </div>
 
@@ -369,7 +369,7 @@
       <textarea name="explanation" id="experience-edit-form-explanation" class="project-explanation" placeholder="Enter "> <%= experience.job_explanation %></textarea>
 
       <% experience.images.forEach((image)=>{ %>
-      <img src="<%= image.secure_url %>" alt="" width="100px">
+      <img src="<%= image.secure_url %>" alt="experience image" width="100px">
       <p>
         <%= image.original_filename %>
       </p>
