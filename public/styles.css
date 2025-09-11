@@ -61,7 +61,7 @@ header {
   font-weight: 600 !important;
   transition: all ease 0.1s !important;
 }
-.header-nav-title:hover a {
+.header-nav-title a:hover {
   color: #f2af29 !important;
 }
 
@@ -146,6 +146,10 @@ footer {
   font-size: 13px !important;
   font-weight: 600 !important;
   text-decoration: none;
+}
+
+.footer-nav-title a:hover {
+  color: #f2af29 !important;
 }
 
 /* Buttons */
