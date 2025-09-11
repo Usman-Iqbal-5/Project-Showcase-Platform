@@ -197,3 +197,23 @@ function setupFileInput(idInput, idDisplay) {
 setupFileInput("projectImages", "imagesFileName");
 setupFileInput("projectVideos", "videosFileName");
 setupFileInput("projectDocs", "docsFileName");
+
+document.addEventListener('DOMContentLoaded', () => {
+  const copyBtn = document.getElementById('copyUrlBtn');
+  const studentId = copyBtn.dataset.studentId;
+
+  copyBtn.addEventListener('click', () => {
+    const url = `${window.location.origin}/profile?studentId=${studentId}`;
+
+    navigator.clipboard.writeText(url)
+      .then(() => {
+        vanillaToast.success("URL copied!", { 
+          timeout: 3000,
+          position: "bottom-center"
+        });
+      })
+      .catch(err => {
+        alert('Failed to copy URL: ' + err);
+      });
+  });
+});

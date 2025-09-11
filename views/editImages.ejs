@@ -28,7 +28,7 @@
       <div class="outerImageContainer">
         <% projects[0].images.forEach((image)=>{ %>
         <div class="innerImageContainer">
-          <img src="<%= image.secure_url %>" alt="">
+          <img src="<%= image.secure_url %>" alt="project image">
           <form action="/DeleteImage" method="post">
             <input type="hidden" name="media_id" value="<%= image.media_id %>">
             <input type="hidden" name="project_id" value="<%= project_id %>">
@@ -45,7 +45,7 @@
           <label class="imageUploadLabel" for="imageUpload">Choose image</label>
           <input type="file" name="projectImage" id="imageUpload" accept=".jpg, .jpeg, .png, .webp" multiple required>
           <span class="fileView" id="imagesFileName">No files chosen</span>
-          <button class="uploadImage" type="submit">Upload</button>
+          <button class="uploadImage" type="submit">Save New Images</button>
 
         </form>
 

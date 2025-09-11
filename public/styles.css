@@ -153,11 +153,14 @@ footer {
 .primary-button {
   background-color: #004480;
   color: white;
+  display: inline-block;
   height: 2.5rem !important;
   border: none;
+  text-decoration: none;
   border-radius: 5px;
   padding: 5px 10px;
   font-size: 0.95rem;
+  font-weight: 400;
   transition: all ease.1s;
   cursor: pointer;
 }
@@ -169,11 +172,14 @@ footer {
 .secondary-button {
   background-color: transparent;
   color: #004480;
+  text-decoration: none;
+  display: inline-block;
   height: 2.5rem !important;
   padding: 5px 10px;
   border: solid 2px #004480;
   border-radius: 5px;
   font-size: 0.95rem;
+  font-weight: 400;
   transition: all ease.1s;
   cursor: pointer;
 }

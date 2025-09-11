@@ -293,15 +293,6 @@ app.get("/login", noCache, (req, res) => {
   res.render("login.ejs", { error });
 });
 
-// checks using isAuthenicated middle to determine if user is authenticated or not
-app.get("/profile", isAuthenticated, (req, res) => {
-  //console.log(req.user);
-  res.render("profile.ejs", {
-    firstName: req.user.first_name,
-    lastName: req.user.last_name,
-  });
-});
-
 /* This section deals with the the Project Uploadd*/
 
 app.get("/createProfile", isAuthenticated, async (req, res) => {
@@ -352,11 +343,21 @@ app.get("/createProfile", isAuthenticated, async (req, res) => {
     );
     const experiencesWithTags = await getExperienceTags(experiencesWithFiles);
 
+
+    // finds out if the other routes redirected a query message and type to send as a toast to the frontend
+    let toast = null;
+    if (req.query.toastType && req.query.toastMessage) {
+      toast = {
+        type: req.query.toastType,
+        message: req.query.toastMessage,
+      };
+    }
     res.render("createProfile.ejs", {
       student: student,
       projects: projectsWithTags,
       experiences: experiencesWithTags,
       openForm: req.query.openForm,
+      toast,
     });
   } catch (error) {
     console.log(error);
@@ -479,69 +480,150 @@ app.get("/editExperienceVideos", isAuthenticated, async (req, res) => {
   });
 });
 
-app.get("/projectsPage", isAuthenticated, async (req, res) => {
-  const student = req.user;
-  //console.log(student);
+app.get("/profile", async (req, res, next) => {
+  const studentId = req.query.studentId || (req.user && req.user.student_id);
 
-  const results = await db.query(
-    "SELECT * FROM project WHERE student_id = $1 ORDER BY student_id ASC",
-    [student.student_id]
-  );
-
-  const projectsRows = results.rows;
-  const projectsWithImages = await getImages(projectsRows);
-  const projectsWithTags = await getTags(projectsWithImages);
-  //console.log(projectsWithTags);
-
-  res.render("projectsPage.ejs", {
-    projects: projectsWithTags,
-    student,
-  });
-});
-
-app.get("/experiencesPage", isAuthenticated, async (req, res) => {
-  const student = req.user;
-  //console.log(student);
-
-  const results = await db.query(
-    "SELECT * FROM experience WHERE student_id = $1 ORDER BY student_id ASC",
-    [student.student_id]
-  );
-
-  const experiencesRows = results.rows;
-  const experiencesWithImages = await getExperienceImages(experiencesRows);
-  const experiencesWithTags = await getExperienceTags(experiencesWithImages);
-  //console.log(projectsWithTags);
-
-  res.render("experiencesPage.ejs", {
-    experiences: experiencesWithTags,
-    student,
-  });
-});
-
-app.get("/project/:project_id", isAuthenticated, async (req, res, next) => {
-  const projectId = req.params.project_id;
-  const studentId = req.user.student_id;
+  console.log(studentId);
+  if (!studentId) {
+    const err = new Error("Student ID required");
+    err.status = 400;
+    return next(err);
+  }
 
   try {
     const result = await db.query(
-      "SELECT * FROM project WHERE project_id = $1 AND student_id = $2",
-      [projectId, studentId]
+      "SELECT first_name, last_name, title, degree_name, about_me FROM student WHERE student_id = $1",
+      [studentId]
+    );
+
+    if (result.rows.length === 0) {
+      const err = new Error("Student not found");
+      err.status = 404;
+      return next(err);
+    }
+
+    const student = result.rows[0];
+    console.log(student);
+
+    res.render("profile.ejs", {
+      student,
+      studentId,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+
+app.get("/projectsPage", async (req, res, next) => {
+  const studentId = req.query.studentId || (req.user && req.user.student_id);
+
+  if (!studentId) {
+    const err = new Error("Student ID required");
+    err.status = 400;
+    return next(err);
+  }
+
+  try {
+    // get students from the database
+    const studentResult = await db.query(
+      "SELECT student_id, first_name, last_name FROM student WHERE student_id = $1",
+      [studentId]
+    );
+
+    if (studentResult.rows.length === 0) {
+      const err = new Error("Student not found");
+      err.status = 404;
+      return next(err);
+    }
+
+    const student = studentResult.rows[0];
+
+    // get projects from the database
+    const projectsResult = await db.query(
+      "SELECT * FROM project WHERE student_id = $1 ORDER BY project_id ASC",
+      [studentId]
+    );
+
+    const projectsRows = projectsResult.rows;
+    const projectsWithImages = await getImages(projectsRows);
+    const projectsWithTags = await getTags(projectsWithImages);
+
+    res.render("projectsPage.ejs", {
+      projects: projectsWithTags,
+      student,
+      studentId,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+app.get("/experiencesPage", async (req, res, next) => {
+  const studentId = req.query.studentId || (req.user && req.user.student_id);
+
+  if (!studentId) {
+    const err = new Error("Student ID required");
+    err.status = 400;
+    return next(err);
+  }
+
+  try {
+    // get student details from the database
+    const studentResult = await db.query(
+      "SELECT student_id, first_name, last_name FROM student WHERE student_id = $1",
+      [studentId]
+    );
+
+    if (studentResult.rows.length === 0) {
+      const err = new Error("Student not found");
+      err.status = 404;
+      return next(err);
+    }
+
+    const student = studentResult.rows[0];
+
+    // get experiences from the database
+    const experiencesResult = await db.query(
+      "SELECT * FROM experience WHERE student_id = $1 ORDER BY experience_id ASC",
+      [studentId]
+    );
+
+    const experiencesRows = experiencesResult.rows;
+    const experiencesWithImages = await getExperienceImages(experiencesRows);
+    const experiencesWithTags = await getExperienceTags(experiencesWithImages);
+
+    res.render("experiencesPage.ejs", {
+      experiences: experiencesWithTags,
+      student,
+      studentId,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+app.get("/project/:project_id", async (req, res, next) => {
+  const projectId = req.params.project_id;
+
+  try {
+    const result = await db.query(
+      "SELECT * FROM project WHERE project_id = $1",
+      [projectId]
     );
     const project = result.rows;
 
     if (Array.isArray(project) && project.length === 0) {
-      // No project found → pass a 404 error to the error handler
+      // No project found then pass a 404 error to the error handler
       const err = new Error("Project not found");
       err.status = 404;
       return next(err);
     }
 
-    // console.log("porjects (no image, not tags, no videos", project);
+    // console.log("projects (no image, not tags, no videos", project);
     const projectsWithTags = await getTags(project);
     // console.log("projects with tags", projectsWithTags);
     const projectsWithImages = await getImages(projectsWithTags);
-    // console.log("projects wirh images", projectsWithImages);
+    // console.log("projects with images", projectsWithImages);
     const projectsWithVideos = await getVideos(projectsWithImages);
     // console.log("This is the projects with videos:", projectsWithVideos);
     const projectsWithFiles = await getFiles(projectsWithVideos);
@@ -568,65 +650,54 @@ app.get("/project/:project_id", isAuthenticated, async (req, res, next) => {
   }
 });
 
-app.get(
-  "/experience/:experience_id",
-  isAuthenticated,
-  async (req, res, next) => {
-    const experienceId = req.params.experience_id;
-    const studentId = req.user.student_id;
+app.get("/experience/:experience_id", async (req, res, next) => {
+  const experienceId = req.params.experience_id;
 
-    try {
-      const result = await db.query(
-        "SELECT * FROM experience WHERE experience_id = $1 AND student_id = $2",
-        [experienceId, studentId]
-      );
-      const experience = result.rows;
+  try {
+    const result = await db.query(
+      "SELECT * FROM experience WHERE experience_id = $1",
+      [experienceId]
+    );
+    const experience = result.rows;
 
-      if (Array.isArray(experience) && experience.length === 0) {
-        // No project found → pass a 404 error to the error handler
-        const err = new Error("Project not found");
-        err.status = 404;
-        return next(err);
-      }
-
-      // console.log("porjects (no image, not tags, no videos", project);
-      const experiencesWithTags = await getExperienceTags(experience);
-      // console.log("projects with tags", projectsWithTags);
-      const experiencesWithImages = await getExperienceImages(
-        experiencesWithTags
-      );
-      // console.log("projects wirh images", projectsWithImages);
-      const experiencesWithVideos = await getExperienceVideos(
-        experiencesWithImages
-      );
-      const experiencesWithFiles = await getExperienceFiles(
-        experiencesWithVideos
-      );
-      // console.log("This is the projects with videos:", projectsWithVideos);
-
-      // console.log(
-      //   "images that is printed to the profile page:",
-      //   JSON.stringify(projectsWithVideos[0].images)
-      // );
-
-      // console.log(projectsWithVideos[0].template_value);
-      if (experiencesWithFiles[0].template_value == 1) {
-        return res.render("template1.ejs", {
-          activity: experiencesWithFiles[0],
-          type: "experience",
-        });
-      } else {
-        return res.render("template2.ejs", {
-          activity: experiencesWithFiles[0],
-          type: "experience",
-        });
-      }
-    } catch (error) {
-      console.log("error");
-      next(error);
+    if (Array.isArray(experience) && experience.length === 0) {
+      // No project found then pass a 404 error to the error handler
+      const err = new Error("Project not found");
+      err.status = 404;
+      return next(err);
     }
+
+    // console.log("projects (no image, not tags, no videos", project);
+    const experiencesWithTags = await getExperienceTags(experience);
+    // console.log("projects with tags", projectsWithTags);
+    const experiencesWithImages = await getExperienceImages(experiencesWithTags);
+    // console.log("projects with images", projectsWithImages);
+    const experiencesWithVideos = await getExperienceVideos(experiencesWithImages);
+    const experiencesWithFiles = await getExperienceFiles(experiencesWithVideos);
+    // console.log("This is the projects with videos:", projectsWithVideos);
+
+    // console.log(
+    //   "images that is printed to the profile page:",
+    //   JSON.stringify(projectsWithVideos[0].images)
+    // );
+
+    // console.log(projectsWithVideos[0].template_value);
+    if (experiencesWithFiles[0].template_value == 1) {
+      return res.render("template1.ejs", {
+        activity: experiencesWithFiles[0],
+        type: "experience",
+      });
+    } else {
+      return res.render("template2.ejs", {
+        activity: experiencesWithFiles[0],
+        type: "experience",
+      });
+    }
+  } catch (error) {
+    console.log("error");
+    next(error);
   }
-);
+});
 
 app.get("/about", (req, res) => {
   res.render("about.ejs");
@@ -656,7 +727,7 @@ app.post("/uploadProfileDetails", isAuthenticated, async (req, res) => {
       return res.status(404).send({ error: "Student not found" });
     }
 
-    res.redirect("/createProfile?update=Successful");
+    res.redirect("/createProfile?toastType=success&toastMessage=Profile saved");
   } catch (error) {
     console.error("Error updating profile:", error);
     res.status(500).redirect("/createProfile?update=failed");
@@ -1063,7 +1134,7 @@ app.post(
 
       res.redirect("/createProfile");
     } catch (error) {
-      console.error("Upload failed:", error); // 👈 SEE FULL ERROR
+      console.error("Upload failed:", error); 
       res.status(500).send(`<pre>${JSON.stringify(error, null, 2)}</pre>`);
     }
   }
@@ -1108,9 +1179,10 @@ app.post("/saveProject", async (req, res) => {
       }
     }
 
-    res.redirect("/createProfile");
+    res.redirect("/createProfile?toastType=success&toastMessage=Project saved");
   } catch (error) {
     console.log("Unable to save project: " + error);
+    res.redirect("/createProfile?toastType=error&toastMessage=Project failed to save");
   }
 });
 
@@ -1153,8 +1225,9 @@ app.post("/saveExperience", async (req, res) => {
       }
     }
 
-    res.redirect("/createProfile");
+    res.redirect("/createProfile?toastType=success&toastMessage=Experience saved");
   } catch (error) {
+    res.redirect("/createProfile?toastType=error&toastMessage=Experience failed to save");
     console.log("Unable to save project: " + error);
   }
 });
@@ -1444,6 +1517,101 @@ app.delete("/eraseExperience/:experienceId", async (req, res) => {
     return res.status(500).json({ error: "Failed to delete project" });
   }
 });
+
+app.delete("/deleteAccount", isAuthenticated, async (req, res) => {
+  const studentId = req.user.student_id;
+
+  try {
+    // 1. Get all project media for this student
+    const projectMediaResult = await db.query(
+      `SELECT pm.media_id, pm.public_id, pm.resource_type
+       FROM project_media pm
+       JOIN project p ON pm.project_id = p.project_id
+       WHERE p.student_id = $1`,
+      [studentId]
+    );
+
+    // 2. Get all experience media for this student
+    const experienceMediaResult = await db.query(
+      `SELECT em.media_id, em.public_id, em.resource_type
+       FROM experience_media em
+       JOIN experience e ON em.experience_id = e.experience_id
+       WHERE e.student_id = $1`,
+      [studentId]
+    );
+
+    // Combine all media
+    const allMedia = [
+      ...projectMediaResult.rows,
+      ...experienceMediaResult.rows,
+    ];
+
+    // 3. Delete all media from Cloudinary
+    for (const media of allMedia) {
+      if (!media.public_id) continue;
+
+      let type = "image"; // default
+      if (media.resource_type) {
+        if (media.resource_type.startsWith("video")) type = "video";
+        else if (
+          media.resource_type === "application/octet-stream" ||
+          media.resource_type.startsWith("application")
+        )
+          type = "raw";
+        else if (media.resource_type.startsWith("image")) type = "image";
+      }
+
+      try {
+        await cloudinary.uploader.destroy(media.public_id, {
+          resource_type: type,
+        });
+      } catch (err) {
+        console.warn(
+          `Could not delete Cloudinary file ${media.public_id}: ${err.message}`
+        );
+      }
+    }
+
+    // 4. Delete records from database (in safe order)
+    await db.query(
+      "DELETE FROM project_media WHERE project_id IN (SELECT project_id FROM project WHERE student_id = $1)",
+      [studentId]
+    );
+    await db.query(
+      "DELETE FROM experience_media WHERE experience_id IN (SELECT experience_id FROM experience WHERE student_id = $1)",
+      [studentId]
+    );
+    await db.query(
+      "DELETE FROM project_tag WHERE project_id IN (SELECT project_id FROM project WHERE student_id = $1)",
+      [studentId]
+    );
+    await db.query(
+      "DELETE FROM experience_tag WHERE experience_id IN (SELECT experience_id FROM experience WHERE student_id = $1)",
+      [studentId]
+    );
+    await db.query("DELETE FROM project WHERE student_id = $1", [studentId]);
+    await db.query("DELETE FROM experience WHERE student_id = $1", [studentId]);
+    await db.query("DELETE FROM student WHERE student_id = $1", [studentId]);
+
+    // 5. Logout and destroy session
+    req.logout((err) => {
+      if (err) console.error("Logout error:", err);
+      req.session.destroy(() => {
+        res.clearCookie("connect.sid");
+        return res.json({
+          success: true,
+          message: "Account deleted successfully",
+        });
+      });
+    });
+  } catch (error) {
+    console.error("Failed to delete account:", error);
+    return res
+      .status(500)
+      .json({ success: false, error: "Failed to delete account" });
+  }
+});
+
 
 passport.deserializeUser(async (student_id, done) => {
   // the server then use session iD (from the user cookie) to find the correct session and the student_id saved

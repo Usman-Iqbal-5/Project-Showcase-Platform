@@ -5,8 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login</title>
-  <link rel="stylesheet" href="activitiesPage.css">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="activitiesPage.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
@@ -22,8 +22,12 @@
       <p class="heroParagraph">View <%= student.first_name %>’s experiences, the hard work, skills learnt and
         lessons learnt.</p>
       <div class="heroButtonContainer">
-        <button class="primary">Download CV</button>
-        <button class="secondary">Export Projects as PDF</button>
+        <a href="/projectsPage?studentId=<%= studentId %>" class="primary-button">
+          View Projects
+        </a>
+        <a href="/profile?studentId=<%= studentId %>" class="secondary-button">
+          View Profile
+        </a>
       </div>
     </section>
 
@@ -31,7 +35,7 @@
       <%if(experiences.length===0){ %>
       <div class="noActivitiesContainer">
 
-        <h3>No projects found</h3>
+        <h3>No experiences found</h3>
         <div class="documentIcon">&#x1F4C4;</div>
       </div>
       <%} %>
@@ -40,7 +44,7 @@
                             counter+=1;
                             %>
       <div class="activityContainer">
-        <div class="activityImageContainer"><img src="<%= experience.images[0]?.secure_url || `images/blue_sand.png`%>" alt="">
+        <div class="activityImageContainer"><img src="<%= experience.images[0]?.secure_url || `images/blue_sand.png`%>" alt="project image">
         </div>
         <div class="activityInfoRight">
           <div>
@@ -89,7 +93,7 @@
           </div>
 
         </div>
-        <div class="activityImageContainer"><img src="<%= experience.images[0]?.secure_url || 'images/blue_sand.png'%>" alt="">
+        <div class="activityImageContainer"><img src="<%= experience.images[0]?.secure_url || 'images/blue_sand.png'%>" alt="project image">
         </div>
       </div>
       <%} }) %>

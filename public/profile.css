@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
     margin: 0;
     padding: 0;
     width: 100%;
@@ -8,53 +9,21 @@ html, body {
     overflow-x: hidden;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
 }
 
-.hero{
-    background-image: url("/images/profile-background1.png" );
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    width: 100%;
-    height: 100vh;
-}
-
-.flexbox{
-    display:flex;
-    justify-content: start;
-    align-items: center;
-    width:100%;
-    height: 100%;
-    margin-left: 9.7%;
-    margin-right: 9.7%;
-
-}
-
-.profile-image-container{
-    margin-left: 15%;
-    margin-right: 85%;
-    margin-bottom: 2rem;
-    width: 120px;
-    height:120px;
-    background-color: #b5cbdb;
-    border-radius: 100%;
-}
-
-h1{
+h1 {
     margin: 0;
     color: #DAE3EA;
     text-transform: uppercase;
     font-size: calc(4vw);
     font-weight: 100;
 }
-h2{
-    text-align: center;
-    font-size: 2rem;
-}
 
-h3{
+h2 {
     margin: 0;
     margin-bottom: 2.5rem;
     color: #DAE3EA;
@@ -62,43 +31,109 @@ h3{
     font-size: calc(4vw);
     font-weight: 200;
 }
-h4{
+
+h3 {
+    text-align: left;
+    font-size: 2rem;
+    margin-left: 9.7%;
+}
+
+h4 {
     margin: 0;
     margin-bottom: 2.rem;
     color: #40A6FF;
-    text-transform:capitalize;
+    text-transform: capitalize;
     font-size: calc(2vw);
     font-weight: 200;
     letter-spacing: 0.8rem;
+}
+
+.hero {
+    background-image: url("/images/profile-background1.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 100vh;
+}
+
+.flexbox {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    margin-left: 9.7%;
+    margin-right: 9.7%;
 
 }
 
-.primary-button{
-    background-color: hsl(0, 0%, 100%, 0.2);
+.profile-image-container {
+    margin-left: 15%;
+    margin-right: 85%;
+    margin-bottom: 2rem;
+    width: 120px;
+    height: 120px;
+    background-color: #b5cbdb;
+    border-radius: 100%;
+}
+
+.container-for-buttons {
+    display: flex !important;
+}
+
+.about-me-container {
+    margin-left: 9.7%;
+    margin-right: 9.7%;
+    color: #6d7d8b;
+    line-height: 250%;
+    font-size: 1rem !important;
+    width: 75%;
+}
+
+.primary-button {
+    background-color: hsl(0, 0%, 100%, 0.2) !important;
     border: none;
     color: white;
     width: 168px;
-    height: 2.3rem;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 2.3rem !important;
     border-radius: 5px;
-    font-size: 0.8rem;
-    font-weight: 100;
+    font-size: 0.95rem;
+    font-weight: 400;
+    text-align: center;
+    text-decoration: none;
     transition: all ease.1s;
     cursor: pointer;
 }
 
-.secondary-button{
+.primary-button:hover {
+    background-color: white !important;
+    color: #004480;
+}
+
+.secondary-button {
     background-color: transparent;
     border: solid 1px white;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
     color: white;
+    display: inline-block;
     width: 168px;
-    height: 2.3rem;
+    height: 2.3rem !important;
     margin-left: 1.2rem;
     border-radius: 5px;
-    font-size: 0.8rem;
-    font-weight: 100;
+    font-size: 0.95rem;
+    font-weight: 400;
+    text-decoration: none;
     transition: all ease.1s;
     cursor: pointer;
 }
 
-
-
+.secondary-button:hover {
+    background-color: white !important;
+    color: #004480;
+}

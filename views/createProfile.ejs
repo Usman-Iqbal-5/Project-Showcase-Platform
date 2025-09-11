@@ -10,6 +10,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/library/vanilla-toast/vanilla-toast.css">
+
 </head>
 
 <body>
@@ -20,11 +22,14 @@
       <div id="profileDetailsView">
         <div class="profileDetailsTitleContainer">
           <h3>Profile Details</h3>
-          <button id="editProfileDetails" class="profileDetailsButton">Edit</button>
+          <div class="profile-details-buttons-container">
+            <button id="editProfileDetails" class="secondary-button">Edit</button>
+            <button class="primary-button" id="copyUrlBtn" data-student-id="<%= student.student_id %>">Copy Portfolio Link</button>
+          </div>
         </div>
         <div class="outerProfileDetailsFlexBox">
           <div class="photoCard">
-            <img src="" alt="">
+            <div class="img-container"></div>
             <p class="photoCardName">
               <%= `${student.first_name} ${student.last_name}` %>
             </p>
@@ -97,7 +102,7 @@
         <div class="outmostProfileDetailsContainer">
           <div class="profileDetailsTitleContainer">
             <h3>Edit Profile</h3>
-            <button class="profileDetailsButton" type=" submit">Save</button>
+            <button class="primary-button edit-profile-save" type="submit">Save</button>
           </div>
           <p>Profile Details</p>
           <input type="hidden" name="student_id" value="<%= student.student_id %>">
@@ -157,7 +162,7 @@
       <div>
         <h5>Template chosen:</h5>
         <img id="templateView" src="<%= project.template_value== 1? " /images/template1.png"
-                                    : "/images/template2.png" %>" alt="">
+                                    : "/images/template2.png" %>" alt="template image">
       </div>
 
       <h5>Skills</h5>
@@ -216,11 +221,11 @@
       <div class="templateContainer">
         <label class="template-title">Choose a project template:</label>
         <label class="template">
-          <input id="template1" type="radio" name="template" value="1">
+          <input id="template1" type="radio" name="template" value="1" <%= project.template_value== 1? "checked": "" %>>
           <img src="/images/template1.png" alt="image of the first template">
         </label>
         <label class="template">
-          <input id="template2" type="radio" name="template" value="2">
+          <input id="template2" type="radio" name="template" value="2" <%= project.template_value== 2? "checked": "" %>>
           <img src="images/template2.png" alt="image of the second template">
         </label>
       </div>
@@ -253,14 +258,14 @@
 
     <form id="addProjectEntryForm" action="/addProject" method="post" autocomplete="off" enctype="multipart/form-data">
       <h3>Upload a New Project</h3>
-      <label for="title">Project Title</label>
+      <label for="title" class="entry-form-title">Project Title</label>
       <input class="project-title" type="text" name="title" id="title" placeholder="Enter Project Title" required>
-      <label for="project-initial-description">Project Description</label>
+      <label for="project-initial-description" class="entry-form-title">Project Description</label>
       <textarea class="project-description" name="description" id="project-initial-description" placeholder="Enter project description"></textarea>
-      <label for="project-initial-explanation">Project Job Explanation</label>
-      <textarea class="project-explanation" name="explanation" id="project-initial-explanation" placeholder="Enter how this project links to your intended job role">
-                </textarea>
+      <label for="project-initial-explanation" class="entry-form-title">Project Job Explanation</label>
+      <textarea class="project-explanation" name="explanation" id="project-initial-explanation" placeholder="Enter how this project links to your intended job role"></textarea>
 
+      <label class="entry-form-title">Uplaod Project Media</label>
       <label for="projectImages" class="custom-file-upload">Uplaod images</label>
       <input type="file" name="projectImages" id="projectImages" accept=".jpg, .jpeg, .png, .webp" multiple>
       <span class="fileView" id="imagesFileName">No files chosen</span>
@@ -270,13 +275,13 @@
       <span class="fileView" id="videosFileName">No files chosen</span>
 
       <label for="projectDocs" class="custom-file-upload">Uplaod Files</label>
-      <input type="file" name="projectDocs" id="projectDocs" accept=".pdf,.doc,.docx,.txt" multiple>
+      <input type="file" name="projectDocs" id="projectDocs" accept=".doc,.docx,.txt" multiple>
       <span class="fileView" id="docsFileName">No files chosen</span>
 
       <div class="templateContainer">
         <label class="template-title">Choose a project template:</label>
         <label class="template">
-          <input id="template1" type="radio" name="template" value="1">
+          <input id="template1" type="radio" name="template" value="1" checked>
           <img src="/images/template1.png" alt="image of the first template">
         </label>
         <label class="template">
@@ -286,11 +291,11 @@
       </div>
 
       <div id="skills-container">
-        <label for="Skills">Skills</label>
+        <label for="Skills" class="entry-form-title">Skills</label>
         <input class="skill-field" type="text" name="skills[]" placeholder="Add a skill">
       </div>
       <button id="addSkillButton" type="button">Add skill</button>
-      <button id="add-project" type="submit">Upload Project</button>
+      <button id="add-project" type="submit">Add New Project</button>
     </form>
 
 
@@ -395,11 +400,11 @@
       <div class="templateContainer">
         <label class="template-title">Choose a project template:</label>
         <label class="template">
-          <input id="template1" type="radio" name="template" value="1">
+          <input id="template1" type="radio" name="template" value="1" <%= experience.template_value== 1? "checked" : "" %>>
           <img src="/images/template1.png" alt="image of the first template">
         </label>
         <label class="template">
-          <input id="template2" type="radio" name="template" value="2">
+          <input id="template2" type="radio" name="template" value="2" <%= experience.template_value== 2? "checked" : "" %>>
           <img src="images/template2.png" alt="image of the second template">
         </label>
       </div>
@@ -432,24 +437,24 @@
 
     <form id="addExperienceEntryForm" action="/addExperience" method="post" autocomplete="off" enctype="multipart/form-data">
       <h3>Upload a New Experience</h3>
-      <label for="experience-title">Experience Title</label>
+      <label for="experience-title" class="entry-form-title">Experience Title</label>
       <input class="experience-title" type="text" name="title" id="experience-title" placeholder="Enter Experience Title" required>
-      <label for="experience-initial-description">Experience Description</label>
+      <label for="experience-initial-description" class="entry-form-title">Experience Description</label>
       <textarea class="experience-description" name="description" id="experience-initial-description" placeholder="Enter experience description"></textarea>
-      <label for="experience-initial-explantion">Experience Job Explanation</label>
-      <textarea class="experience-explanation" name="explanation" id="experience-initial-explanation" placeholder="Enter how this experience links to your intended job role">
-                </textarea>
+      <label for="experience-initial-explantion" class="entry-form-title">Experience Job Explanation</label>
+      <textarea class="experience-explanation" name="explanation" id="experience-initial-explanation" placeholder="Enter how this experience links to your intended job role"></textarea>
 
+      <label class="entry-form-title">Uplaod Experience Media</label>
       <label for="experienceImages" class="custom-file-upload">Uplaod images</label>
       <input type="file" name="experienceImages" id="experienceImages" accept=".jpg, .jpeg, .png, .webp" multiple>
       <span class="experienceFileView" id="experienceImagesFileName">No files chosen</span>
 
       <label for="experienceVideos" class="custom-file-upload">Uplaod videos</label>
       <input type="file" name="experienceVideos" id="experienceVideos" accept=".mp4, .mov, .avi, .webm" multiple>
-      <span class="experienceFileView" id="experienceVideoFileName">No files chosen</span>
+      <span class="experienceFileView" id="experienceVideosFileName">No files chosen</span>
 
       <label for="experienceDocs" class="custom-file-upload">Uplaod Files</label>
-      <input type="file" name="experienceDocs" id="experienceDocs" accept=".pdf,.doc,.docx,.txt" multiple>
+      <input type="file" name="experienceDocs" id="experienceDocs" accept=".doc,.docx,.txt" multiple>
       <span class="experienceFileView" id="experienceDocsFileName">No files chosen</span>
 
       <div class="templateContainer">
@@ -465,36 +470,102 @@
       </div>
 
       <div id="experienceskillsContainer">
-        <label for="experienceSkills">Skills</label>
+        <label for="experienceSkills" class="entry-form-title">Skills</label>
         <input class="experiences-skill-field" type="text" name="experienceSkills[]" placeholder="Add a skill" id="experienceSkills">
       </div>
       <button id="addExperienceSkillButton" type="button">Add skill</button>
-      <button id="add-experience" type="submit">Upload Experience</button>
+      <button id="add-experience" type="submit">Add New Experience</button>
     </form>
 
+ 
+<!--Destructive actions -->
+    
+ <h2>Destructive Actions</h2>
 
-    <br>
-    <br>
-    <br>
+<div class="delete-account-container">
+  <!-- Delete Account Button -->
+   <h3 id="delete-title">Delete Account</h3>
+  <button id="deleteAccountButton" class="danger-delete-button">
+    Delete My Account
+  </button>
+</div>
 
-    <!--DELETE CONFIRMATION MODAL -->
-    <div id="deleteModalOverlay" class="modal-hidden">
-      <div id="deleteModal">
-        <h3 id="warning" class="warning">Remove item</h3>
-        <div class="underline"></div>
-        <p id="modal-text"></p>
-        <button id="confirmDelete">Delete</button>
-        <button id="cancelDelete">Cancel</button>
-      </div>
-    </div>
+<!-- DELETE PROJECT/EXPERIENCE CONFIRMATION MODAL -->
+<div id="deleteModalOverlay" class="modal-hidden modal-overlay">
+  <div id="deleteModal" class="modal-box">
+    <h3 id="warning" class="warning">Remove item</h3>
+    <div class="underline"></div>
+    <p id="modal-text"></p>
+    <button id="confirmDelete" class="danger-button">Delete</button>
+    <button id="cancelDelete" class="cancel-button">Cancel</button>
+  </div>
+</div>
 
-
+<!-- DELETE ACCOUNT CONFIRMATION MODAL -->
+<div id="deleteAccountModalOverlay" class="modal-hidden modal-overlay">
+  <div id="deleteAccountModal" class="modal-box">
+    <h3 id="delete-title" class="warning">Delete Account</h3>
+    <div class="underline"></div>
+    <p id="deleteAccountText">Are you sure you want to delete your account? This cannot be undone.</p>
+    <button id="confirmDeleteAccount" class="danger-button">Delete</button>
+    <button id="cancelDeleteAccount" class="cancel-button">Cancel</button>
+  </div>
+</div>
 
   </main>
   <%- include("partials/footer.ejs") %>
+
+
+  <script src="/library/vanilla-toast/vanilla-toast.js"></script>
   <script src="js/experience.js"></script>
   <script src="js/projects.js"></script>
   <script src="js/profileDetails.js"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    <% if (toast) { %>
+      vanillaToast.<%= toast.type %>("<%= toast.message %>", {
+        timeout: 3000,
+        position: "bottom center"
+      });
+    <% } %>
+  });
+</script>
+
+<script>
+// ACCOUNT DELETION JS
+document.getElementById("deleteAccountButton").addEventListener("click", () => {
+  document.getElementById("deleteAccountModalOverlay").classList.remove("modal-hidden");
+});
+
+document.getElementById("cancelDeleteAccount").addEventListener("click", () => {
+  document.getElementById("deleteAccountModalOverlay").classList.add("modal-hidden");
+});
+
+document.getElementById("confirmDeleteAccount").addEventListener("click", async () => {
+  document.getElementById("deleteAccountModalOverlay").classList.add("modal-hidden");
+
+  try {
+    const res = await fetch("/deleteAccount", { method: "DELETE" });
+    const data = await res.json(); // parse server response
+
+    if (data.success) {
+      // show success toast
+      vanillaToast.success("Account deleted successfully.", { duration: 3000 });
+      // redirect after short delay so toast can be seen
+      setTimeout(() => window.location.href = "/login", 1500);
+    } else {
+      // show error toast
+      vanillaToast.error(data.error || "Failed to delete account.", { duration: 3000 });
+    }
+  } catch (err) {
+    console.error(err);
+    vanillaToast.error("Failed to delete account. Please try again later.", { duration: 3000 });
+  }
+});
+</script>
+
+
 </body>
 
 </html>

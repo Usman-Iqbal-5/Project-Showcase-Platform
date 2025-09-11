@@ -5,8 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Profile</title>
-  <link rel="stylesheet" href="profile.css">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="profile.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
@@ -19,20 +19,26 @@
       <div>
         <div class="profile-image-container"></div>
         <h4>
-          <%= firstName + " " + lastName %>
+          <%= student.first_name + " " + student.last_name %>
         </h4>
-        <h1>MSC Computer Science</h1>
-        <h3>Software Developer</h3>
-        <button class="primary-button">View Projects</button>
-        <button class="secondary-button">Download CV</button>
-      </div>
-    </div>
+     <h1><%= student.degree_name%></h1>
+ <h2><%= student.title%></h2>
+ <div class="container-for-buttons">
+   <a href="/projectsPage?studentId=<%= studentId %>" class="primary-button">
+     View Projects
+   </a>
+   <a href="/experiencesPage?studentId=<%= studentId %>" class="secondary-button">
+     View Experiences
+   </a>
+ </div>
+ </div>
+ </div>
   </section>
 
   <section class="skills">
-    <h2>Specific skills</h2>
-    <div class="container">
-
+    <h3>About me</h3>
+    <div class="about-me-container">
+        <%= student.about_me%>
     </div>
 
   </section>

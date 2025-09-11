@@ -20,7 +20,7 @@ main {
 }
 .heroSection {
   margin-top: 30vh;
-  margin-bottom: 30vh;
+  margin-bottom: 0vh;
 }
 h1 {
   font-family: inherit;
@@ -65,9 +65,10 @@ p {
   column-gap: 1rem;
   margin-top: 3rem;
 }
-.primary {
+.primary-button{
   box-sizing: border-box;
-  display: inline-block;
+  display: flex !important;
+  align-items: center !important;
   background-color: #004480;
   color: #fff;
   width: max-content;
@@ -83,12 +84,13 @@ p {
   user-select: nonw;
   margin: 0;
 }
-.primary:hover {
+.primary-button:hover {
   filter: brightness(0.85);
 }
-.secondary {
+.secondary-button{
   box-sizing: border-box;
-  display: inline-block;
+  display: flex !important;
+  align-items: center !important;
   background-color: transparent;
   color: #004480;
   width: max-content;
@@ -104,7 +106,7 @@ p {
   user-select: none;
   margin: 0;
 }
-.secondary:hover {
+.secondary-button:hover {
   background-color: #004480;
   border: none;
   color: #fff;
@@ -117,6 +119,7 @@ p {
   grid-template-columns: repeat(2, 1fr);
   justify-content: space-between;
   column-gap: 3rem;
+  margin-top: 30vh;
   margin-bottom: 6rem;
 }
 .activityImageContainer {
@@ -160,11 +163,11 @@ p {
   font-size: 0.8rem;
   font-weight: 400;
   width: max-content;
-  height: 20px;
+  height: 23px;
   padding-left: 5px;
   padding-right: 5px;
-  padding-top: 0px;
-  padding-bottom: 10px;
+  padding-top: 2px;
+  padding-bottom: 0px;
 }
 .noActivitiesContainer {
   background-color: #f0f0f0;
@@ -173,7 +176,8 @@ p {
   color: hsl(210, 13%, 34%, 0.5);
   font-size: 2.5vw;
   font-weight: 500;
-  margin-bottom: 1rem;
+  margin-top: 5rem;
+  margin-bottom: 10rem;
   margin-left: auto;
   margin-right: auto;
   line-height: 1;
