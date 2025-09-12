@@ -29,8 +29,9 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: true,
     saveUninitialized: false,
+    rolling: true, // reset cookie expiration on every user reponse (this means the session will only end after 15 minutees of in actiity)
     cookie: {
-      maxAge: 1000 * 60 * 60 * 24,
+      maxAge: 1000 * 60 * 15, // 15 minutes
     },
   })
 );
