@@ -101,7 +101,7 @@ CLOUDINARY_SECRET=your_cloudinary_api_secret
 
 ### 4. Run the application
 ```bash
-npm start
+node index.js
 ```
 
 ### 5. Open in browser
