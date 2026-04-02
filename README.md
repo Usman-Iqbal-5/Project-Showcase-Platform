@@ -132,7 +132,7 @@ The application uses PostgreSQL to manage all data for the Project Showcase Plat
 
 The diagram below visually illustrates the schema and relationships:
 
-![Database Schema](./screenshots/db-schema.png)
+![Database Schema](./screenshots/Relational_schema.png)
 
 ---
 
