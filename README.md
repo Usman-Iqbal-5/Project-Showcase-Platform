@@ -15,7 +15,7 @@ The platform allows users to create personalised project entries, upload multime
 
 ### 🧠 Projects Section
 <p align="center">
-  <img src="./screenshots/Projects_section.jpeg" width="50%" />
+  <img src="./screenshots/Projects_sections.jpeg" width="50%" />
 </p>
 
 ### 👤 Profile Information
