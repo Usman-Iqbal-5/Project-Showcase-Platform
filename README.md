@@ -13,17 +13,24 @@ The platform allows users to create personalised project entries, upload multime
 
 ## 📸 Screenshots
 
+### 🧠 Projects Section
 <p align="center">
-  <img src="./screenshots/Projects_sections_cropped.jpeg" width="100%" />
+  <img src="./screenshots/Projects_section.jpeg" width="50%" />
 </p>
 
+### 👤 Profile Information
 <p align="center">
-  <img src="./screenshots/Profile_information.jpeg" width="45%" />
-  <img src="./screenshots/Experiences_page.jpeg" width="45%" />
+  <img src="./screenshots/Profile_information.jpeg" width="50%" />
 </p>
 
+### 📄 Experiences Page
 <p align="center">
-  <img src="./screenshots/Custom_template_2_page.jpeg" width="45%" />
+  <img src="./screenshots/Experiences_page.jpeg" width="50%" />
+</p>
+
+### 🎨 Custom Template 2
+<p align="center">
+  <img src="./screenshots/Custom_template_2_page.jpeg" width="50%" />
 </p>
 
 ---
