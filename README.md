@@ -5,16 +5,28 @@ A full-stack web application designed to enable students to professionally showc
 The platform allows users to create personalised project entries, upload multimedia (images, videos, and documents), highlight skills gained, and demonstrate how their work relates to career goals. Users can also customise how their projects are displayed using pre-designed templates.
 
 ---
+## 🎥 Demo
 
-## 📸 Demo
+🎥 Watch the demo: 
 
-🎥 Watch the demo:  
+---
 
-### Screenshots
+## 📸 Screenshots
 
-![Homepage](./screenshots/homepage.png)  
-![Create Project](./screenshots/create-project.png)  
-![Portfolio View](./screenshots/portfolio.png)  
+**Profile information section**  
+![Profile infromation section](./screenshots/Profile_information.jpeg)
+
+**Projects sections**  
+![Projects_sections](./screenshots/Projects_sections.jpeg)
+
+**Edit_images**  
+![Edit images pasges](./screenshots/Edit_images.jpeg)
+
+**Projects/Experiences pages**  
+![Projects/Experiences pages](./screenshots/Experiences_page.jpeg)
+
+**Custom template 2 for projects and experiences**  
+![Projects and experience custom template 2](./screenshots/Custom_template_2_page.jpeg)
 
 ---
 
