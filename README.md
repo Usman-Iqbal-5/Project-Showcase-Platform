@@ -13,14 +13,14 @@ The platform allows users to create personalised project entries, upload multime
 
 ## 📸 Screenshots
 
-### 🧠 Projects Section
-<p align="center">
-  <img src="./screenshots/Projects_sections.jpeg" width="50%" />
-</p>
-
 ### 👤 Profile Information
 <p align="center">
   <img src="./screenshots/Profile_information.jpeg" width="50%" />
+</p>
+
+### 🧠 Projects Section
+<p align="center">
+  <img src="./screenshots/Projects_sections.jpeg" width="50%" />
 </p>
 
 ### 📄 Experiences Page
