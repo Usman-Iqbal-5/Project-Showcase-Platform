@@ -7,7 +7,9 @@ The platform allows users to create personalised project entries, upload multime
 ---
 ## 🎥 Demo
 
-🎥 Watch the demo: 
+🎥 Watch the demo:  A web app that allows students to showcase their projects to potential employers.
+
+[![Watch the demo](https://img.youtube.com/vi/LNr58C8anNA/0.jpg)](https://www.youtube.com/watch?v=LNr58C8anNA)
 
 ---
 
