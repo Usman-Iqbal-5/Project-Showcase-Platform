@@ -134,13 +134,13 @@ The application uses PostgreSQL to manage all data for the Project Showcase Plat
 
 ### Tables
 
-- **student** – Stores student details, including name, email, and securely hashed password.  
-- **project** – Contains each project entry created by a student.  
-- **project_media** – Holds images, videos, and files associated with projects.  
-- **project_tag** – Stores skill tags related to projects.  
-- **experience** – Contains each work or learning experience added by a student.  
-- **experience_media** – Holds images, videos, and files associated with experiences.  
-- **experience_tag** – Stores skill tags related to experiences.  
+- **Student** – Stores student details, including name, email, and securely hashed password.  
+- **Project** – Contains each project entry created by a student.  
+- **Project_media** – Holds images, videos, and files associated with projects.  
+- **Project_tag** – Stores skill tags related to projects.  
+- **Experience** – Contains each work or learning experience added by a student.  
+- **Experience_media** – Holds images, videos, and files associated with experiences.  
+- **Experience_tag** – Stores skill tags related to experiences.  
 
 ### Relationships
 
