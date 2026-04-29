@@ -3,12 +3,12 @@
 A full-stack web application designed to enable students to professionally showcase their academic or personal projects and experiences in a structured, portfolio-ready format.
 
 ## Problem
-Many students and junior developers struggle to present their projects in a clear, professional way, which can cause strong technical work to be overlooked during job applications.
+Many undergraduate and postgraduate students struggle to present their projects in a clear, professional way, which can lead to even technically impressive work to be overlooked during the hiring process.
 
 ## Solution
-This application enables users to build structured project showcases with secure authentication, CRUD functionality, and integrated media uploads, improving how their work is presented to recruiters.
+This application helps students build professional portfolios by structuring and presenting their projects clearly.
 
-The platform allows users to create personalised project and experience entries, upload multimedia (images, videos, and documents), highlight skills gained (via skill tags for each entry), and demonstrate how their work relates to career goals. Users can also customise how their projects are displayed using pre-designed templates.
+This application allows students to securely sign-up and build a custom portfolio. Users can create and manage project and experience entries, add multimedia (images, videos, documents) to each project and experience entry, and tag relevant skills to highlight their expertise to recruiter. Pre-designed templates allow them to customise how their work is displayed,  making their portfolio more visually consistent and job-ready, whilst ensuring their skills and abilities are professionally communicated to recruiters.
 
 ---
 ## 🎥 Demo
