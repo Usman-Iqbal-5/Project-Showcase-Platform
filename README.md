@@ -3,7 +3,7 @@
 A full-stack web application designed to enable students to professionally showcase their academic or personal projects and experiences in a structured, portfolio-ready format.
 
 ## Problem
-Many undergraduate and postgraduate students struggle to present their projects in a clear, professional way, which can lead to even technically impressive work to be overlooked during the hiring process.
+Many undergraduate and postgraduate students struggle to present their university and personal projects/experieces in a clear, professional way, which can lead to even technically impressive work to be overlooked during the hiring process.
 
 ## Solution
 This application helps students build professional portfolios by structuring and presenting their projects clearly.
