@@ -165,8 +165,8 @@ The diagram below visually illustrates the schema and relationships:
 - Secure user authentication  
 - Confirmation modals to prevent accidental deletion of:
   - Projects/experiences  
-  - User accounts  
-- Basic input validation and handling  
+  - User accounts
+- Input validation and handling  
 
 ---
 
