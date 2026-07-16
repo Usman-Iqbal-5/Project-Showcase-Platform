@@ -188,7 +188,6 @@ The diagram below visually illustrates the schema and relationships:
 - 🔎 Search and filtering functionality  
 - ❤️ Like and comment system for projects  
 - 📊 User analytics dashboard  
-- 🧑‍💼 Recruiter view mode  
 - 🔐 Enhanced authentication (e.g. OAuth / Google login)  
 
 ---
