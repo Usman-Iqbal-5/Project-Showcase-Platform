@@ -182,16 +182,6 @@ The diagram below visually illustrates the schema and relationships:
 
 ---
 
-## 🔮 Future Improvements
-
-- 🌐 Deploy the application (e.g. Render or Railway)  
-- 🔎 Search and filtering functionality  
-- ❤️ Like and comment system for projects  
-- 📊 User analytics dashboard  
-- 🔐 Enhanced authentication (e.g. OAuth / Google login)  
-
----
-
 ## 👨‍💻 Author
 
 Usman Iqbal  
