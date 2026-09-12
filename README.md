@@ -10,6 +10,8 @@ This application helps students build professional portfolios by structuring and
 
 This application allows students to securely sign-up and build a custom portfolio. Users can create and manage project and experience entries, add multimedia (images, videos, documents) to each project and experience entry, and tag relevant skills to highlight their expertise to recruiters. Pre-designed templates allow them to customise how their work is displayed,  making their portfolio more visually consistent and job-ready, whilst ensuring their skills and abilities are professionally communicated to recruiters.
 
+[View all screenshots](./screenshots/)
+
 ---
 ## 🎥 Demo
 
