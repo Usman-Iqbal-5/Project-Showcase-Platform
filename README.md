@@ -24,9 +24,9 @@ This application allows students to securely sign-up and build a custom portfoli
   <img src="./screenshots/Profile_information.jpeg" width="50%" />
 </p>
 
-### 🧠 Projects Section
+### 🧠 Experiences Section
 <p align="center">
-  <img src="./screenshots/Projects_sections.jpeg" width="50%" />
+  <img src="./screenshots/Experiences_section.jpeg" width="50%" />
 </p>
 
 ### 📄 Experiences Page
