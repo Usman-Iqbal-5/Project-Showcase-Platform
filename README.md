@@ -14,12 +14,12 @@ This application allows students to securely sign-up and build a custom portfoli
 ---
 ## 🎥 Demo
 
-🎥 Watch the demo: [Project Showcase Demo](https://www.youtube.com/watch?v=LNr58C8anNA)
+Watch the demo: [Project Showcase Demo](https://www.youtube.com/watch?v=LNr58C8anNA)
 
 ---
 ## 🖌️ Design
 
-🖌️Figma: [Project Showcase UI/UX Design](https://www.figma.com/design/BP4ugx72h4BvhdU4wp9Fuq/Dissertation--Project-showcase?node-id=0-1&p=f)
+Figma: [Project Showcase UI/UX Design](https://www.figma.com/design/BP4ugx72h4BvhdU4wp9Fuq/Dissertation--Project-showcase?node-id=0-1&p=f)
 
 ---
 
