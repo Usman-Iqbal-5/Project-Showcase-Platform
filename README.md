@@ -32,15 +32,16 @@ Figma: [Project Showcase UI/UX Design](https://www.figma.com/design/BP4ugx72h4Bv
   <img src="./screenshots/Profile_information.jpeg" width="50%" />
 </p>
 
-### 🧠 Experiences Section
-<p align="center">
-  <img src="./screenshots/Experiences_section.jpeg" width="50%" />
-</p>
-
 ### 📄 Experiences Page
 <p align="center">
   <img src="./screenshots/Experiences_page.jpeg" width="50%" />
 </p>
+
+### 🧠 Custom Template 1
+<p align="center">
+  <img src="./screenshots/Custom_template_1_page.jpeg" width="50%" />
+</p>
+
 
 ### 🎨 Custom Template 2
 <p align="center">
